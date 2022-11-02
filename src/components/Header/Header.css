@@ -1,0 +1,213 @@
+@media only screen and (max-width: 600px) {
+  .hidden {
+    display: none;
+  }
+
+  .Nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    background: #000;
+    height: fit-content;
+  }
+
+  .logo {
+    margin-left: auto;
+    margin-right: auto;
+    width: 125px;
+    height: 70px;
+  }
+
+  .logo > img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .icon {
+    padding-left: 10px;
+    padding-top: 20px;
+  }
+
+  .cart {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-top: 20px;
+    padding-right: 10px;
+  }
+
+  .btn-seach {
+    width: 18%;
+    background: red;
+    /* height: 100px;
+        background: #000; */
+
+    height: 29px;
+  }
+
+  .input-search {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid rgb(140, 39, 39);
+    height: 30px;
+  }
+
+  .form-seach {
+    width: 100%;
+
+    height: 50px;
+  }
+
+  .ant-collapse-item {
+    background: #f7f7f7;
+  }
+
+  .ant-collapse-item:hover {
+    background: #7e7070;
+  }
+
+  .ant-drawer-body {
+    background: #f7f7f7;
+  }
+
+  .ant-collapse-header-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgb(189, 189, 189);
+    text-align: center;
+  }
+
+  .Menu-con {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #dbdbdb;
+    text-align: center;
+    line-height: 50px;
+  }
+
+  .Menu-con:hover {
+    background: #7e7070;
+  }
+
+  .Signinup {
+    display: none;
+  }
+
+  .btn-seach-pc {
+    display: none;
+  }
+
+  .pc {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    width: 100%;
+  }
+
+  .Nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0 auto;
+    background: #000;
+    height: fit-content;
+  }
+
+  .logo {
+    margin-left: auto;
+    margin-right: auto;
+    width: 125px;
+    height: 70px;
+  }
+
+  .logo > img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .Signinup {
+    color: white;
+  }
+
+  .icon {
+    display: none;
+  }
+
+  .icon-cart {
+    display: none;
+  }
+
+  .cart {
+    display: flex;
+    flex-direction: row-reverse;
+    color: white;
+    padding-right: 10px;
+  }
+
+  .pc {
+    display: flex;
+  }
+
+  .hidden {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  
+
+    .Nav {
+
+        padding-left: 10px;
+        padding-right: 10px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        margin: 0 auto;
+        background: #000;
+        height: fit-content;
+
+    }
+
+    .logo {
+        margin-left: auto;
+        margin-right: auto;
+        width: 215px;
+        height: 70px;
+    }
+
+    .logo>img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .Signinup {
+        color: white;
+    }
+
+    .icon {
+        display: none;
+    }
+
+    .icon-cart {
+        display: none;
+    }
+
+    .cart {
+        display: flex;
+        flex-direction: row-reverse;
+        color: white;
+        padding-right: 10px;
+    }
+
+    .pc {
+        display: flex;
+    }
+
+    .hidden {
+        display: block
+    }
+}

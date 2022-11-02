@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        border: 1px solid black;
+    }
+
+    .container {
+        width: 50%;
+        height: 50%;
+        margin: 20% auto;
+    }
+
+    .mainn {
+        height: 50%;
+        margin-bottom: 23px;
+        position: relative;
+    }
+
+    .list-image {
+        width: 70%;
+        height: 5%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .list-image div {
+        flex: 1;
+    }
+
+    img {
+        width: 40%;
+        height: 40%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .control {
+        position: absolute;
+        top: 50%;
+        font-size: 50px;
+        color: black;
+        transform: translateY(-50%)
+    }
+
+    .prev {
+        left: 10px;
+    }
+
+    .next {
+        right: 10px;
+    }
+
+    .active {
+        background-color: red;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="mainn">
+            <img class='img-feature' src="http://mauweb.monamedia.net/converse/wp-content/uploads/2018/10/logo-vcb.jpg"
+                alt="" />
+            <div class='control prev'>
+                <i class='bx bx-chevrons-left'></i>
+            </div>
+            <div class='control next'>
+                <i class='bx bxs-chevrons-right'>
+                </i>
+            </div>
+        </div>
+        <div class="list-image">
+            <div><img src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/kid-6-100x100.jpg" alt="" />
+            </div>
+            <div class="active">
+                <img src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/kid-6-100x100.jpg" alt="" />
+            </div>
+            <div>
+                <img src="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-all-star-simple-step-summer-fundamentals-2/" alt="" />
+            </div>
+            <div>
+                <img src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/kid-6-100x100.jpg" alt="" />
+            </div>
+            <div>
+                <img src="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-all-star-simple-step-boston-x-london-transport/" alt="" />
+            </div>
+        </div>
+    </div>
+    <script>
+        var imgFeature = document.querySelector('.img-feature')
+        var listImg = document.querySelectorAll('.list-image img')
+        var prevBtn = document.querySelector('.prev')
+        var nextBtn = document.querySelector('.next')
+
+        var currentIndex = 0;
+        function updateImageByIndex(index) {
+
+            document.querySelectorAll('.list-image div').forEach(item => {
+                item.classList.remove('active')
+            })
+            currentIndex = index
+            imgFeature.src = listImg[index].getAttribute('src')
+            listImg[index].classList.add('active')
+
+        }
+
+
+
+        listImg.forEach((imgElement, index) => {
+            imgElement.addEventListener('click', e => {
+                updateImageByIndex(index)
+            })
+        })
+
+
+
+        prevBtn.addEventListener('click', e => {
+
+            if (currentIndex == 0) {
+                currentIndex = listImg.length - 1
+            } else {
+                currentIndex--
+            }
+            updateImageByIndex(currentIndex)
+        })
+        updateImageByIndex(0)
+    </script>
+</body>
+
+</html>

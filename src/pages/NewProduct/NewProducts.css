@@ -1,0 +1,78 @@
+.ant-tabs-tab-btn {
+  width: fit-content;
+  border: 1px solid black;
+  text-align: center;
+  padding: 5px;
+  font-weight: 600;
+}
+
+.ant-tabs-tab-btn:hover {
+  background-color: black;
+  transition: 1s ease-in-out;
+}
+
+.slick-arrow {
+
+    width: 50px;
+    height: 50px;
+   z-index: 100;
+
+
+}
+
+.Xemproduct {
+  --tw-scale-x: 0;
+  --tw-scale-y: 0;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transition-timing-function: ease;
+  background: rgb(200, 11, 11);
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.87em;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  font-weight: bolder;
+  text-align: center;
+  margin-right: 1em;
+  text-shadow: none;
+  padding: 3px;
+  max-width: 100%;
+  transition: transform 0.3s, border 0.3s, background 0.3s, box-shadow 0.3s,
+    opacity 0.3s, color 0.3s;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+}
+
+.boxproduct:hover .Xemproduct {
+  transition: 1s ease-in-out;
+
+  --tw-scale-x: 1.2;
+  --tw-scale-y: 1.2;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.price {
+  color: #c30005;
+  font-weight: bold;
+  white-space: nowrap;
+  margin-bottom: 13px;
+}
+
+.title {
+  color: #334862;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+@media only screen and (max-width: 600px) {
+  .ant-tabs-tab-btn {
+    border: 1px solid black;
+    text-align: center;
+
+    font-size: 10px;
+    font-weight: 600;
+  }
+}

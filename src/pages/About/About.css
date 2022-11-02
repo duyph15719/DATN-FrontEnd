@@ -1,0 +1,21 @@
+.nav-about {
+  width: 100%;
+  height: 150px;
+  border: 1px solid #ccc;
+
+  background-image: url(http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/banner-1.jpg);
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  color: white;
+}
+.about-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}

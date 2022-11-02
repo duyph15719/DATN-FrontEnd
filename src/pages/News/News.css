@@ -1,0 +1,89 @@
+.news__page {
+  @apply w-10/12 m-auto grid grid-cols-12 gap-8 mb-2;
+}
+.nav__news__page {
+  @apply col-span-3 mt-24;
+}
+.main__news {
+  @apply col-span-9;
+}
+.inp__search {
+  @apply flex mt-1;
+}
+.inp__search input {
+  @apply outline-none;
+}
+.inp__search button {
+  @apply bg-red-700 text-white;
+}
+
+.news__post {
+  @apply my-3;
+}
+.list__news {
+  @apply border border-slate-300 px-5 py-3;
+}
+.item__list {
+  @apply grid grid-cols-12 gap-4 border-b;
+}
+.img__item {
+  @apply col-span-3;
+}
+.desc__item {
+  @apply col-span-9 mt-3;
+}
+.desc__item p {
+  @apply truncate mb-0;
+}
+
+.main__news {
+  @apply mt-3;
+}
+.title__main__news {
+  @apply text-center  text-xl;
+}
+.list__main__news {
+  @apply grid grid-cols-3 gap-4;
+}
+.item__list__main__news {
+  @apply border border-slate-300  mt-12 shadow;
+}
+.item__list__main__news2 {
+  @apply border border-slate-300 shadow;
+}
+.desc__item__main {
+  @apply px-3 py-2;
+}
+.title__desc__item {
+  @apply text-xs;
+}
+.desc__item__main p {
+  @apply truncate;
+}
+
+/*  detail */
+
+.content__news {
+  @apply col-span-8 shadow px-4;
+}
+.category__news a {
+  @apply text-slate-500 py-4;
+}
+.comment__news {
+  @apply bg-[#eee] px-5 py-2 mb-2;
+}
+.item__form__comment textarea {
+  @apply outline-none;
+}
+.item__form__inp input {
+  @apply outline-none;
+}
+.list__form__inp {
+  @apply grid grid-cols-3 gap-4;
+}
+.btn__comment {
+  @apply bg-red-700 text-white hover:bg-red-800;
+}
+.content__item__news img {
+  @apply pl-10;
+}
