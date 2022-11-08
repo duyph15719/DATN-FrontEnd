@@ -10,7 +10,7 @@ export const readCategory = (id: string | number) => {
 }
 
 export const removeCategory = (id: string | number) => {
-    return instance.delete(`/categories/${id}`)
+    return instance.delete(`/category/${id}`)
 }
 
 export const addCategory = (categori: ICategori) => {
