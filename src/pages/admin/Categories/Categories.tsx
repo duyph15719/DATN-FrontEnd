@@ -45,7 +45,7 @@ type Props = {
 
 const Categories = (props: Props) => {
   const dispatch = useAppDispatch()
-  const { categories } = useAppSelector(state => state.CategoriesReducer)
+  const { categories } = useAppSelector((state: any) => state.CategoriesReducer)
   const dataTable = categories.map((item: any) => {
     return {
       name: item.name

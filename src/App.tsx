@@ -35,6 +35,7 @@ import UserAdd from "./pages/admin/User/UserAdd";
 import DetailProduct from "./pages/ProductList/detailProduct";
 import ProductList from "./pages/admin/Product/AddProduct";
 import ListProduct from "./pages/admin/Product/ListProduct";
+import CategoriesAdd from "./pages/admin/Categories/CategoriesAdd";
 
 
 
@@ -68,7 +69,7 @@ function App() {
         </Route>
         <Route path="categories">
           <Route index element={<Categories />} />
-
+          <Route path='add' element={<CategoriesAdd />} />
 
         </Route>
         <Route path="user">
