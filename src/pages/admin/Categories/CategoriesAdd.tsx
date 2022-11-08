@@ -1,46 +1,50 @@
 import React from 'react'
-
+import { Button, Checkbox, Form, Input } from 'antd';
 type Props = {}
 
 const CategoriesAdd = (props: Props) => {
+    const onFinish = (values: any) => {
+        console.log('Success:', values);
+    };
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+    };
     return (
-        <form className="p-5 ">
-            <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full px-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
-                        Name Categori
-                    </label>
-                    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="nick" type="text" />
-                    <p className="text-gray-600 text-xs italic">errors.()</p>
-                </div>
-            </div>
-            <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full px-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
-                        E-mail
-                    </label>
-                    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" type="email" />
-                    <p className="text-gray-600 text-xs italic">errors.()</p>
-                </div>
-            </div>
-            <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full px-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-password">
-                        Message
-                    </label>
-                    <textarea className=" no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none" id="message" defaultValue={""} />
-                    <p className="text-gray-600 text-xs italic">errors.()</p>
-                </div>
-            </div>
-            <div className="md:flex md:items-center">
-                <div className="md:w-1/3">
-                    <button className="shadow bg-teal-400 hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-                        Sends
-                    </button>
-                </div>
-                <div className="md:w-2/3" />
-            </div>
-        </form>
+        <Form
+            name="basic"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+        >
+            <Form.Item
+                label="Username"
+                name="username"
+                rules={[{ required: true, message: 'Please input your username!' }]}
+            >
+                <Input />
+            </Form.Item>
+
+            <Form.Item
+                label="Password"
+                name="password"
+                rules={[{ required: true, message: 'Please input your password!' }]}
+            >
+                <Input.Password />
+            </Form.Item>
+
+            <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+                <Checkbox>Remember me</Checkbox>
+            </Form.Item>
+
+            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <Button type="primary" htmlType="submit">
+                    Submit
+                </Button>
+            </Form.Item>
+        </Form>
 
     )
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./footer.css";
+import {WhatsAppOutlined,FacebookOutlined,InstagramOutlined,TwitterOutlined,WeiboCircleOutlined,WifiOutlined} from '@ant-design/icons';
 
 type Props = {};
 
@@ -106,67 +107,12 @@ const Footer = (props: Props) => {
         <div>
           <h1 className="text-white font-bold text-lg ">MẠNG XÃ HỘI</h1>
           <div className="flex mt-4">
-            <svg
-              className="h-8 w-8 text-red-500"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              {" "}
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-            </svg>
-            <svg
-              className="h-8 w-8 text-red-500"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              {" "}
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-            </svg>
-            <svg
-              className="h-8 w-8 text-red-500"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              {" "}
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-            </svg>
-            <svg
-              className="h-8 w-8 text-red-500"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              {" "}
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-            </svg>
-
-            <svg
-              className="h-8 w-8 text-red-500"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              {" "}
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-            </svg>
+          <div className="social-icons follow-icons">
+            <FacebookOutlined style={{fontSize:"30px",padding:"20px"}}/>
+            <InstagramOutlined style={{fontSize:"30px"}}/>
+            <TwitterOutlined style={{fontSize:"30px",padding:"20px"}}/>
+            <WeiboCircleOutlined style={{fontSize:"30px"}}/>
+            <WifiOutlined style={{fontSize:"30px",padding:"20px"}}/></div>
           </div>
         </div>
       </div>
@@ -185,27 +131,27 @@ const Footer = (props: Props) => {
         </form>
         <div className="icona flex">
           <img
-            className="w-14"
+            className=""
             src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/payment1.png"
             alt=""
           />
           <img
-            className="w-14"
+            className=""
             src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/payment2.png"
             alt=""
           />
           <img
-            className="w-14"
+            className=""
             src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/payment3.png"
             alt=""
           />
           <img
-            className="w-14"
+            className=""
             src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/payment4.png"
             alt=""
           />
           <img
-            className="w-14"
+            className=""
             src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/payment5.png"
             alt=""
           />

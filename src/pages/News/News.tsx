@@ -7,11 +7,11 @@ const NewsPage = () => {
   return (
     <div className="news__page">
       <NavBarNews />
-      <div className="main__news">
+      <div className="main__news md:w-[100%] w-[100%]">
         <h1 className="title__main__news">TIN TỨC</h1>
-        <div className="list__main__news">
-          <div className="item__list__main__news">
-            <div className="img__main__news">
+        <div className="grid md:grid-cols-3 grid-cols-1 gap-4 pt-10">
+          <div className="">
+            <div className="">
               <a href="a">
                 <img
                   src="https://drake.vn/image/catalog/H%C3%ACnh%20content/Converse-Platform/converse-platform-01.jpg"
@@ -19,8 +19,8 @@ const NewsPage = () => {
                 />
               </a>
             </div>
-            <div className="desc__item__main">
-              <h3 className="title__desc__item">
+            <div className="">
+              <h3 className="">
                 Converse sẽ mang Golf le Fleur* Chuck 70 về Việt Nam?
               </h3>
               <p>
@@ -31,17 +31,17 @@ const NewsPage = () => {
               </p>
             </div>
           </div>
-          <div className="item__list__main__news">
-            <div className="img__main__news">
-              <a href="">
+          <div className="">
+            <div className="">
+              <a href="a">
                 <img
                   src="https://drake.vn/image/catalog/H%C3%ACnh%20content/Converse-Platform/converse-platform-01.jpg"
                   alt=""
                 />
               </a>
             </div>
-            <div className="desc__item__main">
-              <h3 className="title__desc__item">
+            <div className="">
+              <h3 className="">
                 Converse sẽ mang Golf le Fleur* Chuck 70 về Việt Nam?
               </h3>
               <p>
@@ -52,17 +52,17 @@ const NewsPage = () => {
               </p>
             </div>
           </div>
-          <div className="item__list__main__news">
-            <div className="img__main__news">
-              <a href="">
+          <div className="">
+            <div className="">
+              <a href="a">
                 <img
                   src="https://drake.vn/image/catalog/H%C3%ACnh%20content/Converse-Platform/converse-platform-01.jpg"
                   alt=""
                 />
               </a>
             </div>
-            <div className="desc__item__main">
-              <h3 className="title__desc__item">
+            <div className="">
+              <h3 className="">
                 Converse sẽ mang Golf le Fleur* Chuck 70 về Việt Nam?
               </h3>
               <p>
@@ -73,17 +73,17 @@ const NewsPage = () => {
               </p>
             </div>
           </div>
-          <div className="item__list__main__news2">
-            <div className="img__main__news">
-              <a href="">
+          <div className="">
+            <div className="">
+              <a href="a">
                 <img
                   src="https://drake.vn/image/catalog/H%C3%ACnh%20content/Converse-Platform/converse-platform-01.jpg"
                   alt=""
                 />
               </a>
             </div>
-            <div className="desc__item__main">
-              <h3 className="title__desc__item">
+            <div className="">
+              <h3 className="">
                 Converse sẽ mang Golf le Fleur* Chuck 70 về Việt Nam?
               </h3>
               <p>
@@ -94,17 +94,17 @@ const NewsPage = () => {
               </p>
             </div>
           </div>
-          <div className="item__list__main__news2">
-            <div className="img__main__news">
-              <a href="">
+          <div className="">
+            <div className="">
+              <a href="a">
                 <img
                   src="https://drake.vn/image/catalog/H%C3%ACnh%20content/Converse-Platform/converse-platform-01.jpg"
                   alt=""
                 />
               </a>
             </div>
-            <div className="desc__item__main">
-              <h3 className="title__desc__item">
+            <div className="">
+              <h3 className="">
                 Converse sẽ mang Golf le Fleur* Chuck 70 về Việt Nam?
               </h3>
               <p>
@@ -115,17 +115,17 @@ const NewsPage = () => {
               </p>
             </div>
           </div>
-          <div className="item__list__main__news2">
-            <div className="img__main__news">
-              <a href="">
+          <div className="">
+            <div className="">
+              <a href="a">
                 <img
                   src="https://drake.vn/image/catalog/H%C3%ACnh%20content/Converse-Platform/converse-platform-01.jpg"
                   alt=""
                 />
               </a>
             </div>
-            <div className="desc__item__main">
-              <h3 className="title__desc__item">
+            <div className="">
+              <h3 className="">
                 Converse sẽ mang Golf le Fleur* Chuck 70 về Việt Nam?
               </h3>
               <p>

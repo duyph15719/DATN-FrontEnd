@@ -1,1240 +1,187 @@
-import React from "react";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-import { Link } from "react-router-dom";
+type Props = {}
 
-import "./productlist.css";
-
-type Props = {};
-
-const Products = (props: Props) => {
+const products = (props: Props) => {
   return (
     <div>
-      <div className="shop-page-title category-page-title page-title ">
-        <div className="page-title-inner flex-row  medium-flex-wrap container">
-          <div className="flex-col flex-grow medium-text-center">
-            <div className="is-large">
-              <nav className="woocommerce-breadcrumb breadcrumbs">
-                <a href="#">Trang chủ</a> <span className="divider">/</span> Nữ
-              </nav>
-            </div>
-            <div className="category-filtering category-filter-row show-for-medium">
-              <Link
-                to="#"
-                data-open="#shop-sidebar"
-                data-visible-after="true"
-                data-pos="left"
-                className="filter-button uppercase plain"
-              >
-                <i className="icon-menu" />
+      <div className="nav-product max-w-7xl mx-auto ">
+        <div className='flex flex-col md:flex-row'>
 
-                <strong>Lọc</strong>
-              </Link>
+          <div className="nav-product-left  md:w-[329px]  ">
+            <div className=" mx-auto"> <p className=" mx-auto">TRANG CHỦ / NAM</p></div>
+          </div>
+          <div className="nav-product-right w-[100%] md:w-[70%] ">
+            <div className="loc flex flex-row-reverse ">
+              <form className="woocommerce-ordering  md:m-0 mx-auto" method="get">
+                <select name="orderby" className="orderby border border-black">
+                  <option value="menu_order" >Thứ tự mặc định</option>
+                  <option value="popularity">Thứ tự theo mức độ phổ biến</option>
+                  <option value="rating">Thứ tự theo điểm đánh giá</option>
+                  <option value="date">Mới nhất</option>
+                  <option value="price">Thứ tự theo giá: thấp đến cao</option>
+                  <option value="price-desc">Thứ tự theo giá: cao xuống thấp</option>
+                </select>
+                <input type="hidden" name="paged" defaultValue={1} />
+              </form>
 
-              <strong>Lọc</strong>
-
-              <div className="inline-block">
-                <div className="widget woocommerce widget_layered_nav_filters">
-                  <ul>
-                    <li className="chosen">
-                      <a
-                        rel="nofollow"
-                        aria-label="Xóa bộ lọc"
-                        href="#"
-                        className="tooltipstered"
-                      >
-                        Nhỏ nhất{" "}
-                        <span className="woocommerce-Price-amount amount">
-                          1,120,000&nbsp;
-                          <span className="woocommerce-Price-currencySymbol">
-                            ₫
-                          </span>
-                        </span>
-                      </a>
-                    </li>
-                    <li className="chosen">
-                      <a
-                        rel="nofollow"
-                        aria-label="Xóa bộ lọc"
-                        href="#"
-                        className="tooltipstered"
-                      >
-                        Lớn nhất{" "}
-                        <span className="woocommerce-Price-amount amount">
-                          2,800,000&nbsp;
-                          <span className="woocommerce-Price-currencySymbol">
-                            ₫
-                          </span>
-                        </span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>{" "}
-              </div>
+              <p className="md:block	 hidden	">  Hiển thị 1–12 trong 22 kết quả </p>
             </div>
           </div>
-          {/* .flex-left */}
-          <div className="flex-col medium-text-center">
-            <p className="woocommerce-result-count hide-for-medium">
-              Hiển thị 1 – 12 trong 22 kết quả
-            </p>
-            <form className="woocommerce-ordering" method="get">
-              <select name="orderby" className="orderby">
-                <option value="menu_order">Thứ tự mặc định</option>
-                <option value="popularity">Thứ tự theo mức độ phổ biến</option>
-                <option value="rating">Thứ tự theo điểm đánh giá</option>
-                <option value="date">Mới nhất</option>
-                <option value="price">Thứ tự theo giá: thấp đến cao</option>
-                <option value="price-desc">
-                  Thứ tự theo giá: cao xuống thấp
-                </option>
-              </select>
-              <input type="hidden" name="paged" defaultValue={1} />
-              <input type="hidden" name="min_price" defaultValue={1120000} />
-              <input type="hidden" name="max_price" defaultValue={2800000} />
-            </form>
-          </div>
-          {/* .flex-right */}
         </div>
-        {/* flex-row */}
+        <div className='flex flex-col md:flex-row ' >
+          <div className="product-aside-left md:w-[329px] w-[100%] md:block	 hidden	">
+            <div className="filter-price">
+              <h2 className="uppercase font-bold pb-2 relative after:content-[''] after:absolute after:top-[100%] after:left-0 after:w-8 after:h-1 after:bg-gray-300">Lọc theo giá</h2>
+              <form action="">
+                <input type="checkbox" name="" id="" /> <label htmlFor=""> Trên 1tr </label><br />
+                <input type="checkbox" name="" id="" /> <label htmlFor=""> Trên 1tr </label><br />
+                <input type="checkbox" name="" id="" /> <label htmlFor=""> Trên 1tr </label><br />
+                <input type="checkbox" name="" id="" /> <label htmlFor=""> Trên 1tr </label><br />
+              </form>
+
+            </div>
+         
+            <div className="mt-5">
+              <h2 className="uppercase font-bold pb-2 relative after:content-[''] after:absolute after:top-[100%] after:left-0 after:w-8 after:h-1 after:bg-gray-300">Sản phẩm yêu thích</h2>
+              <ul className="grid grid-cols-1 divide-y mt-2">
+                <li className="py-3 flex">
+                  <a className="block bg-[#f7f7f7]" href="">
+                    <img className="w-16 h-16 object-cover block" src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/men-psy-1-100x100.jpg" />
+                  </a>
+                  <div className="ml-3 flex-1">
+                    <a className="uppercase transition duration-300 ease-linear hover:text-black block text-[#D9A953] text-sm" href="/san-pham/tra-djao-cam-sa">
+                    Chuck 70 Psy-Kicks Ox
+                    </a>
+                    <span className="font-semibold">2,800,000&nbsp;VND</span>
+                  </div>
+                </li>
+                <li className="py-3 flex">
+                  <a className="block bg-[#f7f7f7]" href="">
+                    <img className="w-16 h-16 object-cover block" src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/men-psy-1-100x100.jpg" />
+                  </a>
+                  <div className="ml-3 flex-1">
+                    <a className="uppercase transition duration-300 ease-linear hover:text-black block text-[#D9A953] text-sm" href="detailProduct">
+                    Chuck 70 Psy-Kicks Ox
+                    </a>
+                    <span className="font-semibold">2,800,000&nbsp;VND</span>
+                  </div>
+                </li>
+                <li className="py-3 flex">
+                  <a className="block bg-[#f7f7f7]" href="">
+                    <img className="w-16 h-16 object-cover block" src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/men-psy-1-100x100.jpg" />
+                  </a>
+                  <div className="ml-3 flex-1">
+                    <a className="uppercase transition duration-300 ease-linear hover:text-black block text-[#D9A953] text-sm" href="/san-pham/tra-djao-cam-sa">
+                    Chuck 70 Psy-Kicks Ox
+                    </a>
+                    <span className="font-semibold">2,800,000&nbsp;VND</span>
+                  </div>
+                </li>
+                <li className="py-3 flex">
+                  <a className="block bg-[#f7f7f7]" href="">
+                    <img className="w-16 h-16 object-cover block" src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/men-psy-1-100x100.jpg" />
+                  </a>
+                  <div className="ml-3 flex-1">
+                    <a className="uppercase transition duration-300 ease-linear hover:text-black block text-[#D9A953] text-sm" href="/san-pham/tra-djao-cam-sa">
+                    Chuck 70 Psy-Kicks Ox
+                    </a>
+                    <span className="font-semibold">2,800,000&nbsp;VND</span>
+                  </div>
+                </li>
+                  <li className="py-3 flex">
+                  <a className="block bg-[#f7f7f7]" href="">
+                    <img className="w-16 h-16 object-cover block" src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/men-psy-1-100x100.jpg" />
+                  </a>
+                  <div className="ml-3 flex-1">
+                    <a className="uppercase transition duration-300 ease-linear hover:text-black block text-[#D9A953] text-sm" href="/san-pham/tra-djao-cam-sa">
+                    Chuck 70 Psy-Kicks Ox
+                    </a>
+                    <span className="font-semibold">2,800,000&nbsp;VND</span>
+                  </div>
+                </li>
+              </ul>
+              </div>
+          </div>
+          <div className="product-aside-right w-[100%] md:w-[70%] grid md:grid-cols-3 grid-cols-2 gap-4 pt-10 ">
+
+            <div className="group  border-slate-300 shadow">
+              <div className="relative bg-[#f7f7f7] overflow-hidden">
+                <Link  className="bg-cover pt-[80%] bg-center block" to="/detailProduct" style={{ backgroundImage: 'url("http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/kid-5-1-300x225.jpg")' }} />
+                <button className="absolute w-full bottom-0 h-9 bg-[#5c3f0a] text-center text-gray-50 opacity-95 uppercase font-semibold text-sm transition ease-linear duration-300 hover:opacity-100 hover:text-white translate-y-full group-hover:translate-y-0">Xem nhanh</button>
+                <button className="btn-heart absolute top-3 right-3 w-8 h-8 rounded-full border-2 text-[#c0c0c0] text-lg border-[#c0c0c0] transition duration-300 hover:text-white hover:bg-red-700 hover:border-red-700 opacity-0 group-hover:opacity-100">
+                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" className="svg-inline--fa fa-heart " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path fill="currentColor" d="M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z" /></svg></button>
+              </div>
+              <div className="text-center py-3"><p className="uppercase text-xs text-gray-400"> CHUCK 07S</p>
+                <Link className="block font-semibold text-lg" to="/detailProduct">Chuck 70 Archive Prints Hi</Link>
+                <ul className="flex text-yellow-500 text-xs justify-center pt-1">
+                  <div className="text-yellow-400">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div></ul>
+                <div className="text-sm pt-1">
+                  1,800,000&nbsp;VND
+                </div></div>
+            </div>
+            <div className="group  border-slate-300 shadow">
+              <div className="relative bg-[#f7f7f7] overflow-hidden">
+                <a className="bg-cover pt-[80%] bg-center block" href="/detailProduct" style={{ backgroundImage: 'url("http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/kid-5-1-300x225.jpg")' }} />
+                <button className="absolute w-full bottom-0 h-9 bg-[#5c3f0a] text-center text-gray-50 opacity-95 uppercase font-semibold text-sm transition ease-linear duration-300 hover:opacity-100 hover:text-white translate-y-full group-hover:translate-y-0">Xem nhanh</button>
+                <button className="btn-heart absolute top-3 right-3 w-8 h-8 rounded-full border-2 text-[#c0c0c0] text-lg border-[#c0c0c0] transition duration-300 hover:text-white hover:bg-red-700 hover:border-red-700 opacity-0 group-hover:opacity-100">
+                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" className="svg-inline--fa fa-heart " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path fill="currentColor" d="M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z" /></svg></button>
+              </div>
+              <div className="text-center py-3"><p className="uppercase text-xs text-gray-400"> CHUCK 07S</p>
+                <a className="block font-semibold text-lg" href="/san-pham/tra-sua-khoai-mon-macchiato">Chuck 70 Archive Prints Hi</a>
+                <ul className="flex text-yellow-500 text-xs justify-center pt-1">
+                  <div className="text-yellow-400">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div></ul>
+                <div className="text-sm pt-1">
+                  1,800,000&nbsp;VND
+                </div></div>
+            </div>
+            <div className="group  border-slate-300 shadow">
+              <div className="relative bg-[#f7f7f7] overflow-hidden">
+                <a className="bg-cover pt-[80%] bg-center block" href="/san-pham/tra-sua-khoai-mon-macchiato" style={{ backgroundImage: 'url("http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/kid-5-1-300x225.jpg")' }} />
+                <button className="absolute w-full bottom-0 h-9 bg-[#5c3f0a] text-center text-gray-50 opacity-95 uppercase font-semibold text-sm transition ease-linear duration-300 hover:opacity-100 hover:text-white translate-y-full group-hover:translate-y-0">Xem nhanh</button>
+                <button className="btn-heart absolute top-3 right-3 w-8 h-8 rounded-full border-2 text-[#c0c0c0] text-lg border-[#c0c0c0] transition duration-300 hover:text-white hover:bg-red-700 hover:border-red-700 opacity-0 group-hover:opacity-100">
+                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" className="svg-inline--fa fa-heart " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path fill="currentColor" d="M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z" /></svg></button>
+              </div>
+              <div className="text-center py-3"><p className="uppercase text-xs text-gray-400"> CHUCK 07S</p>
+                <a className="block font-semibold text-lg" href="/san-pham/tra-sua-khoai-mon-macchiato">Chuck 70 Archive Prints Hi</a>
+                <ul className="flex text-yellow-500 text-xs justify-center pt-1">
+                  <div className="text-yellow-400">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div></ul>
+                <div className="text-sm pt-1">
+                  1,800,000&nbsp;VND
+                </div></div>
+            </div>
+            <div className="group  border-slate-300 shadow">
+              <div className="relative bg-[#f7f7f7] overflow-hidden">
+                <a className="bg-cover pt-[80%] bg-center block" href="/san-pham/tra-sua-khoai-mon-macchiato" style={{ backgroundImage: 'url("http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/kid-5-1-300x225.jpg")' }} />
+                <button className="absolute w-full bottom-0 h-9 bg-[#5c3f0a] text-center text-gray-50 opacity-95 uppercase font-semibold text-sm transition ease-linear duration-300 hover:opacity-100 hover:text-white translate-y-full group-hover:translate-y-0">Xem nhanh</button>
+                <button className="btn-heart absolute top-3 right-3 w-8 h-8 rounded-full border-2 text-[#c0c0c0] text-lg border-[#c0c0c0] transition duration-300 hover:text-white hover:bg-red-700 hover:border-red-700 opacity-0 group-hover:opacity-100">
+                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" className="svg-inline--fa fa-heart " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path fill="currentColor" d="M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z" /></svg></button>
+              </div>
+              <div className="text-center py-3"><p className="uppercase text-xs text-gray-400"> CHUCK 07S</p>
+                <a className="block font-semibold text-lg" href="/san-pham/tra-sua-khoai-mon-macchiato">Chuck 70 Archive Prints Hi</a>
+                <ul className="flex text-yellow-500 text-xs justify-center pt-1">
+                  <div className="text-yellow-400">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div></ul>
+                <div className="text-sm pt-1">
+                  1,800,000&nbsp;VND
+                </div></div>
+            </div>
+
+          </div>
+        </div>
+        <ul className="flex justify-center mt-5"><li><a className="w-10 h-10 rounded-full border-2 flex items-center justify-center font-semibold mx-0.5 cursor-pointer transition ease-linear duration-200 hover:bg-[#D9A953] hover:border-[#D9A953] hover:text-white border-[#D9A953] bg-[#D9A953] text-white" href="/thuc-don/page/1">1</a></li><li><a className="w-10 h-10 rounded-full border-2 flex items-center justify-center font-semibold mx-0.5 cursor-pointer transition ease-linear duration-200 hover:bg-[#D9A953] hover:border-[#D9A953] hover:text-white border-gray-500 text-gray-500" href="/thuc-don/page/2">2</a></li><li><a className="w-10 h-10 rounded-full border-2 flex items-center justify-center font-semibold mx-0.5 cursor-pointer transition ease-linear duration-200 hover:bg-[#D9A953] hover:border-[#D9A953] hover:text-white border-gray-500 text-gray-500" href="/thuc-don/page/3">3</a></li><li><a className="w-10 h-10 rounded-full border-2 flex items-center justify-center font-semibold mx-0.5 cursor-pointer transition ease-linear duration-200 hover:bg-[#D9A953] hover:border-[#D9A953] hover:text-white border-gray-500 text-gray-500" href="/thuc-don/page/4">4</a></li><li><a className="w-10 h-10 rounded-full border-2 flex items-center justify-center font-semibold border-gray-500 text-gray-500 mx-0.5 cursor-pointer transition ease-linear duration-200 hover:bg-[#D9A953] hover:border-[#D9A953] hover:text-white" href="/thuc-don/page/2"><button><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" className="svg-inline--fa fa-angle-right " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path fill="currentColor" d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></button></a></li></ul>
+
       </div>
-      {/* main */}
-      <main id="main">
-        <div className="row category-page-row">
-          <div className="col large-3 hide-for-medium ">
-            <div id="shop-sidebar" className="sidebar-inner col-inner">
-              <aside
-                id="woocommerce_price_filter-2"
-                className="widget woocommerce widget_price_filter"
-              >
-                <span className="widget-title shop-sidebar">Lọc theo giá</span>
-                <div className="is-divider small" />
-                <form method="get" action="">
-                  <div className="price_slider_wrapper">
-                    <div
-                      className="price_slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
-                      style={{}}
-                    >
-                      <div
-                        className="ui-slider-range ui-widget-header ui-corner-all"
-                        style={{ left: "0%", width: "100%" }}
-                      />
-                      <span
-                        className="ui-slider-handle ui-state-default ui-corner-all"
-                        tabIndex={0}
-                        style={{ left: "0%" }}
-                      />
-                      <span
-                        className="ui-slider-handle ui-state-default ui-corner-all ui-state-hover"
-                        tabIndex={0}
-                        style={{ left: "100%" }}
-                      />
-                    </div>
-                    <div className="price_slider_amount">
-                      <input
-                        type="text"
-                        id="min_price"
-                        name="min_price"
-                        defaultValue={1120000}
-                        data-min={1120000}
-                        placeholder="Giá thấp nhất"
-                        style={{ display: "none" }}
-                      />
-                      <input
-                        type="text"
-                        id="max_price"
-                        name="max_price"
-                        defaultValue={2800000}
-                        data-max={2800000}
-                        placeholder="Giá cao nhất"
-                        style={{ display: "none" }}
-                      />
-                      <button
-                        type="submit"
-                        className="button"
-                        style={{ color: "#fff" }}
-                      >
-                        Lọc
-                      </button>
-                      <div className="price_label" style={{}}>
-                        Giá <span className="from">1,120,000&nbsp;₫</span> —{" "}
-                        <span className="to">2,800,000&nbsp;₫</span>
-                      </div>
-                      <div className="clear" />
-                    </div>
-                  </div>
-                </form>
-              </aside>
-              <aside
-                id="woocommerce_products-3"
-                className="widget woocommerce widget_products"
-              >
-                <span className="widget-title shop-sidebar">Sản phẩm</span>
-                <div className="is-divider small" />
-                <ul className="product_list_widget">
-                  <li>
-                    <a href="">
-                      <img
-                        width={100}
-                        height={100}
-                        src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/men-psy-1-100x100.jpg"
-                        className="attachment-woocommerce_gallery_thumbnail size-woocommerce_gallery_thumbnail"
-                        srcSet="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/men-psy-1-100x100.jpg 100w, http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/men-psy-1-150x150.jpg 150w"
-                        sizes="(max-width: 100px) 100vw, 100px"
-                        alt=""
-                      />{" "}
-                      <span className="product-title">
-                        Chuck 70 Psy-Kicks Ox
-                      </span>
-                    </a>
-                    <span className="woocommerce-Price-amount amount">
-                      2,800,000&nbsp;
-                      <span className="woocommerce-Price-currencySymbol">
-                        ₫
-                      </span>
-                    </span>
-                  </li>
-                  <li>
-                    <div style={{ display: "flex" }}>
-                      <div>
-                        <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-70-psy-kicks-ox-4/">
-                          <img
-                            width={100}
-                            height={100}
-                            src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/men-psy-1-100x100.jpg"
-                            className="attachment-woocommerce_gallery_thumbnail size-woocommerce_gallery_thumbnail"
-                            srcSet="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/men-psy-1-100x100.jpg 100w, http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/men-psy-1-150x150.jpg 150w"
-                            sizes="(max-width: 100px) 100vw, 100px"
-                            alt=""
-                          />
-                        </a>
-                      </div>
-
-                      <div style={{ marginLeft: 40 }}>
-                        <span className="">Thanh dúc</span>
-                        <br />
-                        <div style={{ marginTop: 40 }}>
-                          <span>
-                            2,800,000&nbsp;<span className="">₫</span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <a href="http://mauweb.monamedia.net/converse/san-pham/one-star-sunbaked-8/">
-                      <img
-                        width={100}
-                        height={100}
-                        src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-sunbaked-1-100x100.jpg"
-                        className="attachment-woocommerce_gallery_thumbnail size-woocommerce_gallery_thumbnail"
-                        srcSet="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-sunbaked-1-100x100.jpg 100w, http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-sunbaked-1-150x150.jpg 150w"
-                        sizes="(max-width: 100px) 100vw, 100px"
-                        alt=""
-                      />{" "}
-                      <span className="product-title">One Star Sunbaked</span>
-                    </a>
-                    <span className="woocommerce-Price-amount amount">
-                      1,600,000&nbsp;
-                      <span className="woocommerce-Price-currencySymbol">
-                        ₫
-                      </span>
-                    </span>
-                  </li>
-                  <li>
-                    <a href="http://mauweb.monamedia.net/converse/san-pham/one-star-sunbaked-7/">
-                      <img
-                        width={100}
-                        height={100}
-                        src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-sunbaked-2-100x100.jpg"
-                        className="attachment-woocommerce_gallery_thumbnail size-woocommerce_gallery_thumbnail"
-                        srcSet="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-sunbaked-2-100x100.jpg 100w, http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-sunbaked-2-150x150.jpg 150w"
-                        sizes="(max-width: 100px) 100vw, 100px"
-                        alt=""
-                      />{" "}
-                      <span className="product-title">One Star Sunbaked</span>
-                    </a>
-                    <span className="woocommerce-Price-amount amount">
-                      1,600,000&nbsp;
-                      <span className="woocommerce-Price-currencySymbol">
-                        ₫
-                      </span>
-                    </span>
-                  </li>
-                  <li>
-                    <a href="http://mauweb.monamedia.net/converse/san-pham/one-star-sunbaked-6/">
-                      <img
-                        width={100}
-                        height={100}
-                        src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-sunbaked-3-100x100.jpg"
-                        className="attachment-woocommerce_gallery_thumbnail size-woocommerce_gallery_thumbnail"
-                        srcSet="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-sunbaked-3-100x100.jpg 100w, http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-sunbaked-3-150x150.jpg 150w"
-                        sizes="(max-width: 100px) 100vw, 100px"
-                        alt=""
-                      />{" "}
-                      <span className="product-title">One Star Sunbaked</span>
-                    </a>
-                    <span className="woocommerce-Price-amount amount">
-                      1,600,000&nbsp;
-                      <span className="woocommerce-Price-currencySymbol">
-                        ₫
-                      </span>
-                    </span>
-                  </li>
-                </ul>
-              </aside>{" "}
-              <aside
-                id="flatsome_recent_posts-2"
-                className="widget flatsome_recent_posts"
-              >
-                {" "}
-                <span className="widget-title shop-sidebar">
-                  Bài viết mới nhất
-                </span>
-                <div className="is-divider small" />{" "}
-                <ul>
-                  <li className="recent-blog-posts-li">
-                    <div className="flex-row recent-blog-posts align-top pt-half pb-half">
-                      <div className="flex-col mr-half">
-                        <div className="badge post-date  badge-circle">
-                          <div
-                            className="badge-inner bg-fill"
-                            style={{
-                              background:
-                                "url(http://mauweb.monamedia.net/converse/wp-content/uploads/2018/03/news-1-150x150.jpg)",
-                              border: 0,
-                            }}
-                          ></div>
-                        </div>
-                      </div>
-                      {/* .flex-col */}
-                      <div className="flex-col flex-grow">
-                        <a
-                          href="http://mauweb.monamedia.net/converse/duis-luctus-elit-nisi-et-cursus-magna-pellentesque-non/"
-                          title="Converse sẽ mang Golf le Fleur* Chuck 70 về Việt Nam?"
-                        >
-                          Converse sẽ mang Golf le Fleur* Chuck 70 về Việt Nam?
-                        </a>
-                        <span className="post_comments op-7 block is-xsmall">
-                          <a href="http://mauweb.monamedia.net/converse/duis-luctus-elit-nisi-et-cursus-magna-pellentesque-non/#respond" />
-                        </span>
-                      </div>
-                    </div>
-                    {/* .flex-row */}
-                  </li>
-                  <li className="recent-blog-posts-li">
-                    <div className="flex-row recent-blog-posts align-top pt-half pb-half">
-                      <div className="flex-col mr-half">
-                        <div className="badge post-date  badge-circle">
-                          <div
-                            className="badge-inner bg-fill"
-                            style={{
-                              background:
-                                "url(http://mauweb.monamedia.net/converse/wp-content/uploads/2018/03/news-2-150x150.jpg)",
-                              border: 0,
-                            }}
-                          ></div>
-                        </div>
-                      </div>
-                      {/* .flex-col */}
-                      <div className="flex-col flex-grow">
-                        <a
-                          href="http://mauweb.monamedia.net/converse/mauris-tristique-pretium-tempus-vestibulum-et-accumsan-magna/"
-                          title="Xinh xắn nhất những ngày này là những mẫu giày của các chàng trai BTS hợp tác cùng Converse"
-                        >
-                          Xinh xắn nhất những ngày này là những mẫu giày của các
-                          chàng trai BTS hợp tác cùng Converse
-                        </a>
-                        <span className="post_comments op-7 block is-xsmall">
-                          <a href="http://mauweb.monamedia.net/converse/mauris-tristique-pretium-tempus-vestibulum-et-accumsan-magna/#respond" />
-                        </span>
-                      </div>
-                    </div>
-                    {/* .flex-row */}
-                  </li>
-                  <li className="recent-blog-posts-li">
-                    <div className="flex-row recent-blog-posts align-top pt-half pb-half">
-                      <div className="flex-col mr-half">
-                        <div className="badge post-date  badge-circle">
-                          <div
-                            className="badge-inner bg-fill"
-                            style={{
-                              background:
-                                "url(http://mauweb.monamedia.net/converse/wp-content/uploads/2018/03/news-3-150x150.jpg)",
-                              border: 0,
-                            }}
-                          ></div>
-                        </div>
-                      </div>
-                      {/* .flex-col */}
-                      <div className="flex-col flex-grow">
-                        <a
-                          href="http://mauweb.monamedia.net/converse/aliquam-placerat-nisl-nec-imperdiet-vehicula-phasellus-tempus-ligula-id-orci-finibus-feugiat/"
-                          title="Fashionista Việt đua nhau sống “ngược” theo trào lưu “ChucksFirst? Bạn dám không?”"
-                        >
-                          Fashionista Việt đua nhau sống “ngược” theo trào lưu
-                          “ChucksFirst? Bạn dám không?”
-                        </a>
-                        <span className="post_comments op-7 block is-xsmall">
-                          <a href="http://mauweb.monamedia.net/converse/aliquam-placerat-nisl-nec-imperdiet-vehicula-phasellus-tempus-ligula-id-orci-finibus-feugiat/#respond" />
-                        </span>
-                      </div>
-                    </div>
-                    {/* .flex-row */}
-                  </li>
-                  <li className="recent-blog-posts-li">
-                    <div className="flex-row recent-blog-posts align-top pt-half pb-half">
-                      <div className="flex-col mr-half">
-                        <div className="badge post-date  badge-circle">
-                          <div
-                            className="badge-inner bg-fill"
-                            style={{
-                              background:
-                                "url(http://mauweb.monamedia.net/converse/wp-content/uploads/2018/03/news-4-150x150.jpg)",
-                              border: 0,
-                            }}
-                          ></div>
-                        </div>
-                      </div>
-                      {/* .flex-col */}
-                      <div className="flex-col flex-grow">
-                        <a
-                          href="http://mauweb.monamedia.net/converse/in-rutrum-tempus-purus-ut-euismod-dui-facilisis-ac-fusce-semper-dignissim-diam-a-egestas/"
-                          title="Comme des Garçons Play x Converse nhá hàng mẫu giày mới, dự kiến ra mắt vào cuối tháng này"
-                        >
-                          Comme des Garçons Play x Converse nhá hàng mẫu giày
-                          mới, dự kiến ra mắt vào cuối tháng này
-                        </a>
-                        <span className="post_comments op-7 block is-xsmall">
-                          <a href="http://mauweb.monamedia.net/converse/in-rutrum-tempus-purus-ut-euismod-dui-facilisis-ac-fusce-semper-dignissim-diam-a-egestas/#respond" />
-                        </span>
-                      </div>
-                    </div>
-                    {/* .flex-row */}
-                  </li>
-                  <li className="recent-blog-posts-li">
-                    <div className="flex-row recent-blog-posts align-top pt-half pb-half">
-                      <div className="flex-col mr-half">
-                        <div className="badge post-date  badge-circle">
-                          <div
-                            className="badge-inner bg-fill"
-                            style={{
-                              background:
-                                "url(http://mauweb.monamedia.net/converse/wp-content/uploads/2018/03/news-5-150x150.png)",
-                              border: 0,
-                            }}
-                          ></div>
-                        </div>
-                      </div>
-                      {/* .flex-col */}
-                      <div className="flex-col flex-grow">
-                        <a
-                          href="http://mauweb.monamedia.net/converse/donec-tempus-eu-ligula-sed-blandit-vivamus-vel-enim-ac-quam-iaculis-rutrum/"
-                          title="Hội Thần Kinh Giày xôn xao với hình ảnh 18 ngàn lượt like của nhóc tì mẫu giáo"
-                        >
-                          Hội Thần Kinh Giày xôn xao với hình ảnh 18 ngàn lượt
-                          like của nhóc tì mẫu giáo
-                        </a>
-                        <span className="post_comments op-7 block is-xsmall">
-                          <a href="http://mauweb.monamedia.net/converse/donec-tempus-eu-ligula-sed-blandit-vivamus-vel-enim-ac-quam-iaculis-rutrum/#respond" />
-                        </span>
-                      </div>
-                    </div>
-                    {/* .flex-row */}
-                  </li>
-                </ul>{" "}
-              </aside>{" "}
-            </div>
-            {/* .sidebar-inner */}
-          </div>
-          {/* #shop-sidebar */}
-          <div className="col large-9">
-            <div className="shop-container">
-              <div className="woocommerce-notices-wrapper" />{" "}
-              <div className="products row row-small large-columns-4 medium-columns-3 small-columns-2 has-shadow row-box-shadow-1 row-box-shadow-2-hover">
-                <div className="product-small col has-hover post-897 product type-product status-publish has-post-thumbnail product_cat-chuck-07s-nu product_cat-nu first instock shipping-taxable purchasable product-type-simple">
-                  <div className="col-inner">
-                    <div className="badge-container absolute left top z-1"></div>
-                    <div className="product-small box ">
-                      <div className="box-image">
-                        <div className="image-fade_in_back">
-                          <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-70-archive-prints-hi-2/">
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-chuck-07-300x225.jpg"
-                              className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                              alt=""
-                            />{" "}
-                          </a>
-                        </div>
-                        <div className="image-tools is-small top right show-on-hover"></div>
-                        <div className="image-tools is-small hide-for-small bottom left show-on-hover"></div>
-                        <div className="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
-                      </div>
-                      {/* box-image */}
-                      <div className="box-text box-text-products text-center grid-style-2">
-                        <div className="title-wrapper">
-                          <p className="name product-title">
-                            <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-70-archive-prints-hi-2/">
-                              Chuck 70 Archive Prints Hi
-                            </a>
-                          </p>
-                        </div>
-                        <div className="price-wrapper">
-                          <span className="price">
-                            <span className="woocommerce-Price-amount amount">
-                              1,800,000&nbsp;
-                              <span className="woocommerce-Price-currencySymbol">
-                                ₫
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                        <div className="add-to-cart-button">
-                          <a
-                            href="/converse/danh-muc/nu/?min_price=1120000&add-to-cart=897"
-                            rel="nofollow"
-                            data-product_id={897}
-                            className="ajax_add_to_cart add_to_cart_button product_type_simple button primary is-flat mb-0 is-small"
-                          >
-                            Thêm vào giỏ
-                          </a>
-                        </div>{" "}
-                      </div>
-                      {/* box-text */}
-                    </div>
-                    {/* box */}
-                  </div>
-                  {/* .col-inner */}
-                </div>
-                {/* col */}
-                <div className="product-small col has-hover post-922 product type-product status-publish has-post-thumbnail product_cat-nu product_cat-psy-kicks-nu instock shipping-taxable purchasable product-type-simple">
-                  <div className="col-inner">
-                    <div className="badge-container absolute left top z-1"></div>
-                    <div className="product-small box ">
-                      <div className="box-image">
-                        <div className="image-fade_in_back">
-                          <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-70-psy-kicks-ox-3/">
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-psy-2-300x225.jpg"
-                              className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                              alt=""
-                            />
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-psy-2-1-300x225.jpg"
-                              className="show-on-hover absolute fill hide-for-small back-image"
-                              alt=""
-                            />{" "}
-                          </a>
-                        </div>
-                        <div className="image-tools is-small top right show-on-hover"></div>
-                        <div className="image-tools is-small hide-for-small bottom left show-on-hover"></div>
-                        <div className="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
-                      </div>
-                      {/* box-image */}
-                      <div className="box-text box-text-products text-center grid-style-2">
-                        <div className="title-wrapper">
-                          <p className="name product-title">
-                            <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-70-psy-kicks-ox-3/">
-                              Chuck 70 Psy-Kicks Ox
-                            </a>
-                          </p>
-                        </div>
-                        <div className="price-wrapper">
-                          <span className="price">
-                            <span className="woocommerce-Price-amount amount">
-                              1,800,000&nbsp;
-                              <span className="woocommerce-Price-currencySymbol">
-                                ₫
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                        <div className="add-to-cart-button">
-                          <a
-                            href="/converse/danh-muc/nu/?min_price=1120000&add-to-cart=922"
-                            rel="nofollow"
-                            data-product_id={922}
-                            className="ajax_add_to_cart add_to_cart_button product_type_simple button primary is-flat mb-0 is-small"
-                          >
-                            Thêm vào giỏ
-                          </a>
-                        </div>{" "}
-                      </div>
-                      {/* box-text */}
-                    </div>
-                    {/* box */}
-                  </div>
-                  {/* .col-inner */}
-                </div>
-                {/* col */}
-                <div className="product-small col has-hover post-923 product type-product status-publish has-post-thumbnail product_cat-nu product_cat-psy-kicks-nu instock shipping-taxable purchasable product-type-simple">
-                  <div className="col-inner">
-                    <div className="badge-container absolute left top z-1"></div>
-                    <div className="product-small box ">
-                      <div className="box-image">
-                        <div className="image-fade_in_back">
-                          <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-70-psy-kicks-ox-4/">
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/men-psy-1-300x225.jpg"
-                              className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                              alt=""
-                            />
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-psy-1-1-300x225.jpg"
-                              className="show-on-hover absolute fill hide-for-small back-image"
-                              alt=""
-                            />{" "}
-                          </a>
-                        </div>
-                        <div className="image-tools is-small top right show-on-hover"></div>
-                        <div className="image-tools is-small hide-for-small bottom left show-on-hover"></div>
-                        <div className="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
-                      </div>
-                      {/* box-image */}
-                      <div className="box-text box-text-products text-center grid-style-2">
-                        <div className="title-wrapper">
-                          <p className="name product-title">
-                            <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-70-psy-kicks-ox-4/">
-                              Chuck 70 Psy-Kicks Ox
-                            </a>
-                          </p>
-                        </div>
-                        <div className="price-wrapper">
-                          <span className="price">
-                            <span className="woocommerce-Price-amount amount">
-                              2,800,000&nbsp;
-                              <span className="woocommerce-Price-currencySymbol">
-                                ₫
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                        <div className="add-to-cart-button">
-                          <a
-                            href="/converse/danh-muc/nu/?min_price=1120000&add-to-cart=923"
-                            rel="nofollow"
-                            data-product_id={923}
-                            className="ajax_add_to_cart add_to_cart_button product_type_simple button primary is-flat mb-0 is-small"
-                          >
-                            Thêm vào giỏ
-                          </a>
-                        </div>{" "}
-                      </div>
-                      {/* box-text */}
-                    </div>
-                    {/* box */}
-                  </div>
-                  {/* .col-inner */}
-                </div>
-                {/* col */}
-                <div className="product-small col has-hover post-896 product type-product status-publish has-post-thumbnail product_cat-chuck-07s-nu product_cat-nu last instock shipping-taxable purchasable product-type-simple">
-                  <div className="col-inner">
-                    <div className="badge-container absolute left top z-1"></div>
-                    <div className="product-small box ">
-                      <div className="box-image">
-                        <div className="image-fade_in_back">
-                          <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-all-star-70-full-gator-hi-2/">
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-chuck-07-1-300x225.jpg"
-                              className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                              alt=""
-                            />{" "}
-                          </a>
-                        </div>
-                        <div className="image-tools is-small top right show-on-hover"></div>
-                        <div className="image-tools is-small hide-for-small bottom left show-on-hover"></div>
-                        <div className="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
-                      </div>
-                      {/* box-image */}
-                      <div className="box-text box-text-products text-center grid-style-2">
-                        <div className="title-wrapper">
-                          <p className="name product-title">
-                            <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-all-star-70-full-gator-hi-2/">
-                              Chuck Taylor All Star 70 Full Gator Hi
-                            </a>
-                          </p>
-                        </div>
-                        <div className="price-wrapper">
-                          <span className="price">
-                            <span className="woocommerce-Price-amount amount">
-                              2,100,000&nbsp;
-                              <span className="woocommerce-Price-currencySymbol">
-                                ₫
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                        <div className="add-to-cart-button">
-                          <a
-                            href="/converse/danh-muc/nu/?min_price=1120000&add-to-cart=896"
-                            rel="nofollow"
-                            data-product_id={896}
-                            className="ajax_add_to_cart add_to_cart_button product_type_simple button primary is-flat mb-0 is-small"
-                          >
-                            Thêm vào giỏ
-                          </a>
-                        </div>{" "}
-                      </div>
-                      {/* box-text */}
-                    </div>
-                    {/* box */}
-                  </div>
-                  {/* .col-inner */}
-                </div>
-                {/* col */}
-                <div className="product-small col has-hover post-894 product type-product status-publish has-post-thumbnail product_cat-chuck-07s-nu product_cat-nu first instock shipping-taxable purchasable product-type-simple">
-                  <div className="col-inner">
-                    <div className="badge-container absolute left top z-1"></div>
-                    <div className="product-small box ">
-                      <div className="box-image">
-                        <div className="image-fade_in_back">
-                          <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-all-star-70-pastel-leather-2/">
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-chuck-07-3-300x225.jpg"
-                              className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                              alt=""
-                            />{" "}
-                          </a>
-                        </div>
-                        <div className="image-tools is-small top right show-on-hover"></div>
-                        <div className="image-tools is-small hide-for-small bottom left show-on-hover"></div>
-                        <div className="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
-                      </div>
-                      {/* box-image */}
-                      <div className="box-text box-text-products text-center grid-style-2">
-                        <div className="title-wrapper">
-                          <p className="name product-title">
-                            <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-all-star-70-pastel-leather-2/">
-                              Chuck Taylor All Star 70 Pastel Leather
-                            </a>
-                          </p>
-                        </div>
-                        <div className="price-wrapper">
-                          <span className="price">
-                            <span className="woocommerce-Price-amount amount">
-                              1,900,000&nbsp;
-                              <span className="woocommerce-Price-currencySymbol">
-                                ₫
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                        <div className="add-to-cart-button">
-                          <a
-                            href="/converse/danh-muc/nu/?min_price=1120000&add-to-cart=894"
-                            rel="nofollow"
-                            data-product_id={894}
-                            className="ajax_add_to_cart add_to_cart_button product_type_simple button primary is-flat mb-0 is-small"
-                          >
-                            Thêm vào giỏ
-                          </a>
-                        </div>{" "}
-                      </div>
-                      {/* box-text */}
-                    </div>
-                    {/* box */}
-                  </div>
-                  {/* .col-inner */}
-                </div>
-                {/* col */}
-                <div className="product-small col has-hover post-895 product type-product status-publish has-post-thumbnail product_cat-chuck-07s-nu product_cat-nu instock shipping-taxable purchasable product-type-simple">
-                  <div className="col-inner">
-                    <div className="badge-container absolute left top z-1"></div>
-                    <div className="product-small box ">
-                      <div className="box-image">
-                        <div className="image-fade_in_back">
-                          <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-all-star-70-poplin-shirt-sao-chep/">
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-chuck-07-2-300x225.jpg"
-                              className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                              alt=""
-                            />
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-chuck-07-2-1-300x225.jpg"
-                              className="show-on-hover absolute fill hide-for-small back-image"
-                              alt=""
-                            />{" "}
-                          </a>
-                        </div>
-                        <div className="image-tools is-small top right show-on-hover"></div>
-                        <div className="image-tools is-small hide-for-small bottom left show-on-hover"></div>
-                        <div className="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
-                      </div>
-                      {/* box-image */}
-                      <div className="box-text box-text-products text-center grid-style-2">
-                        <div className="title-wrapper">
-                          <p className="name product-title">
-                            <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-all-star-70-poplin-shirt-sao-chep/">
-                              Chuck Taylor All Star 70 Poplin Shirt
-                            </a>
-                          </p>
-                        </div>
-                        <div className="price-wrapper">
-                          <span className="price">
-                            <span className="woocommerce-Price-amount amount">
-                              1,120,000&nbsp;
-                              <span className="woocommerce-Price-currencySymbol">
-                                ₫
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                        <div className="add-to-cart-button">
-                          <a
-                            href="/converse/danh-muc/nu/?min_price=1120000&add-to-cart=895"
-                            rel="nofollow"
-                            data-product_id={895}
-                            className="ajax_add_to_cart add_to_cart_button product_type_simple button primary is-flat mb-0 is-small"
-                          >
-                            Thêm vào giỏ
-                          </a>
-                        </div>{" "}
-                      </div>
-                      {/* box-text */}
-                    </div>
-                    {/* box */}
-                  </div>
-                  {/* .col-inner */}
-                </div>
-                {/* col */}
-                <div className="product-small col has-hover post-900 product type-product status-publish has-post-thumbnail product_cat-classic-nu product_cat-nu instock shipping-taxable purchasable product-type-simple">
-                  <div className="col-inner">
-                    <div className="badge-container absolute left top z-1"></div>
-                    <div className="product-small box ">
-                      <div className="box-image">
-                        <div className="image-fade_in_back">
-                          <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-classic-9/">
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-8-300x225.jpg"
-                              className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                              alt=""
-                            />
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-8-1-300x225.jpg"
-                              className="show-on-hover absolute fill hide-for-small back-image"
-                              alt=""
-                            />{" "}
-                          </a>
-                        </div>
-                        <div className="image-tools is-small top right show-on-hover"></div>
-                        <div className="image-tools is-small hide-for-small bottom left show-on-hover"></div>
-                        <div className="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
-                      </div>
-                      {/* box-image */}
-                      <div className="box-text box-text-products text-center grid-style-2">
-                        <div className="title-wrapper">
-                          <p className="name product-title">
-                            <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-classic-9/">
-                              Chuck Taylor Classic
-                            </a>
-                          </p>
-                        </div>
-                        <div className="price-wrapper">
-                          <span className="price">
-                            <span className="woocommerce-Price-amount amount">
-                              1,250,000&nbsp;
-                              <span className="woocommerce-Price-currencySymbol">
-                                ₫
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                        <div className="add-to-cart-button">
-                          <a
-                            href="/converse/danh-muc/nu/?min_price=1120000&add-to-cart=900"
-                            rel="nofollow"
-                            data-product_id={900}
-                            className="ajax_add_to_cart add_to_cart_button product_type_simple button primary is-flat mb-0 is-small"
-                          >
-                            Thêm vào giỏ
-                          </a>
-                        </div>{" "}
-                      </div>
-                      {/* box-text */}
-                    </div>
-                    {/* box */}
-                  </div>
-                  {/* .col-inner */}
-                </div>
-                {/* col */}
-                <div className="product-small col has-hover post-901 product type-product status-publish has-post-thumbnail product_cat-classic-nu product_cat-nu last instock shipping-taxable purchasable product-type-simple">
-                  <div className="col-inner">
-                    <div className="badge-container absolute left top z-1"></div>
-                    <div className="product-small box ">
-                      <div className="box-image">
-                        <div className="image-fade_in_back">
-                          <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-classic-10/">
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-7-300x225.jpg"
-                              className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                              alt=""
-                            />
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-7-1-300x225.jpg"
-                              className="show-on-hover absolute fill hide-for-small back-image"
-                              alt=""
-                            />{" "}
-                          </a>
-                        </div>
-                        <div className="image-tools is-small top right show-on-hover"></div>
-                        <div className="image-tools is-small hide-for-small bottom left show-on-hover"></div>
-                        <div className="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
-                      </div>
-                      {/* box-image */}
-                      <div className="box-text box-text-products text-center grid-style-2">
-                        <div className="title-wrapper">
-                          <p className="name product-title">
-                            <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-classic-10/">
-                              Chuck Taylor Classic
-                            </a>
-                          </p>
-                        </div>
-                        <div className="price-wrapper">
-                          <span className="price">
-                            <span className="woocommerce-Price-amount amount">
-                              1,250,000&nbsp;
-                              <span className="woocommerce-Price-currencySymbol">
-                                ₫
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                        <div className="add-to-cart-button">
-                          <a
-                            href="/converse/danh-muc/nu/?min_price=1120000&add-to-cart=901"
-                            rel="nofollow"
-                            data-product_id={901}
-                            className="ajax_add_to_cart add_to_cart_button product_type_simple button primary is-flat mb-0 is-small"
-                          >
-                            Thêm vào giỏ
-                          </a>
-                        </div>{" "}
-                      </div>
-                      {/* box-text */}
-                    </div>
-                    {/* box */}
-                  </div>
-                  {/* .col-inner */}
-                </div>
-                {/* col */}
-                <div className="product-small col has-hover post-902 product type-product status-publish has-post-thumbnail product_cat-classic-nu product_cat-nu first instock shipping-taxable purchasable product-type-simple">
-                  <div className="col-inner">
-                    <div className="badge-container absolute left top z-1"></div>
-                    <div className="product-small box ">
-                      <div className="box-image">
-                        <div className="image-fade_in_back">
-                          <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-classic-11/">
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-6-300x225.jpg"
-                              className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                              alt=""
-                            />
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-6-1-300x225.jpg"
-                              className="show-on-hover absolute fill hide-for-small back-image"
-                              alt=""
-                            />{" "}
-                          </a>
-                        </div>
-                        <div className="image-tools is-small top right show-on-hover"></div>
-                        <div className="image-tools is-small hide-for-small bottom left show-on-hover"></div>
-                        <div className="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
-                      </div>
-                      {/* box-image */}
-                      <div className="box-text box-text-products text-center grid-style-2">
-                        <div className="title-wrapper">
-                          <p className="name product-title">
-                            <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-classic-11/">
-                              Chuck Taylor Classic
-                            </a>
-                          </p>
-                        </div>
-                        <div className="price-wrapper">
-                          <span className="price">
-                            <span className="woocommerce-Price-amount amount">
-                              1,250,000&nbsp;
-                              <span className="woocommerce-Price-currencySymbol">
-                                ₫
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                        <div className="add-to-cart-button">
-                          <a
-                            href="/converse/danh-muc/nu/?min_price=1120000&add-to-cart=902"
-                            rel="nofollow"
-                            data-product_id={902}
-                            className="ajax_add_to_cart add_to_cart_button product_type_simple button primary is-flat mb-0 is-small"
-                          >
-                            Thêm vào giỏ
-                          </a>
-                        </div>{" "}
-                      </div>
-                      {/* box-text */}
-                    </div>
-                    {/* box */}
-                  </div>
-                  {/* .col-inner */}
-                </div>
-                {/* col */}
-                <div className="product-small col has-hover post-903 product type-product status-publish has-post-thumbnail product_cat-classic-nu product_cat-nu instock shipping-taxable purchasable product-type-simple">
-                  <div className="col-inner">
-                    <div className="badge-container absolute left top z-1"></div>
-                    <div className="product-small box ">
-                      <div className="box-image">
-                        <div className="image-fade_in_back">
-                          <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-classic-12/">
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-5-300x225.jpg"
-                              className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                              alt=""
-                            />
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-5-1-300x225.jpg"
-                              className="show-on-hover absolute fill hide-for-small back-image"
-                              alt=""
-                            />{" "}
-                          </a>
-                        </div>
-                        <div className="image-tools is-small top right show-on-hover"></div>
-                        <div className="image-tools is-small hide-for-small bottom left show-on-hover"></div>
-                        <div className="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
-                      </div>
-                      {/* box-image */}
-                      <div className="box-text box-text-products text-center grid-style-2">
-                        <div className="title-wrapper">
-                          <p className="name product-title">
-                            <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-classic-12/">
-                              Chuck Taylor Classic
-                            </a>
-                          </p>
-                        </div>
-                        <div className="price-wrapper">
-                          <span className="price">
-                            <span className="woocommerce-Price-amount amount">
-                              1,250,000&nbsp;
-                              <span className="woocommerce-Price-currencySymbol">
-                                ₫
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                        <div className="add-to-cart-button">
-                          <a
-                            href="/converse/danh-muc/nu/?min_price=1120000&add-to-cart=903"
-                            rel="nofollow"
-                            data-product_id={903}
-                            className="ajax_add_to_cart add_to_cart_button product_type_simple button primary is-flat mb-0 is-small"
-                          >
-                            Thêm vào giỏ
-                          </a>
-                        </div>{" "}
-                      </div>
-                      {/* box-text */}
-                    </div>
-                    {/* box */}
-                  </div>
-                  {/* .col-inner */}
-                </div>
-                {/* col */}
-                <div className="product-small col has-hover post-904 product type-product status-publish has-post-thumbnail product_cat-classic-nu product_cat-nu instock shipping-taxable purchasable product-type-simple">
-                  <div className="col-inner">
-                    <div className="badge-container absolute left top z-1"></div>
-                    <div className="product-small box ">
-                      <div className="box-image">
-                        <div className="image-fade_in_back">
-                          <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-classic-13/">
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-4-300x225.jpg"
-                              className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                              alt=""
-                            />
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-4-1-300x225.jpg"
-                              className="show-on-hover absolute fill hide-for-small back-image"
-                              alt=""
-                            />{" "}
-                          </a>
-                        </div>
-                        <div className="image-tools is-small top right show-on-hover"></div>
-                        <div className="image-tools is-small hide-for-small bottom left show-on-hover"></div>
-                        <div className="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
-                      </div>
-                      {/* box-image */}
-                      <div className="box-text box-text-products text-center grid-style-2">
-                        <div className="title-wrapper">
-                          <p className="name product-title">
-                            <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-classic-13/">
-                              Chuck Taylor Classic
-                            </a>
-                          </p>
-                        </div>
-                        <div className="price-wrapper">
-                          <span className="price">
-                            <span className="woocommerce-Price-amount amount">
-                              1,250,000&nbsp;
-                              <span className="woocommerce-Price-currencySymbol">
-                                ₫
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                        <div className="add-to-cart-button">
-                          <a
-                            href="/converse/danh-muc/nu/?min_price=1120000&add-to-cart=904"
-                            rel="nofollow"
-                            data-product_id={904}
-                            className="ajax_add_to_cart add_to_cart_button product_type_simple button primary is-flat mb-0 is-small"
-                          >
-                            Thêm vào giỏ
-                          </a>
-                        </div>{" "}
-                      </div>
-                      {/* box-text */}
-                    </div>
-                    {/* box */}
-                  </div>
-                  {/* .col-inner */}
-                </div>
-                {/* col */}
-
-                <div className="product-small col has-hover post-905 product type-product status-publish has-post-thumbnail product_cat-classic-nu product_cat-nu last instock shipping-taxable purchasable product-type-simple">
-                  <div className="col-inner">
-                    <div className="badge-container absolute left top z-1"></div>
-                    <div className="product-small box ">
-                      <div className="box-image">
-                        <div className="image-fade_in_back">
-                          <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-classic-14/">
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-3-300x225.jpg"
-                              className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                              alt=""
-                            />
-                            <img
-                              width={300}
-                              height={225}
-                              src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-3-1-300x225.jpg"
-                              className="show-on-hover absolute fill hide-for-small back-image"
-                              alt=""
-                            />{" "}
-                          </a>
-                        </div>
-                        <div className="image-tools is-small top right show-on-hover"></div>
-                        <div className="image-tools is-small hide-for-small bottom left show-on-hover"></div>
-                        <div className="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover"></div>
-                      </div>
-                      {/* box-image */}
-                      <div className="box-text box-text-products text-center grid-style-2">
-                        <div className="title-wrapper">
-                          <p className="name product-title">
-                            <a href="http://mauweb.monamedia.net/converse/san-pham/chuck-taylor-classic-14/">
-                              Chuck Taylor Classic
-                            </a>
-                          </p>
-                        </div>
-                        <div className="price-wrapper">
-                          <span className="price">
-                            <span className="woocommerce-Price-amount amount">
-                              1,250,000&nbsp;
-                              <span className="woocommerce-Price-currencySymbol">
-                                ₫
-                              </span>
-                            </span>
-                          </span>
-                        </div>
-                        <div className="add-to-cart-button">
-                          <a
-                            href="/converse/danh-muc/nu/?min_price=1120000&add-to-cart=905"
-                            rel="nofollow"
-                            data-product_id={905}
-                            className="ajax_add_to_cart add_to_cart_button product_type_simple button primary is-flat mb-0 is-small"
-                          >
-                            Thêm vào giỏ
-                          </a>
-                        </div>{" "}
-                      </div>
-                      {/* box-text */}
-                    </div>
-                    {/* box */}
-                  </div>
-                  {/* .col-inner */}
-                </div>
-                {/* col */}
-              </div>
-              {/* row */}
-              <div className="container">
-                <nav className="woocommerce-pagination">
-                  <ul className="page-numbers nav-pagination links text-center">
-                    <li>
-                      <span aria-current="page" className="page-number current">
-                        1
-                      </span>
-                    </li>
-                    <li>
-                      <a
-                        className="page-number"
-                        href="http://mauweb.monamedia.net/converse/danh-muc/nu/page/2/?min_price=1120000"
-                      >
-                        2
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="next page-number"
-                        href="http://mauweb.monamedia.net/converse/danh-muc/nu/page/2/?min_price=1120000"
-                      >
-                        <i className="icon-angle-right" />
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-            {/* shop container */}
-          </div>
-        </div>
-      </main>
     </div>
-  );
-};
+  )
+}
 
-export default Products;
+export default products

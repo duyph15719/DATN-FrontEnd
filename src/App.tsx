@@ -6,7 +6,7 @@ import Homepage from "./pages/Homepage";
 import "antd/dist/antd.css";
 import About from "./pages/About/About";
 import Products from "./pages/ProductList/products";
-import Lienhe from "./pages/lienhe";
+import Lienhe from "./pages/Lienhe/lienhe";
 
 
 
@@ -32,7 +32,9 @@ import NewsDetail from "./pages/News/Newsdetail";
 import NewsPage from "./pages/News/News";
 import UserEdit from "./pages/admin/User/UserEdit";
 import UserAdd from "./pages/admin/User/UserAdd";
-import DetailProduct from "./pages/detailProduct";
+import DetailProduct from "./pages/ProductList/detailProduct";
+import ProductList from "./pages/admin/Product/AddProduct";
+import ListProduct from "./pages/admin/Product/ListProduct";
 
 
 
@@ -47,11 +49,12 @@ function App() {
         <Route path={"/products"} element={<Products />} />
         <Route path={"/lienhe"} element={<Lienhe />} />
         <Route path={"/detailProduct"} element={<DetailProduct />} />
+        <Route path={"/NewsPage"} element={<NewsPage />} />
         <Route path="news" >
-          <Route index element={<NewsPage  />} />
-      
+          <Route index element={<NewsPage />} />
+
         </Route>
-        <Route path={"/a"} element={< NewsDetail/>} />
+        <Route path={"/a"} element={< NewsDetail />} />
         <Route path={"/newsdetail"} element={<NewsDetail />} />
         <Route path="cart" element={<Cart />} />
         <Route path="pay" element={<Pay />} />
@@ -59,10 +62,14 @@ function App() {
       </Route>
       <Route path="admin" element={<AdminLayout />}>
         {/* <Route index element={<Dashbroad />} /> */}
+        <Route path="product">
+          <Route index element={<ListProduct />} />
+          <Route path='add' element={<ProductList />} />
+        </Route>
         <Route path="categories">
           <Route index element={<Categories />} />
-        
-     
+
+
         </Route>
         <Route path="user">
           <Route index element={<Users />} />
@@ -79,7 +86,8 @@ function App() {
           <Route path='add' element={<CommentAdd />} />
           <Route path='edit/:id' element={<CommentEdit />} />
         </Route>
-        </Route>
+
+      </Route>
       <Route path="*" element={<ErrorsWeb />} />
     </Routes>
   );

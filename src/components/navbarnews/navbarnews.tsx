@@ -1,7 +1,7 @@
 import React from "react";
 const NavBarNews = () => {
   return (
-    <div className="nav__news__page">
+    <div className="nav__news__page md:block hidden">
       <div className="inp__search">
         <input type="text" placeholder="tìm kiếm" />
         <button>

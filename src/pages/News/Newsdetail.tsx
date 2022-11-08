@@ -5,12 +5,12 @@ import "./News.css";
 
 const NewsDetail = () => {
   return (
-    <div className="news__page">
-      <NavBarNews />
+    <div className="w-[100%]">
+    
       <div className="content__news">
-        <div className="header__content__news">
+        <div className="header__content__news w-[100]">
           <div className="category__news">
-            <a href="">tin tức</a>
+            <a href="">Tin Tức</a>
           </div>
           <h3 className="title__content__news">
             Converse sẽ mang Golf le Fleur* Chuck 70 về Việt Nam?
@@ -61,34 +61,7 @@ const NewsDetail = () => {
           </p>
         </div>
 
-        <div className="comment__news">
-          <h3 className="title__comment__news">Tra loi</h3>
-          <p>
-            Email của bạn sẽ không được hiển thị công khai. Các trường bắt buộc
-            được đánh dấu *
-          </p>
-          <div className="item__form__comment">
-            <label htmlFor="">Binh luan</label>
-            <textarea name="" id=""></textarea>
-          </div>
-          <div className="list__form__inp">
-            <div className="item__form__inp">
-              <label htmlFor="">Ten</label>
-              <input type="text" />
-            </div>
-            <div className="item__form__inp">
-              <label htmlFor="">Email</label>
-              <input type="text" />
-            </div>
-            <div className="item__form__inp">
-              <label htmlFor="">Trang Web</label>
-              <input type="text" />
-            </div>
-          </div>
-          <div>
-            <button className="btn__comment">phan hoi</button>
-          </div>
-        </div>
+      
       </div>
     </div>
   );
