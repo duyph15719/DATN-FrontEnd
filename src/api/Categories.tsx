@@ -17,5 +17,5 @@ export const addCategory = (categori: ICategori) => {
     return instance.post(`/category`, categori)
 }
 export const updateCategory = (categori: ICategori) => {
-    return instance.put(`/categories/${categori.id}`, categori)
+    return instance.put(`/category/${categori._id}`, categori)
 }

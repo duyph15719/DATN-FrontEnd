@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { categoriesList, categoriesRemove } from '../../../redux/slice/categoriesSlice';
 import Swal from 'sweetalert2'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Button } from 'antd/lib/radio';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
@@ -25,7 +25,6 @@ type Props = {
 }
 
 const Categories = (props: Props) => {
-
   const dispatch = useAppDispatch()
   const { categories } = useAppSelector((state: any) => state.CategoriesReducer)
   const remove = (id: any) => {
@@ -66,7 +65,8 @@ const Categories = (props: Props) => {
         <Space size="middle">
 
           <DeleteOutlined onClick={() => remove(item.id)}>Delete</DeleteOutlined>
-          <EditOutlined />
+
+          <Link to={`edit/${item.id}`}><EditOutlined /></Link>
         </Space>
       ),
     },

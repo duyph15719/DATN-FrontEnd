@@ -36,7 +36,7 @@ const items: MenuItem[] = [
   getItem('Danh sách danh mục', 'sub2', <MailOutlined />, [
     getItem(<Link to="/admin/categories">Danh sách danh mục</Link>, '2', <LaptopOutlined />),
     getItem(<Link to="/admin/categories/add">Thêm danh mục</Link>, '3', <CustomerServiceFilled />),
-    getItem(<Link to="/admin/categories/edit">Sửa danh mục</Link>, '4', <ApiFilled />),
+
   ]),
   getItem('Danh mục 2', 'sub3', <AndroidFilled />, [
     getItem(<Link to="/admin">Danh sách</Link>, '5', <UnorderedListOutlined />),

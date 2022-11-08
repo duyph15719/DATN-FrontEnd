@@ -1,7 +1,8 @@
 import { DeleteOutlined } from '@ant-design/icons';
-import { Space, Table, Tag } from 'antd';
+import { Button, Space, Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { productList, productRemove } from '../../../redux/slice/productSlice';
@@ -77,7 +78,14 @@ const ListProduct = (props: Props) => {
     }, [dispatch])
     if (!products) return <div>Loading...</div>
     return (
-        <Table columns={columns} dataSource={dataTable} />
+        <div>
+
+            <Link to={'/admin/product/add'}>
+                <Button type="primary" style={{ borderRadius: '5px', backgroundColor: '#40A9FF' }}>Thêm Danh mục</Button>
+            </Link>
+            <Table columns={columns} dataSource={dataTable} />
+        </div>
+
     )
 }
 

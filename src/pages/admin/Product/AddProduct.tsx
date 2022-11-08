@@ -32,8 +32,8 @@ const ProductList = (props: Props) => {
     <div>
       <Form
         name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
+        labelCol={{ span: 2 }}
+        wrapperCol={{ span: 20 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -55,11 +55,9 @@ const ProductList = (props: Props) => {
           <Input />
         </Form.Item>
 
-        <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+
+        <Form.Item wrapperCol={{ offset: 2, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
