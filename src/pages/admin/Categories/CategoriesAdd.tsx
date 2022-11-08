@@ -2,14 +2,26 @@ import React from 'react'
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useAppDispatch } from '../../../redux/hook';
 import { addCategories } from '../../../redux/slice/categoriesSlice';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
 type Props = {}
 
 const CategoriesAdd = (props: Props) => {
     const dispatch = useAppDispatch()
+    const navigation = useNavigate()
     const onFinish = async (values: any) => {
         dispatch(addCategories(values)).unwrap()
             .then(() => {
-                alert("success")
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thêm thành công',
+                    timer: 1000,
+                    showConfirmButton: false,
+                })
+                setTimeout(() => {
+                    navigation("/admin/categories")
+                }, 1200);
+
             })
             .catch((err: any) => alert(err))
         console.log(values);

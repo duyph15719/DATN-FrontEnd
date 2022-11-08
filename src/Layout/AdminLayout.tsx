@@ -29,42 +29,42 @@ function getItem(
 
 const items: MenuItem[] = [
   getItem('Sản phẩm', 'sub1', <AndroidFilled />, [
-    getItem(<Link to="/admin/user">Danh sách</Link>, '1', <UnorderedListOutlined />),
+    getItem(<Link to="/admin/product">Danh sách</Link>, '1', <UnorderedListOutlined />),
 
 
   ]),
-  getItem('Danh mục 1', 'sub2', <MailOutlined />, [
-    getItem(<Link to="/admin">Loại Hàng A</Link>, '5', <LaptopOutlined />),
-    getItem(<Link to="/admin/categories">Loại Hàng B</Link>, '2', <CustomerServiceFilled />),
-    getItem(<Link to="/admin/user">Loại Hàng C</Link>, '3', <ApiFilled />),
+  getItem('Danh sách danh mục', 'sub2', <MailOutlined />, [
+    getItem(<Link to="/admin/categories">Danh sách danh mục</Link>, '2', <LaptopOutlined />),
+    getItem(<Link to="/admin/categories/add">Thêm danh mục</Link>, '3', <CustomerServiceFilled />),
+    getItem(<Link to="/admin/categories/edit">Sửa danh mục</Link>, '4', <ApiFilled />),
   ]),
   getItem('Danh mục 2', 'sub3', <AndroidFilled />, [
+    getItem(<Link to="/admin">Danh sách</Link>, '5', <UnorderedListOutlined />),
     getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '7', <UnorderedListOutlined />),
   ]),
   getItem('Danh mục 3', 'sub4', <AndroidFilled />, [
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '8', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '9', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '10', <UnorderedListOutlined />),
   ]),
   getItem('Danh mục 4', 'sub4', <AndroidFilled />, [
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '11', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '12', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '13', <UnorderedListOutlined />),
   ]),
   getItem('Danh mục 5', 'sub4', <AndroidFilled />, [
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '14', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '15', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '16', <UnorderedListOutlined />),
   ]),
   getItem('Danh mục 6', 'sub4', <AndroidFilled />, [
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '17', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '18', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Danh sách</Link>, '19', <UnorderedListOutlined />),
   ]),
-  
-  
+
+
 
 ];
 const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
