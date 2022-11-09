@@ -1,10 +1,11 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Image, Space, Table, Tag } from 'antd';
+import { Button, Image, Space, Table, TableProps, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import { categoriesList } from '../../../redux/slice/categoriesSlice';
 import { productList, productRemove } from '../../../redux/slice/productSlice';
 
 
@@ -15,6 +16,7 @@ type Props = {}
 const ListProduct = (props: Props) => {
     const dispatch = useAppDispatch()
     const { products } = useAppSelector(state => state.ProductReducer)
+    const { categories } = useAppSelector((state: any) => state.CategoriesReducer)
     const dataTable = products.map((item: any) => {
         return {
             name: item.name,
@@ -68,8 +70,18 @@ const ListProduct = (props: Props) => {
         {
             title: 'Category',
             dataIndex: 'category',
-            key: 'categoryId',
+            key: 'category',
+            filters:
+                categories.map((item: any) => {
+                    return {
+                        text: item.name,
+                        value: item.name,
+                    }
+                })
+            ,
+            onFilter: (value: string, record: any) => record.category.includes(value),
         },
+
         {
             title: 'Image',
             dataIndex: 'image',
@@ -88,9 +100,13 @@ const ListProduct = (props: Props) => {
         },
     ];
     useEffect(() => {
+        dispatch(categoriesList())
         dispatch(productList())
     }, [dispatch])
     if (!products) return <div>Loading...</div>
+
+    console.log(categories);
+
 
     return (
         <div>
