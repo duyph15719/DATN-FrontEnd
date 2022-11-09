@@ -22,7 +22,7 @@ const EditProduct = (props: Props) => {
     const onFinish = async (values: any) => {
         // console.log(values);
         values._id = id
-        dispatch(productUpdate(values)).unwrap()
+        dispatch(productUpdate({ ...values, image: Url })).unwrap()
             .then(() => {
                 Swal.fire({
                     icon: 'success',
