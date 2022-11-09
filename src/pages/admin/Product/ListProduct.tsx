@@ -1,5 +1,5 @@
-import { DeleteOutlined } from '@ant-design/icons';
-import { Button, Space, Table, Tag } from 'antd';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Button, Image, Space, Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -19,7 +19,10 @@ const ListProduct = (props: Props) => {
         return {
             name: item.name,
             price: item.price,
-            id: item._id
+            description: item.description,
+            id: item._id,
+            image: item.image,
+            category: item.categoryId?.name
         }
 
     })
@@ -58,9 +61,19 @@ const ListProduct = (props: Props) => {
             key: 'price',
         },
         {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
+            title: 'Description',
+            dataIndex: 'description',
+            key: 'description',
+        },
+        {
+            title: 'Category',
+            dataIndex: 'category',
+            key: 'categoryId',
+        },
+        {
+            title: 'Image',
+            dataIndex: 'image',
+            render: (image: any) => <Image width={100} src={image}></Image>
         },
         {
             title: 'Action',
@@ -69,6 +82,7 @@ const ListProduct = (props: Props) => {
                 <Space size="middle">
 
                     <DeleteOutlined onClick={() => remove(item.id)}>Delete</DeleteOutlined>
+                    <Link to={`edit/${item.id}`}><EditOutlined /></Link>
                 </Space>
             ),
         },
@@ -77,6 +91,7 @@ const ListProduct = (props: Props) => {
         dispatch(productList())
     }, [dispatch])
     if (!products) return <div>Loading...</div>
+
     return (
         <div>
 

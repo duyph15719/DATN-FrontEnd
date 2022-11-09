@@ -37,6 +37,7 @@ import ProductList from "./pages/admin/Product/AddProduct";
 import ListProduct from "./pages/admin/Product/ListProduct";
 import CategoriesAdd from "./pages/admin/Categories/CategoriesAdd";
 import CategoriesEdit from "./pages/admin/Categories/CategoriesEdit";
+import EditProduct from "./pages/admin/Product/EditProducts";
 
 
 
@@ -67,6 +68,7 @@ function App() {
         <Route path="product">
           <Route index element={<ListProduct />} />
           <Route path='add' element={<ProductList />} />
+          <Route path='edit/:id' element={<EditProduct />} />
         </Route>
         <Route path="categories">
           <Route index element={<Categories />} />
