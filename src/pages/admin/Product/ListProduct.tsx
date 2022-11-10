@@ -80,6 +80,7 @@ const ListProduct = (props: Props) => {
                 })
             ,
             onFilter: (value: string, record: any) => record.category.includes(value),
+            filterSearch: true,
         },
 
         {
