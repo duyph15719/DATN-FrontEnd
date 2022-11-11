@@ -49,7 +49,7 @@ const ProductList = (props: Props) => {
   };
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
-
+  const { size } = useAppSelector((state: any) => state.SizeReducer)
 
   const [Url, setUrl] = useState();
   const uploadImage = async (options: any) => {
@@ -118,6 +118,20 @@ const ProductList = (props: Props) => {
 
           >
             {categories?.map((item: any) => (
+
+              <Option value={item._id}>{item.name}</Option>
+
+            ))}
+
+          </Select>
+        </Form.Item>
+        <Form.Item name="idSize" label="Size" rules={[{ required: true }]}>
+          <Select mode="multiple"
+            placeholder="Select a option and change input text above"
+            allowClear
+
+          >
+            {size?.map((item: any) => (
 
               <Option value={item._id}>{item.name}</Option>
 
