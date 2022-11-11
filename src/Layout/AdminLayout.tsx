@@ -38,10 +38,9 @@ const items: MenuItem[] = [
     getItem(<Link to="/admin/categories/add">Thêm danh mục</Link>, '3', <CustomerServiceFilled />),
 
   ]),
-  getItem('Danh mục 2', 'sub3', <AndroidFilled />, [
-    getItem(<Link to="/admin">Danh sách</Link>, '5', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '7', <UnorderedListOutlined />),
+  getItem('Color', 'sub3', <AndroidFilled />, [
+    getItem(<Link to="/admin/color">Danh sách</Link>, '5', <UnorderedListOutlined />),
+    getItem(<Link to="/admin/color/add">Add Color</Link>, '6', <UnorderedListOutlined />),
   ]),
   getItem('Danh mục 3', 'sub4', <AndroidFilled />, [
     getItem(<Link to="/admin">Danh sách</Link>, '8', <UnorderedListOutlined />),
