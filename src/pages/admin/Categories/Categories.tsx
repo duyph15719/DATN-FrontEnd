@@ -3,7 +3,11 @@
 import { Space, Table, Tag } from 'antd';
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
-import { categoriesList } from '../../../redux/slice/categoriesSlice';
+import { categoriesList, categoriesRemove } from '../../../redux/slice/categoriesSlice';
+import Swal from 'sweetalert2'
+import { Link, useParams } from 'react-router-dom';
+import { Button } from 'antd/lib/radio';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 const { Column, ColumnGroup } = Table;
 interface DataType {
@@ -15,41 +19,62 @@ interface DataType {
   tags: string[];
 }
 
-const columns: any = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
 
-  },
-  {
-    title: 'Price',
-    dataIndex: 'price',
-    key: 'price',
-  },
-
-  {
-    title: 'Action',
-    key: 'action',
-    render: (item: any) => (
-      <Space size="middle">
-        <a> {item.name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
-  },
-];
 type Props = {
 
 }
 
 const Categories = (props: Props) => {
   const dispatch = useAppDispatch()
-  const { categories } = useAppSelector(state => state.CategoriesReducer)
+  const { categories } = useAppSelector((state: any) => state.CategoriesReducer)
+  const remove = (id: any) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed)
+        dispatch(categoriesRemove(id))
+      {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+
+  }
+  const columns: any = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+
+    },
+
+
+    {
+      title: 'Action',
+      key: 'action',
+      render: (item: any) => (
+        <Space size="middle">
+
+          <DeleteOutlined onClick={() => remove(item.id)}>Delete</DeleteOutlined>
+
+          <Link to={`edit/${item.id}`}><EditOutlined /></Link>
+        </Space>
+      ),
+    },
+  ];
   const dataTable = categories.map((item: any) => {
     return {
-      name: item.name
-
+      name: item.name,
+      id: item._id
     }
 
   })
@@ -58,7 +83,13 @@ const Categories = (props: Props) => {
   }, [dispatch])
   if (!categories) return <div>Loading...</div>
   return (
-    <Table columns={columns} dataSource={dataTable} />
+    <div className="pt-10">
+      <Link to={'/admin/categories/add'}>
+        <Button type="primary" style={{ borderRadius: '5px', backgroundColor: '#40A9FF' }}>Thêm Danh mục</Button>
+      </Link>
+      <Table columns={columns} dataSource={dataTable} />
+    </div>
+
   )
 }
 

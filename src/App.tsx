@@ -35,6 +35,12 @@ import UserAdd from "./pages/admin/User/UserAdd";
 import DetailProduct from "./pages/ProductList/detailProduct";
 import ProductList from "./pages/admin/Product/AddProduct";
 import ListProduct from "./pages/admin/Product/ListProduct";
+import CategoriesAdd from "./pages/admin/Categories/CategoriesAdd";
+import CategoriesEdit from "./pages/admin/Categories/CategoriesEdit";
+import EditProduct from "./pages/admin/Product/EditProducts";
+import BannerAdd from "./pages/admin/Banner/BannerAdd";
+import ListBanner from "./pages/admin/Banner/ListProduct";
+import EditBanner from "./pages/admin/Banner/EditBanner";
 
 
 
@@ -65,11 +71,12 @@ function App() {
         <Route path="product">
           <Route index element={<ListProduct />} />
           <Route path='add' element={<ProductList />} />
+          <Route path='edit/:id' element={<EditProduct />} />
         </Route>
         <Route path="categories">
           <Route index element={<Categories />} />
-
-
+          <Route path='add' element={<CategoriesAdd />} />
+          <Route path='edit/:id' element={<CategoriesEdit />} />
         </Route>
         <Route path="user">
           <Route index element={<Users />} />
@@ -80,6 +87,11 @@ function App() {
           <Route index element={<Blog />} />
           <Route path='add' element={<BlogAdd />} />
           <Route path='edit/:id' element={<BlogEdit />} />
+        </Route>
+        <Route path='Banner'>
+          <Route index element={<ListBanner />} />
+          <Route path='add' element={<BannerAdd />} />
+          <Route path='edit/:id' element={<EditBanner />} />
         </Route>
         <Route path='comment'>
           <Route index element={<Comment />} />

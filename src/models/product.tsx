@@ -1,5 +1,5 @@
 export type ProductType = {
-    id?:any,
+    _id?: any,
     name: string;
     image: string,
     saleOffPrice: number;
@@ -7,8 +7,8 @@ export type ProductType = {
     description: string;
     status: number,
     favorites?: number,
-    categoryId: string| any,
-    
+    categoryId: string | any,
+
 }
 export type FavoritesProductType = {
     _id?: string,

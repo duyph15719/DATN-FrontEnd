@@ -3,7 +3,9 @@ import { combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import ProductReducer from './slice/productSlice'
 import CategoriesReducer from './slice/categoriesSlice'
+import BannerReducer from './slice/BannerSlice'
 import ColorReducer from './slice/colorList'
+
 const persistConfig = {
     key: "root",
     storage,
@@ -12,6 +14,7 @@ const persistConfig = {
 const reducers = combineReducers({
     ProductReducer,
     CategoriesReducer,
+    BannerReducer,
     ColorReducer
 
 });
