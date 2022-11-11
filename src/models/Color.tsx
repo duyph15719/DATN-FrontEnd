@@ -1,5 +1,5 @@
-export type ColorType = {
-    _id?: string,
+export type IColor = {
+    id?: string,
     name: string,
     price: number,
 }
