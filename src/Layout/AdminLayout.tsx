@@ -42,7 +42,7 @@ const items: MenuItem[] = [
   getItem('Color', 'sub3', <AndroidFilled />, [
     getItem(<Link to="/admin/color">Danh sách</Link>, '5', <UnorderedListOutlined />),
     getItem(<Link to="/admin/color/add">Add Color</Link>, '6', <UnorderedListOutlined />),
-
+  ]),
   getItem('Quản Lý Banner', 'sub10', <AndroidFilled />, [
     getItem(<Link to="/admin/banner">Danh sách Banner</Link>, '5', <UnorderedListOutlined />),
     getItem(<Link to="/admin/add">Thêm Banner</Link>, '6', <UnorderedListOutlined />),
@@ -72,7 +72,8 @@ const items: MenuItem[] = [
 
 
 
-];
+
+]
 const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
 const AdminLayout = () => {
 

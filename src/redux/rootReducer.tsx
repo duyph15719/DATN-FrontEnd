@@ -20,7 +20,7 @@ const reducers = combineReducers({
     CategoriesReducer,
     BannerReducer,
 
-    ColorReducer
+    ColorReducer,
 
     SizeReducer
 
