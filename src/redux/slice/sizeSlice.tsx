@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { addCategory } from '../../api/Categories';
 
-import { listSize, removeSize, updateSize } from '../../api/size';
+import { addSize, listSize, removeSize, updateSize } from '../../api/size';
 
 
 
@@ -12,7 +12,7 @@ const initialState: any = {
 export const addsize = createAsyncThunk(
     "size/addsize",
     async (size: any) => {
-        const { data } = await addCategory(size)
+        const { data } = await addSize(size)
         return data;
     }
 )
