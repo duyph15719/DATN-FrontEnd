@@ -6,16 +6,16 @@ export const listColor =() =>{
 }
 
 export const readColor =(id:string|number) =>{
-    return instance.get(`/colors/${id}`)
+    return instance.get(`/color/${id}`)
 }
 
 export const removeColor =(id:string|number) =>{
-    return instance.delete(`/colors/${id}`)
+    return instance.delete(`/color/${id}`)
 }
 
 export const addColor =(Color:IColor) =>{
-    return instance.post(`/colors`,Color)
+    return instance.post(`/color`,Color)
 }
 export const updateColor =(Color:IColor) =>{
-    return instance.put(`/Color/${Color.id}`,Color)
+    return instance.put(`/color/${Color._id}`,Color)
 }

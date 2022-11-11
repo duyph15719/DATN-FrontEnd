@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
-import { Button, Checkbox, Form, Input } from 'antd';
-import { useAppDispatch, useAppSelector } from '../../../redux/hook';
-import { addCategories, categoriesList, updateCategories } from '../../../redux/slice/categoriesSlice';
-import Swal from 'sweetalert2';
+import { Button, Form, Input } from 'antd';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
+import Swal from 'sweetalert2';
+import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import { categoriesList, updateCategories } from '../../../redux/slice/categoriesSlice';
 type Props = {}
 
 const CategoriesEdit = (props: Props) => {
@@ -65,11 +65,6 @@ const CategoriesEdit = (props: Props) => {
         >
           <Input />
         </Form.Item>
-
-
-
-
-
         <Form.Item wrapperCol={{ offset: 3, span: 10 }}>
           <Button type="primary" htmlType="submit">
             Submit

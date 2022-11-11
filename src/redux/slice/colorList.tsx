@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { addColor, listColor } from '../../api/color';
+import { addColor, listColor,updateColor,removeColor } from '../../api/color';
 
 
 
@@ -8,16 +8,31 @@ const initialState: any = {
 }
 
 export const addColors = createAsyncThunk(
-    "colors/addcolors",
+    "color/addColor",
     async (colors: any) => {
         const { data } = await addColor(colors)
+        return data;
+    }
+)
+export const UpdateColor = createAsyncThunk(
+    "color/updateColor",
+    async (color: any) => {
+        const { data } = await updateColor(color)
+        return data;
+    }
+)
+export const ColorRemove = createAsyncThunk(
+    "color/ColorRemove",
+
+    async (id: any) => {
+        const { data } = await removeColor(id)
         return data;
     }
 )
 
 
 export const ColorList = createAsyncThunk(
-    "colors/colorsList",
+    "color/colorsList",
     async () => {
         const { data } = await listColor()
         return data;
@@ -25,22 +40,27 @@ export const ColorList = createAsyncThunk(
 )
 
 export const colorsSlice = createSlice({
-    name: "colors",
+    name: "color",
     initialState,
     reducers: {
     },
     extraReducers: (builder) => {
         builder.addCase(addColors.fulfilled, (state, action) => {
-            state.colors.push(action.payload)
+            state.color.push(action.payload)
         });
 
         builder.addCase(ColorList.fulfilled, (state, action) => {
-            state.colors = action.payload
+            state.color = action.payload
+        });
+        builder.addCase(ColorRemove.fulfilled, (state, action) => {
+            state.color = state.color.filter((item: any) => item._id !== action.payload._id)
+        });
+        builder.addCase(UpdateColor.fulfilled, (state, action) => {
+            state.color = state.color.map((item: any) => item._id == action.payload._id ? action.payload : item)
         });
     }
 }
 )
 
-// Action creators are generated for each case reducer function
 
 export default colorsSlice.reducer
