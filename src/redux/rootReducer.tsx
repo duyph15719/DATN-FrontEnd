@@ -4,7 +4,12 @@ import storage from "redux-persist/lib/storage";
 import ProductReducer from './slice/productSlice'
 import CategoriesReducer from './slice/categoriesSlice'
 import BannerReducer from './slice/BannerSlice'
+
+import ColorReducer from './slice/colorList'
+
+
 import SizeReducer from './slice/sizeSlice'
+
 const persistConfig = {
     key: "root",
     storage,
@@ -14,7 +19,11 @@ const reducers = combineReducers({
     ProductReducer,
     CategoriesReducer,
     BannerReducer,
+
+    ColorReducer
+
     SizeReducer
+
 
 });
 const rootReducer = persistReducer(persistConfig, reducers);

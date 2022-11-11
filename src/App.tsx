@@ -41,9 +41,15 @@ import EditProduct from "./pages/admin/Product/EditProducts";
 import BannerAdd from "./pages/admin/Banner/BannerAdd";
 import ListBanner from "./pages/admin/Banner/ListProduct";
 import EditBanner from "./pages/admin/Banner/EditBanner";
+
+import Color from "./pages/admin/Color/Color";
+import ColorAdd from "./pages/admin/Color/ColorAdd";
+import ColorEdit from "./pages/admin/Color/ColorEdit";
+
 import SizeList from "./pages/admin/Size/SizeList";
 import SizeAdd from "./pages/admin/Size/SizeAdd";
 import SizeEdit from "./pages/admin/Size/SizeEdit";
+
 
 
 
@@ -80,6 +86,11 @@ function App() {
           <Route index element={<Categories />} />
           <Route path='add' element={<CategoriesAdd />} />
           <Route path='edit/:id' element={<CategoriesEdit />} />
+        </Route>
+        <Route path="color">
+          <Route index element={<Color />} />
+          <Route path='add' element={<ColorAdd />} />
+          <Route path='edit/:id' element={<ColorEdit />} />
         </Route>
         <Route path="user">
           <Route index element={<Users />} />

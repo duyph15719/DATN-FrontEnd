@@ -3,29 +3,28 @@ import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
-import { categoriesList, updateCategories } from '../../../redux/slice/categoriesSlice';
+import { ColorList, UpdateColor } from '../../../redux/slice/colorList';
 type Props = {}
 
-const CategoriesEdit = (props: Props) => {
+const ColorEdit = (props: Props) => {
   const { id } = useParams()
-  const { categories } = useAppSelector((state: any) => state.CategoriesReducer)
+  const { color } = useAppSelector((state: any) => state.ColorReducer)
   const dispatch = useAppDispatch()
   const navigation = useNavigate()
   const [form] = Form.useForm()
 
   const onFinish = async (values: any) => {
-    // console.log(values);
     values._id = id
-    dispatch(updateCategories(values)).unwrap()
+    dispatch(UpdateColor(values)).unwrap()
       .then(() => {
         Swal.fire({
           icon: 'success',
-          title: 'Thêm thành công',
+          title: 'Sửa thành công',
           timer: 1000,
           showConfirmButton: false,
         })
         setTimeout(() => {
-          navigation("/admin/categories")
+          navigation("/admin/color")
         }, 1200);
 
       })
@@ -34,10 +33,10 @@ const CategoriesEdit = (props: Props) => {
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
-  const data = categories.find((item: any) => item._id == id)
+  const data = color.find((item: any) => item._id == id)
 
   useEffect(() => {
-    dispatch(categoriesList())
+    dispatch(ColorList())
     if (data) {
       form.setFieldsValue({
         ...data
@@ -61,7 +60,7 @@ const CategoriesEdit = (props: Props) => {
         <Form.Item
           label="Name"
           name="name"
-          rules={[{ required: true, message: 'Thiếu tên danh mục!' }]}
+          rules={[{ required: true, message: 'Thiếu tên màu!' }]}
         >
           <Input />
         </Form.Item>
@@ -77,4 +76,4 @@ const CategoriesEdit = (props: Props) => {
   )
 }
 
-export default CategoriesEdit
+export default ColorEdit
