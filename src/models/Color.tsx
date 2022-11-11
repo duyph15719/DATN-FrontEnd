@@ -1,5 +1,5 @@
 export type IColor = {
-    id?: string,
+    _id?: string,
     name: string,
     price: number,
 }
