@@ -41,6 +41,7 @@ import EditProduct from "./pages/admin/Product/EditProducts";
 import BannerAdd from "./pages/admin/Banner/BannerAdd";
 import ListBanner from "./pages/admin/Banner/ListProduct";
 import EditBanner from "./pages/admin/Banner/EditBanner";
+import SizeList from "./pages/admin/Size/SizeList";
 
 
 
@@ -90,6 +91,11 @@ function App() {
         </Route>
         <Route path='Banner'>
           <Route index element={<ListBanner />} />
+          <Route path='add' element={<BannerAdd />} />
+          <Route path='edit/:id' element={<EditBanner />} />
+        </Route>
+        <Route path='Size'>
+          <Route index element={<SizeList />} />
           <Route path='add' element={<BannerAdd />} />
           <Route path='edit/:id' element={<EditBanner />} />
         </Route>

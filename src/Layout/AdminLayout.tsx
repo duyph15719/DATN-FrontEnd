@@ -38,15 +38,15 @@ const items: MenuItem[] = [
     getItem(<Link to="/admin/categories/add">Thêm danh mục</Link>, '3', <CustomerServiceFilled />),
 
   ]),
-  getItem('Danh mục 2', 'sub3', <AndroidFilled />, [
-    getItem(<Link to="/admin">Danh sách</Link>, '5', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '6', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '7', <UnorderedListOutlined />),
+  getItem('Quản Lý Banner', 'sub3', <AndroidFilled />, [
+    getItem(<Link to="/admin/banner">Danh sách Banner</Link>, '5', <UnorderedListOutlined />),
+    getItem(<Link to="/admin/add">Thêm Banner</Link>, '6', <UnorderedListOutlined />),
+
   ]),
-  getItem('Danh mục 3', 'sub4', <AndroidFilled />, [
-    getItem(<Link to="/admin">Danh sách</Link>, '8', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '9', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '10', <UnorderedListOutlined />),
+  getItem('Quản lý Size', 'sub4', <AndroidFilled />, [
+    getItem(<Link to="/admin/size">Danh sách size</Link>, '8', <UnorderedListOutlined />),
+    getItem(<Link to="/admin">Thêm Size</Link>, '9', <UnorderedListOutlined />),
+
   ]),
   getItem('Danh mục 4', 'sub4', <AndroidFilled />, [
     getItem(<Link to="/admin">Danh sách</Link>, '11', <UnorderedListOutlined />),
