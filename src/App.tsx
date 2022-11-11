@@ -38,6 +38,9 @@ import ListProduct from "./pages/admin/Product/ListProduct";
 import CategoriesAdd from "./pages/admin/Categories/CategoriesAdd";
 import CategoriesEdit from "./pages/admin/Categories/CategoriesEdit";
 import EditProduct from "./pages/admin/Product/EditProducts";
+import BannerAdd from "./pages/admin/Banner/BannerAdd";
+import ListBanner from "./pages/admin/Banner/ListProduct";
+import EditBanner from "./pages/admin/Banner/EditBanner";
 
 
 
@@ -84,6 +87,11 @@ function App() {
           <Route index element={<Blog />} />
           <Route path='add' element={<BlogAdd />} />
           <Route path='edit/:id' element={<BlogEdit />} />
+        </Route>
+        <Route path='Banner'>
+          <Route index element={<ListBanner />} />
+          <Route path='add' element={<BannerAdd />} />
+          <Route path='edit/:id' element={<EditBanner />} />
         </Route>
         <Route path='comment'>
           <Route index element={<Comment />} />

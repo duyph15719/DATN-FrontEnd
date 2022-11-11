@@ -58,7 +58,7 @@ const Header = (props: Props) => {
   );
 
   const cart = <div>Chưa có gì trong giỏ hàng</div>;
-  
+
   const dropdown = (
     <>
       <li className="w-48 p-3  hover:bg-[#DCDCDC]">
@@ -290,20 +290,20 @@ const Header = (props: Props) => {
       <section className='bg-[#DCDCDC] hidden'>
         <nav className="max-w-6xl mx-auto">
           <ul className="p-3 text-center">
-            <li className="inline-block p-3"><Link to="">TRANG CHỦ</Link></li>
-            <li className="inline-block p-3"><Link to="about">GIỚI THIỆU</Link></li>
-            <li className="inline-block p-3"><Link to="">NỮ</Link></li>
+            <li className="inline-block p-3"><Link className="text-black " to="">TRANG CHỦ</Link></li>
+            <li className="inline-block p-3"><Link className="text-black " to="about">GIỚI THIỆU</Link></li>
+            <li className="inline-block p-3"><Link className="text-black " to="">NỮ</Link></li>
             <li className="inline-block p-3">
-              <Link to="products">
+              <Link className="text-black " to="products">
                 <Popover className='pl-3' placement="bottom" content={dropdown} trigger="hover">
                   NAM
                 </Popover>
               </Link>
             </li>
-            <li className="inline-block p-3"><Link to="/detail">TRẺ EM</Link></li>
-            <li className="inline-block p-3"><Link to="">PHỤ KIỆN KHÁC</Link></li>
-            <li className="inline-block p-3"><Link to="news">TIN TỨC</Link></li>
-            <li className="inline-block p-3"><Link to="lienhe">LIÊN HỆ</Link></li>
+            <li className="inline-block p-3 text-black"><Link className="text-black " to="/detail">TRẺ EM</Link></li>
+            <li className="inline-block p-3"><Link className="text-black " to="">PHỤ KIỆN KHÁC</Link></li>
+            <li className="inline-block p-3"><Link className="text-black " to="news">TIN TỨC</Link></li>
+            <li className="inline-block p-3"><Link className="text-black " to="lienhe">LIÊN HỆ</Link></li>
           </ul>
         </nav>
       </section>
