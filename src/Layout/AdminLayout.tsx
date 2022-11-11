@@ -38,14 +38,21 @@ const items: MenuItem[] = [
     getItem(<Link to="/admin/categories/add">Thêm danh mục</Link>, '3', <CustomerServiceFilled />),
 
   ]),
+
   getItem('Color', 'sub3', <AndroidFilled />, [
     getItem(<Link to="/admin/color">Danh sách</Link>, '5', <UnorderedListOutlined />),
     getItem(<Link to="/admin/color/add">Add Color</Link>, '6', <UnorderedListOutlined />),
+
+  getItem('Quản Lý Banner', 'sub10', <AndroidFilled />, [
+    getItem(<Link to="/admin/banner">Danh sách Banner</Link>, '5', <UnorderedListOutlined />),
+    getItem(<Link to="/admin/add">Thêm Banner</Link>, '6', <UnorderedListOutlined />),
+
+
   ]),
-  getItem('Danh mục 3', 'sub4', <AndroidFilled />, [
-    getItem(<Link to="/admin">Danh sách</Link>, '8', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '9', <UnorderedListOutlined />),
-    getItem(<Link to="/admin">Danh sách</Link>, '10', <UnorderedListOutlined />),
+  getItem('Quản lý Size', 'sub4', <AndroidFilled />, [
+    getItem(<Link to="/admin/size">Danh sách size</Link>, '8', <UnorderedListOutlined />),
+    getItem(<Link to="/admin/size/add">Thêm Size</Link>, '9', <UnorderedListOutlined />),
+
   ]),
   getItem('Danh mục 4', 'sub4', <AndroidFilled />, [
     getItem(<Link to="/admin">Danh sách</Link>, '11', <UnorderedListOutlined />),

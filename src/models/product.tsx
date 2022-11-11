@@ -8,6 +8,7 @@ export type ProductType = {
     status: number,
     favorites?: number,
     categoryId: string | any,
+    idSize?: string
 
 }
 export type FavoritesProductType = {

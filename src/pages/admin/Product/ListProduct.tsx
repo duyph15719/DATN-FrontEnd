@@ -24,7 +24,8 @@ const ListProduct = (props: Props) => {
             description: item.description,
             id: item._id,
             image: item.image,
-            category: item.categoryId?.name
+            category: item.categoryId?.name,
+            size: item.idSize
         }
 
     })
@@ -66,6 +67,16 @@ const ListProduct = (props: Props) => {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            key: 'size',
+            render: (item: any) => (
+                item.map((x: any) => (
+                    x.name + "   "
+                ))
+            )
         },
         {
             title: 'Category',
