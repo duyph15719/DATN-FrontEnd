@@ -17,5 +17,5 @@ export const addSize = (size: SizeType) => {
     return instance.post(`/size`, size)
 }
 export const updateSize = (size: SizeType) => {
-    return instance.put(`/size/${size.id}`, size)
+    return instance.put(`/size/${size._id}`, size)
 }

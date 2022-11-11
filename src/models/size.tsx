@@ -1,5 +1,5 @@
 export type SizeType = {
-    id?: string,
+    _id?: string,
     name: string,
     priceIncrease: number,
 }
