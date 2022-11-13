@@ -49,6 +49,7 @@ import ColorEdit from "./pages/admin/Color/ColorEdit";
 import SizeList from "./pages/admin/Size/SizeList";
 import SizeAdd from "./pages/admin/Size/SizeAdd";
 import SizeEdit from "./pages/admin/Size/SizeEdit";
+import ProductsList from "./pages/ProductList/products";
 
 
 
@@ -61,7 +62,7 @@ function App() {
       <Route path={"/"} element={<Layoutclient />}>
         <Route index element={<Homepage />} />
         <Route path={"/about"} element={<About />} />
-        <Route path={"/products"} element={<Products />} />
+        <Route path={"/products"} element={<ProductsList />} />
         <Route path={"/lienhe"} element={<Lienhe />} />
         <Route path={"/detailProduct"} element={<DetailProduct />} />
         <Route path={"/NewsPage"} element={<NewsPage />} />
