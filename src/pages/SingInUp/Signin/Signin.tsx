@@ -1,10 +1,24 @@
 import React from 'react'
 import { Button, Checkbox, Form, Input } from 'antd';
-type Props = {}
+import { signin } from '../../../api/User';
+import { useNavigate } from "react-router-dom";
+import { SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
+type Props = {
+  email: string
+  password: string}
 
-const Signin = (props: Props) => {
-    const onFinish = (values: any) => {
-        console.log('Success:', values);
+const Signin = () => {
+  const navigate = useNavigate();
+    const onFinish: SubmitHandler<Props> = async dataInput => {
+      try {
+        await signin(dataInput);
+        localStorage.setItem("user", JSON.stringify(dataInput))
+        toast.success("Đăng nhập tài khoản thành công");
+        navigate("/");
+      } catch (error: any) {
+        toast.error(error.response.data.message);
+      }
       };
     
       const onFinishFailed = (errorInfo: any) => {
@@ -21,9 +35,9 @@ const Signin = (props: Props) => {
     autoComplete="off"
   >
     <Form.Item
-      label="Username"
-      name="username"
-      rules={[{ required: true, message: 'Please input your username!' }]}
+      label="Email"
+      name="email"
+      rules={[{ required: true, message: 'Please input your email!' }]}
     >
       <Input />
     </Form.Item>
