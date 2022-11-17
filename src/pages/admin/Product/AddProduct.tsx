@@ -9,12 +9,33 @@ import { uploadCloudinary } from '../../../api/upload';
 import { categoriesList } from '../../../redux/slice/categoriesSlice';
 import { sizeList } from '../../../redux/slice/sizeSlice';
 import { ColorList } from '../../../redux/slice/colorList';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 const { Option } = Select;
+
 type Props = {}
 
 
 
 const ProductList = (props: Props) => {
+  const modules = {
+    toolbar: [
+      [{ 'header': [1, 2, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+      ['link', 'image'],
+      ['clean']
+    ],
+  }
+
+  const formats = [
+    'header',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image'
+  ]
+
+  const [value, setValue] = useState('');
   const dispatch = useAppDispatch()
   const navigation = useNavigate()
   const onFinish = async (values: any) => {
@@ -97,13 +118,7 @@ const ProductList = (props: Props) => {
           <Input />
         </Form.Item>
 
-        <Form.Item
-          label="Description"
-          name="description"
-          rules={[{ required: true, message: 'Please input your description!' }]}
-        >
-          <Input />
-        </Form.Item>
+
 
         <Form.Item name="categoryId" label="Gender" rules={[{ required: true }]}>
           <Select
@@ -157,13 +172,23 @@ const ProductList = (props: Props) => {
             {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
           </Upload>
         </Form.Item>
+        <Form.Item
+          label="Description"
+          name="description"
+          rules={[{ required: true, message: 'Please input your description!' }]}
+        >
 
+
+          <ReactQuill modules={modules}
+            formats={formats} theme="snow" value={value} onChange={setValue} />
+        </Form.Item>
         <Form.Item wrapperCol={{ offset: 2, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>
       </Form>
+
     </div>
   )
 }

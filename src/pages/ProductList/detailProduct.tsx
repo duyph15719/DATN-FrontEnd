@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { productList } from '../../redux/slice/productSlice';
 import { categoriesList } from '../../redux/slice/categoriesSlice';
-
+const InnerHTML = require('dangerously-set-inner-html')
 
 type Props = {}
 const settings = {
@@ -76,13 +76,13 @@ const DetailProduct = (props: Props) => {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row pt-10">
           <div className="w-[100%] md:w-[50%]">
 
-            <img src={data.image} alt="" />
+            <img src={data?.image} alt="" />
           </div>
           <div className="w-[100%] md:w-[50%]">
 
             <div className="flex"><a className="text-gray-500 transition hover:text-black uppercase font-semibold text-sm block pr-4 relative after:content-[''] after:absolute after:top-1/2 after:-translate-y-1/2 after:right-2 after:w-[1px] after:h-3 after:rotate-12 after:bg-gray-400" href="/">Home</a><a className="text-gray-500 transition hover:text-black uppercase font-semibold text-sm" href=""> NAM</a></div>
-            <h1 className="font-semibold text-[28px] text-gray-800 pb-1 mb-3 relative after:content-[''] after:absolute after:top-[100%] after:left-0 after:w-8 after:h-1 after:bg-gray-300"> {data.name}</h1>
-            <div className="mt-1 my-2"><span className="text-3xl text-[#16120a] font-semibold"> {data.price}&nbsp;VND</span></div>
+            <h1 className="font-semibold text-[28px] text-gray-800 pb-1 mb-3 relative after:content-[''] after:absolute after:top-[100%] after:left-0 after:w-8 after:h-1 after:bg-gray-300"> {data?.name}</h1>
+            <div className="mt-1 my-2"><span className="text-3xl text-[#16120a] font-semibold"> {data?.price}&nbsp;VND</span></div>
             <form >
               <div className="flex items-center mt-2">
                 <label className="min-w-[80px] font-bold text-sm">Color</label>
@@ -189,46 +189,7 @@ const DetailProduct = (props: Props) => {
             <Tabs defaultActiveKey="1">
               <Tabs.TabPane tab="THÔNG TIN BỔ SUNG" key="1">
 
-                <div className="overflow-x-auto relative">
-                  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-
-                    <tbody>
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-                          SKU
-                        </th>
-                        <td className="py-4 px-6">
-
-                          M5039V
-                        </td>
-
-
-                      </tr>
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-                          CHẤT LIỆU
-                        </th>
-                        <td className="py-4 px-6">
-                          Canvas
-                        </td>
-
-                      </tr>
-                      <tr className="bg-white dark:bg-gray-800">
-                        <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                          GIỚI TÍNH
-                        </th>
-                        <td className="py-4 px-6">
-
-                          Women, Men
-                        </td>
-
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
+                <div dangerouslySetInnerHTML={{ __html: data?.description }} />
 
               </Tabs.TabPane>
               <Tabs.TabPane tab="ĐÁNH GIÁ (0)" key="2">

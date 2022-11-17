@@ -8,10 +8,14 @@ import { productList, productUpdate } from '../../../redux/slice/productSlice';
 import { categoriesList } from '../../../redux/slice/categoriesSlice';
 import { uploadCloudinary } from '../../../api/upload';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import ReactQuill from 'react-quill';
+
 const { Option } = Select;
 type Props = {}
 
 const EditProduct = (props: Props) => {
+
+    const [value, setValue] = useState('');
     const { id } = useParams()
     const { products } = useAppSelector(state => state.ProductReducer)
     const { categories } = useAppSelector(state => state.CategoriesReducer)
@@ -20,6 +24,7 @@ const EditProduct = (props: Props) => {
     const [form] = Form.useForm()
 
     const onFinish = async (values: any) => {
+
         // console.log(values);
         values._id = id
         dispatch(productUpdate({ ...values, image: Url })).unwrap()
@@ -105,13 +110,7 @@ const EditProduct = (props: Props) => {
                 >
                     <Input />
                 </Form.Item>
-                <Form.Item
-                    label="Description"
-                    name="description"
-                    rules={[{ required: true, message: 'Please input your description!' }]}
-                >
-                    <Input />
-                </Form.Item>
+
                 <Form.Item name="categoryId" label="Category" rules={[{ required: true }]}>
                     <Select
                         placeholder="Select a option and change input text above"
@@ -135,6 +134,13 @@ const EditProduct = (props: Props) => {
                     >
                         {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                     </Upload>
+                </Form.Item>
+                <Form.Item
+                    label="Description"
+                    name="description"
+                    rules={[{ required: true, message: 'Please input your description!' }]}
+                >
+                    <ReactQuill theme="snow" value={value} onChange={setValue} />
                 </Form.Item>
                 <Form.Item wrapperCol={{ offset: 3, span: 10 }}>
                     <Button type="primary" htmlType="submit">
