@@ -1,22 +1,31 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Image, Space, Table, TableProps, Tag } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import React, { useEffect } from 'react';
+import { Button, Image, Space, Table, TableProps, Tag, Modal, Form, Select, InputNumber } from 'antd';
+import { Option } from 'antd/lib/mentions';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { categoriesList } from '../../../redux/slice/categoriesSlice';
+import { ColorList } from '../../../redux/slice/colorList';
 import { productList, productRemove } from '../../../redux/slice/productSlice';
+import { addquantity, quantityList } from '../../../redux/slice/quantity';
+import { sizeList } from '../../../redux/slice/sizeSlice';
 
 
 
+import type { ColumnsType } from 'antd/es/table';
 
 type Props = {}
 
 const ListProduct = (props: Props) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [id, setID] = useState("")
     const dispatch = useAppDispatch()
+    const { size } = useAppSelector((state: any) => state.SizeReducer)
+    const { color } = useAppSelector((state: any) => state.ColorReducer)
     const { products } = useAppSelector(state => state.ProductReducer)
     const { categories } = useAppSelector((state: any) => state.CategoriesReducer)
+
     const dataTable = products.map((item: any) => {
         return {
             name: item.name,
@@ -24,9 +33,10 @@ const ListProduct = (props: Props) => {
             description: item.description,
             id: item._id,
             image: item.image,
-            category: item.categoryId?.name
+            category: item.categoryId?.name,
+            size: item.idSize,
+            color: item.idcolor
         }
-
     })
     const remove = (id: any) => {
         Swal.fire({
@@ -58,6 +68,11 @@ const ListProduct = (props: Props) => {
 
         },
         {
+            title: 'Image',
+            dataIndex: 'image',
+            render: (image: any) => <Image width={100} src={image}></Image>
+        },
+        {
             title: 'Price',
             dataIndex: 'price',
             key: 'price',
@@ -66,6 +81,28 @@ const ListProduct = (props: Props) => {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',
+        },
+
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            key: 'size',
+            render: (item: any) => (
+                item.map((x: any) => (
+                    x.name + "   "
+                ))
+            )
+        },
+        {
+            title: 'color',
+            dataIndex: 'color',
+            key: 'color',
+            render: (item: any) => (
+                item.map((x: any) => (
+                    x.name + "   "
+                ))
+
+            )
         },
         {
             title: 'Category',
@@ -84,9 +121,13 @@ const ListProduct = (props: Props) => {
         },
 
         {
-            title: 'Image',
-            dataIndex: 'image',
-            render: (image: any) => <Image width={100} src={image}></Image>
+            title: 'Số lượng',
+            key: 'quantity',
+            render: (item: any) => (
+                <Space size="middle">
+                    <p className="cursor-pointer" onClick={() => showModal(item.id)}>Thêm</p>
+                </Space>
+            ),
         },
         {
             title: 'Action',
@@ -103,12 +144,140 @@ const ListProduct = (props: Props) => {
     useEffect(() => {
         dispatch(categoriesList())
         dispatch(productList())
+        dispatch(sizeList())
+        dispatch(ColorList())
     }, [dispatch])
     if (!products) return <div>Loading...</div>
+    const showModal = (id: string) => {
+        setIsModalOpen(true);
+        setID(id)
+    };
 
-    console.log(categories);
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
 
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+    const AddQuantity = () => {
+        const [form] = Form.useForm();
+        const { quantity } = useAppSelector((state) => state.QuantityReducer)
+        useEffect(() => {
 
+            dispatch(quantityList())
+
+        }, [dispatch])
+        if (!quantity) return <div>Loading...</div>
+        const onReset = () => {
+            form.resetFields();
+        };
+        const onFinish = (values: any) => {
+            values.idProduct = id
+
+            dispatch(addquantity({ ...values })).unwrap()
+                .then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thêm thành công',
+                        timer: 1000,
+                        showConfirmButton: false,
+                    })
+                    onReset()
+                })
+                .catch((err: any) => alert(err))
+        };
+        const onFinishFailed = (errorInfo: any) => {
+            console.log('Failed:', errorInfo);
+        };
+
+        const columns: any = [
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                key: 'name',
+
+            },
+            {
+                title: 'size',
+                dataIndex: 'size',
+                key: 'size',
+
+            },
+            {
+                title: 'Color',
+                dataIndex: 'Color',
+                key: 'Color',
+
+            },
+            {
+                title: 'quantity',
+                dataIndex: 'quantity',
+                key: 'quantity',
+
+            }
+
+        ];
+
+        const dataNews = quantity?.filter((item: any) => item?.idProduct?._id === id)
+        if (!dataNews) return <div></div>
+        const data = dataNews?.map((item: any) => {
+            return {
+                name: item?.idProduct?.name,
+                size: item?.idSize?.name,
+                Color: item?.idColor?.name,
+                quantity: item?.quantity
+            }
+        })
+
+        return (
+            <>
+                <Modal title="Basic Modal" width={1000} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                    <Form
+                        name="basic"
+                        labelCol={{ span: 8 }}
+                        wrapperCol={{ span: 16 }}
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        autoComplete="off"
+                        form={form}
+                    >
+                        <Form.Item name="idSize" label="Size" rules={[{ required: true }]}>
+                            <Select
+                                placeholder="Select a option and change input text above"
+                                allowClear
+                            >
+                                {size?.map((item: any) => (
+                                    <Option value={item._id}>{item.name}</Option>
+                                ))}
+                            </Select>
+                        </Form.Item>
+                        <Form.Item name="idColor" label="color" rules={[{ required: true }]}>
+                            <Select
+                                placeholder="Select a option and change input text above"
+                                allowClear
+                            >
+                                {color?.map((item: any) => (
+                                    <Option value={item._id}>{item.name}</Option>
+                                ))}
+                            </Select>
+                        </Form.Item>
+                        <Form.Item name="quantity" label="quantity" rules={[{ required: true }]}>
+                            <InputNumber />
+                        </Form.Item>
+                        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                            <Button type="primary" htmlType="submit">
+                                Submit
+                            </Button>
+                        </Form.Item>
+                    </Form>
+
+                    <Table columns={columns} dataSource={data} />
+                </Modal>
+            </>
+        )
+    }
     return (
         <div>
 
@@ -116,6 +285,7 @@ const ListProduct = (props: Props) => {
                 <Button type="primary" style={{ borderRadius: '5px', backgroundColor: '#40A9FF' }}>Thêm Danh mục</Button>
             </Link>
             <Table columns={columns} dataSource={dataTable} />
+            <AddQuantity />
         </div>
 
     )

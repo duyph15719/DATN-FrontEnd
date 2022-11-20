@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../detail/detail.css'
-import { BiChevronsLeft, BiChevronsRight } from "react-icons/bi";
 import Slider from 'react-slick';
 import { Tabs } from 'antd';
-
+import { useParams } from 'react-router';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { productList } from '../../redux/slice/productSlice';
+import { categoriesList } from '../../redux/slice/categoriesSlice';
+const InnerHTML = require('dangerously-set-inner-html')
 
 type Props = {}
 const settings = {
@@ -52,7 +55,19 @@ const settings = {
 };
 
 const DetailProduct = (props: Props) => {
-  const [isPreviewVisible, setPreviewVisible] = useState(false);
+  const { id } = useParams()
+  const dispatch = useAppDispatch()
+  const { products } = useAppSelector(state => state.ProductReducer)
+  const { categories } = useAppSelector(state => state.CategoriesReducer)
+  useEffect(() => {
+    dispatch(categoriesList())
+    dispatch(productList())
+
+  }, [dispatch])
+  const data = products.find((item: any) => item._id == id)
+  console.log(data);
+
+  // if (!data) return <div>loading</div>
   return (
     <>
 
@@ -61,12 +76,13 @@ const DetailProduct = (props: Props) => {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row pt-10">
           <div className="w-[100%] md:w-[50%]">
 
-            <img src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-chuck-07.jpg" alt="" />
+            <img src={data?.image} alt="" />
           </div>
           <div className="w-[100%] md:w-[50%]">
+
             <div className="flex"><a className="text-gray-500 transition hover:text-black uppercase font-semibold text-sm block pr-4 relative after:content-[''] after:absolute after:top-1/2 after:-translate-y-1/2 after:right-2 after:w-[1px] after:h-3 after:rotate-12 after:bg-gray-400" href="/">Home</a><a className="text-gray-500 transition hover:text-black uppercase font-semibold text-sm" href=""> NAM</a></div>
-            <h1 className="font-semibold text-[28px] text-gray-800 pb-1 mb-3 relative after:content-[''] after:absolute after:top-[100%] after:left-0 after:w-8 after:h-1 after:bg-gray-300">Chuck 70 Archive Prints Hi</h1>
-            <div className="mt-1 my-2"><span className="text-3xl text-[#16120a] font-semibold">30.000&nbsp;VND</span></div>
+            <h1 className="font-semibold text-[28px] text-gray-800 pb-1 mb-3 relative after:content-[''] after:absolute after:top-[100%] after:left-0 after:w-8 after:h-1 after:bg-gray-300"> {data?.name}</h1>
+            <div className="mt-1 my-2"><span className="text-3xl text-[#16120a] font-semibold"> {data?.price}&nbsp;VND</span></div>
             <form >
               <div className="flex items-center mt-2">
                 <label className="min-w-[80px] font-bold text-sm">Color</label>
@@ -90,6 +106,12 @@ const DetailProduct = (props: Props) => {
                     <label htmlFor="size-M" className="cursor-pointer block px-3 py-1 border-2 border-gray-300 transition duration-300 hover:shadow-md rounded-[4px] mr-1 shadow-sm text-gray-500">M</label></li>
                   <li><input hidden type="radio" name="size" className="form__add-cart-size" id="size-L" defaultValue="623ee0709c3a3931abeb4e73" />
                     <label htmlFor="size-L" className="cursor-pointer block px-3 py-1 border-2 border-gray-300 transition duration-300 hover:shadow-md rounded-[4px] mr-1 shadow-sm text-gray-500">L</label></li>
+                </ul>
+              </div>
+              <div className="flex items-center mt-2">
+                <label className="min-w-[80px] font-bold text-sm">Số lượng</label><ul className="flex">
+                  <li>   <input hidden type="number" name="size" className="form__add-cart-size" id="size-S" defaultValue="" defaultChecked />
+                    <label htmlFor="size-L" className="cursor-pointer block px-3 py-1 border-2 border-gray-300 transition duration-300 hover:shadow-md rounded-[4px] mr-1 shadow-sm text-gray-500">10</label></li>
                 </ul>
               </div>
               <div className="flex items-center mt-2">
@@ -167,46 +189,7 @@ const DetailProduct = (props: Props) => {
             <Tabs defaultActiveKey="1">
               <Tabs.TabPane tab="THÔNG TIN BỔ SUNG" key="1">
 
-                <div className="overflow-x-auto relative">
-                  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-
-                    <tbody>
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-                          SKU
-                        </th>
-                        <td className="py-4 px-6">
-
-                          M5039V
-                        </td>
-
-
-                      </tr>
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-                          CHẤT LIỆU
-                        </th>
-                        <td className="py-4 px-6">
-                          Canvas
-                        </td>
-
-                      </tr>
-                      <tr className="bg-white dark:bg-gray-800">
-                        <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                          GIỚI TÍNH
-                        </th>
-                        <td className="py-4 px-6">
-
-                          Women, Men
-                        </td>
-
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
+                <div dangerouslySetInnerHTML={{ __html: data?.description }} />
 
               </Tabs.TabPane>
               <Tabs.TabPane tab="ĐÁNH GIÁ (0)" key="2">

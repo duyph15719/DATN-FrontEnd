@@ -41,9 +41,16 @@ import EditProduct from "./pages/admin/Product/EditProducts";
 import BannerAdd from "./pages/admin/Banner/BannerAdd";
 import ListBanner from "./pages/admin/Banner/ListProduct";
 import EditBanner from "./pages/admin/Banner/EditBanner";
+
 import Color from "./pages/admin/Color/Color";
 import ColorAdd from "./pages/admin/Color/ColorAdd";
 import ColorEdit from "./pages/admin/Color/ColorEdit";
+
+import SizeList from "./pages/admin/Size/SizeList";
+import SizeAdd from "./pages/admin/Size/SizeAdd";
+import SizeEdit from "./pages/admin/Size/SizeEdit";
+import ProductsList from "./pages/ProductList/products";
+
 
 
 
@@ -55,9 +62,9 @@ function App() {
       <Route path={"/"} element={<Layoutclient />}>
         <Route index element={<Homepage />} />
         <Route path={"/about"} element={<About />} />
-        <Route path={"/products"} element={<Products />} />
+        <Route path={"/products"} element={<ProductsList />} />
         <Route path={"/lienhe"} element={<Lienhe />} />
-        <Route path={"/detailProduct"} element={<DetailProduct />} />
+        <Route path={"/products/:id"} element={<DetailProduct />} />
         <Route path={"/NewsPage"} element={<NewsPage />} />
         <Route path="news" >
           <Route index element={<NewsPage />} />
@@ -100,6 +107,11 @@ function App() {
           <Route index element={<ListBanner />} />
           <Route path='add' element={<BannerAdd />} />
           <Route path='edit/:id' element={<EditBanner />} />
+        </Route>
+        <Route path='Size'>
+          <Route index element={<SizeList />} />
+          <Route path='add' element={<SizeAdd />} />
+          <Route path='edit/:id' element={<SizeEdit />} />
         </Route>
         <Route path='comment'>
           <Route index element={<Comment />} />

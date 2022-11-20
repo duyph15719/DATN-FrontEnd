@@ -5,7 +5,8 @@ import ProductReducer from './slice/productSlice'
 import CategoriesReducer from './slice/categoriesSlice'
 import BannerReducer from './slice/BannerSlice'
 import ColorReducer from './slice/colorList'
-
+import SizeReducer from './slice/sizeSlice'
+import QuantityReducer from './slice/quantity'
 const persistConfig = {
     key: "root",
     storage,
@@ -15,7 +16,11 @@ const reducers = combineReducers({
     ProductReducer,
     CategoriesReducer,
     BannerReducer,
-    ColorReducer
+    ColorReducer,
+    SizeReducer,
+    QuantityReducer
+
+
 
 });
 const rootReducer = persistReducer(persistConfig, reducers);

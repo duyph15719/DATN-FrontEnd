@@ -8,7 +8,7 @@ import { productList, productUpdate } from '../../../redux/slice/productSlice';
 import { categoriesList } from '../../../redux/slice/categoriesSlice';
 import { uploadCloudinary } from '../../../api/upload';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { bannerList } from '../../../redux/slice/BannerSlice';
+import { bannerList, updatebanner } from '../../../redux/slice/BannerSlice';
 const { Option } = Select;
 type Props = {}
 
@@ -22,7 +22,7 @@ const EditBanner = (props: Props) => {
     const onFinish = async (values: any) => {
         // console.log(values);
         values._id = id
-        dispatch(productUpdate({ ...values, image: Url })).unwrap()
+        dispatch(updatebanner({ ...values, image: Url })).unwrap()
             .then(() => {
                 Swal.fire({
                     icon: 'success',
