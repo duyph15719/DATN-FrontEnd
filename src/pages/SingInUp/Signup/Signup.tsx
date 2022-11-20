@@ -45,14 +45,6 @@ const Signup = () => {
         <Input />
       </Form.Item>
       <Form.Item
-        label="FullName"
-        name="fullName"
-        rules={[{ required: true, message: 'Please input your fullName!' }]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
         label="Password"
         name="password"
         rules={[{ required: true, message: 'Please input your password!' }]}

@@ -6,7 +6,8 @@ import { SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 type Props = {
   email: string
-  password: string}
+  password: string
+}
 
 const Signin = () => {
   const navigate = useNavigate();

@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { InputComponent } from "./components/Input";
-import ListAddress from "./components/ListAddress";
 import ListLogin from "./components/ListLogin";
 import ListPromoCode from "./components/ListPromoCode";
 import ListSignup from "./components/ListSigup";
-import "./Pay.css"
+import "./Pay.css";
 type Props = {};
 
 const Pay = (props: Props) => {
@@ -140,7 +139,6 @@ const Pay = (props: Props) => {
               />
             </div>
             <ListSignup />
-            <ListAddress />
             <div className="mb-6">
               <label
                 htmlFor="confirm_password"
