@@ -49,13 +49,13 @@ const items: MenuItem[] = [
 
 
   ]),
-  getItem('Quản lý Size', 'sub4', <AndroidFilled />, [
+  getItem('Quản lý Size', 'sub15', <AndroidFilled />, [
     getItem(<Link to="/admin/size">Danh sách size</Link>, '8', <UnorderedListOutlined />),
     getItem(<Link to="/admin/size/add">Thêm Size</Link>, '9', <UnorderedListOutlined />),
 
   ]),
-  getItem('Danh mục 4', 'sub4', <AndroidFilled />, [
-    getItem(<Link to="/admin">Danh sách</Link>, '11', <UnorderedListOutlined />),
+  getItem('Số Lượng sản phẩm', 'sub20', <AndroidFilled />, [
+    getItem(<Link to="/admin/quanlyty">Danh sách</Link>, '11', <UnorderedListOutlined />),
     getItem(<Link to="/admin">Danh sách</Link>, '12', <UnorderedListOutlined />),
     getItem(<Link to="/admin">Danh sách</Link>, '13', <UnorderedListOutlined />),
   ]),

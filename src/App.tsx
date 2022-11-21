@@ -50,6 +50,7 @@ import SizeList from "./pages/admin/Size/SizeList";
 import SizeAdd from "./pages/admin/Size/SizeAdd";
 import SizeEdit from "./pages/admin/Size/SizeEdit";
 import ProductsList from "./pages/ProductList/products";
+import Listquanlyty from "./pages/admin/Quanlyty/Listquanlyty";
 
 
 
@@ -113,8 +114,8 @@ function App() {
           <Route path='add' element={<SizeAdd />} />
           <Route path='edit/:id' element={<SizeEdit />} />
         </Route>
-        <Route path='comment'>
-          <Route index element={<Comment />} />
+        <Route path='quanlyty'>
+          <Route index element={<Listquanlyty />} />
           <Route path='add' element={<CommentAdd />} />
           <Route path='edit/:id' element={<CommentEdit />} />
         </Route>
