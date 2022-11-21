@@ -17,7 +17,7 @@ import type { ColumnsType } from 'antd/es/table';
 
 type Props = {}
 
-const ListProduct = (props: Props) => {
+const Listquanlyty = (props: Props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [id, setID] = useState("")
     const dispatch = useAppDispatch()
@@ -66,6 +66,16 @@ const ListProduct = (props: Props) => {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            filters:
+                products.map((item: any) => {
+                    return {
+                        text: item?.name,
+                        value: item?.name,
+                    }
+                })
+            ,
+            onFilter: (value: string, record: any) => record.name.includes(value),
+            filterSearch: true,
 
         },
         {
@@ -73,44 +83,8 @@ const ListProduct = (props: Props) => {
             dataIndex: 'image',
             render: (image: any) => <Image width={100} src={image}></Image>
         },
-        {
-            title: 'Price',
-            dataIndex: 'price',
-            key: 'price',
-        },
-        // {
-        //     title: 'Description',
 
-        //     key: 'description',
-        //     render: (item: any) => (
-        //         <Space size="middle">
-        //             <div dangerouslySetInnerHTML={{ __html: item?.description }} />
-        //         </Space>
-        //     ),
 
-        // },
-
-        {
-            title: 'Size',
-            dataIndex: 'size',
-            key: 'size',
-            render: (item: any) => (
-                item.map((x: any) => (
-                    x.name + "   "
-                ))
-            )
-        },
-        {
-            title: 'color',
-            dataIndex: 'color',
-            key: 'color',
-            render: (item: any) => (
-                item.map((x: any) => (
-                    x.name + "   "
-                ))
-
-            )
-        },
         {
             title: 'Category',
             dataIndex: 'category',
@@ -136,17 +110,7 @@ const ListProduct = (props: Props) => {
                 </Space>
             ),
         },
-        {
-            title: 'Action',
-            key: 'action',
-            render: (item: any) => (
-                <Space size="middle">
 
-                    <DeleteOutlined onClick={() => remove(item.id)}>Delete</DeleteOutlined>
-                    <Link to={`edit/${item.id}`}><EditOutlined /></Link>
-                </Space>
-            ),
-        },
     ];
     useEffect(() => {
         dispatch(categoriesList())
@@ -171,6 +135,8 @@ const ListProduct = (props: Props) => {
         const [form] = Form.useForm();
         const { quantity } = useAppSelector((state) => state.QuantityReducer)
         const dataNews = quantity?.filter((item: any) => item?.idProduct?._id === id)
+
+
         const navigation = useNavigate()
 
 
@@ -368,9 +334,7 @@ const ListProduct = (props: Props) => {
     return (
         <div>
 
-            <Link to={'/admin/product/add'}>
-                <Button type="primary" style={{ borderRadius: '5px', backgroundColor: '#40A9FF' }}>Thêm Danh mục</Button>
-            </Link>
+
             <Table columns={columns} expandable={{
                 expandedRowRender: record => <p style={{ margin: 0 }}> <div dangerouslySetInnerHTML={{ __html: record?.description }} /></p>,
                 rowExpandable: record => record.name !== 'Not Expandable',
@@ -381,4 +345,4 @@ const ListProduct = (props: Props) => {
     )
 }
 
-export default ListProduct
+export default Listquanlyty
