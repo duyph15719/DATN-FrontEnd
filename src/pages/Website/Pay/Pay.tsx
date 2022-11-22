@@ -14,16 +14,16 @@ const Pay = (props: Props) => {
   const cash = () => {
     return (
       <p className="text-grey-darkest py-3 pl-3 text-base ">
-          Trả tiền mặt khi giao hàng.
+        Trả tiền mặt khi giao hàng.
       </p>
     );
   };
   const transfer = () => {
     return (
       <p className="text-grey-darkest py-3 pl-3 text-base ">
-          Thực hiện thanh toán vào ngay tài khoản ngân hàng của chúng tôi. Vui
-          lòng sử dụng Mã đơn hàng của bạn trong phần Nội dung thanh toán. Đơn
-          hàng sẽ đươc giao sau khi tiền đã chuyển. 
+        Thực hiện thanh toán vào ngay tài khoản ngân hàng của chúng tôi. Vui
+        lòng sử dụng Mã đơn hàng của bạn trong phần Nội dung thanh toán. Đơn
+        hàng sẽ đươc giao sau khi tiền đã chuyển.
       </p>
     );
   };
@@ -49,17 +49,12 @@ const Pay = (props: Props) => {
       <div className="md:flex  my-10 sm:flex-none ">
         <div className="md:w-3/4 bg-white px-10    ">
           <form className="border-t-2 py-10">
-            <div className="grid gap-6 mb-6 lg:grid-cols-2">
-              <div>
-                <InputComponent
-                  children="Họ"
-                  type="text"
-                  placeholder="Nguyễn, Trần, Lê, ..."
-                />
-              </div>
-              <div>
-                <InputComponent children="Tên" type="text" placeholder=" ..." />
-              </div>
+            <div className="mb-6">
+              <InputComponent
+                children="Họ và tên"
+                type="text"
+                placeholder="Nguyễn, Trần, Lê, ..."
+              />
             </div>
             <div className="mb-6">
               <label
@@ -110,18 +105,19 @@ const Pay = (props: Props) => {
                 <option value="VN">Việt Nam</option>
               </select>
             </div>
-            <div className="mb-6">
-              <InputComponent
-                children="Địa chỉ"
-                type="text"
-                placeholder="Địa chỉ"
-              />
-            </div>
+
             <div className="mb-6">
               <InputComponent
                 children="Tỉnh / Thành phố *"
                 type="text"
                 placeholder="Tỉnh / Thành phố *"
+              />
+            </div>
+            <div className="mb-6">
+              <InputComponent
+                children="Địa chỉ"
+                type="text"
+                placeholder="Địa chỉ"
               />
             </div>
             <div className="mb-6">
