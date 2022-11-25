@@ -14,7 +14,7 @@ const Layoutclient = () => {
         <main>
             <Outlet />
         </main>
-        <footer> <Footer/></footer>
+        <footer className='content-end'> <Footer/></footer>
 
 
     </div>

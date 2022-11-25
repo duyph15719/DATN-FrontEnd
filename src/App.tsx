@@ -1,56 +1,55 @@
-import React from "react";
-import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import "./App.css";
 import Homepage from "./pages/Homepage";
 
 import "antd/dist/antd.css";
 import About from "./pages/About/About";
-import Products from "./pages/ProductList/products";
 import Lienhe from "./pages/Lienhe/lienhe";
 
 
 
+import ErrorsWeb from "./pages/404/errorsWeb";
 import Cart from "./pages/Website/Cart/Cart";
 import Pay from "./pages/Website/Pay/Pay";
-import ErrorsWeb from "./pages/404/errorsWeb";
 
-import Layoutclient from "./Layout/Layoutclient";
 import AdminLayout from "./Layout/AdminLayout";
+import Layoutclient from "./Layout/Layoutclient";
 import Categories from "./pages/admin/Categories/Categories";
 
 
-import Users from "./pages/admin/User/User";
-import CommentEdit from "./pages/admin/Comment/CommentEdit";
-import CommentAdd from "./pages/admin/Comment/CommentAdd";
-import Comment from "./pages/admin/Comment/Comment";
+import Blog from "./pages/admin/Blog/Blog";
 import BlogAdd from "./pages/admin/Blog/BlogAdd";
 import BlogEdit from "./pages/admin/Blog/BlogEdit";
-import Blog from "./pages/admin/Blog/Blog";
+import CommentAdd from "./pages/admin/Comment/CommentAdd";
+import CommentEdit from "./pages/admin/Comment/CommentEdit";
+import Users from "./pages/admin/User/User";
 
 
-import NewsDetail from "./pages/News/Newsdetail";
-import NewsPage from "./pages/News/News";
-import UserEdit from "./pages/admin/User/UserEdit";
-import UserAdd from "./pages/admin/User/UserAdd";
-import DetailProduct from "./pages/ProductList/detailProduct";
-import ProductList from "./pages/admin/Product/AddProduct";
-import ListProduct from "./pages/admin/Product/ListProduct";
+import BannerAdd from "./pages/admin/Banner/BannerAdd";
+import EditBanner from "./pages/admin/Banner/EditBanner";
+import ListBanner from "./pages/admin/Banner/ListProduct";
 import CategoriesAdd from "./pages/admin/Categories/CategoriesAdd";
 import CategoriesEdit from "./pages/admin/Categories/CategoriesEdit";
+import ProductList from "./pages/admin/Product/AddProduct";
 import EditProduct from "./pages/admin/Product/EditProducts";
-import BannerAdd from "./pages/admin/Banner/BannerAdd";
-import ListBanner from "./pages/admin/Banner/ListProduct";
-import EditBanner from "./pages/admin/Banner/EditBanner";
+import ListProduct from "./pages/admin/Product/ListProduct";
+import UserAdd from "./pages/admin/User/UserAdd";
+import UserEdit from "./pages/admin/User/UserEdit";
+import NewsPage from "./pages/News/News";
+import NewsDetail from "./pages/News/Newsdetail";
+import DetailProduct from "./pages/ProductList/detailProduct";
 
 import Color from "./pages/admin/Color/Color";
 import ColorAdd from "./pages/admin/Color/ColorAdd";
 import ColorEdit from "./pages/admin/Color/ColorEdit";
 
-import SizeList from "./pages/admin/Size/SizeList";
+import Listquanlyty from "./pages/admin/Quanlyty/Listquanlyty";
 import SizeAdd from "./pages/admin/Size/SizeAdd";
 import SizeEdit from "./pages/admin/Size/SizeEdit";
+import SizeList from "./pages/admin/Size/SizeList";
 import ProductsList from "./pages/ProductList/products";
-import Listquanlyty from "./pages/admin/Quanlyty/Listquanlyty";
+import Signin from "./pages/SingInUp/Signin/Signin";
+import Signup from "./pages/SingInUp/Signup/Signup";
 
 
 
@@ -75,6 +74,8 @@ function App() {
         <Route path={"/newsdetail"} element={<NewsDetail />} />
         <Route path="cart" element={<Cart />} />
         <Route path="pay" element={<Pay />} />
+        <Route path="signin" element={<Signin />} />
+        <Route path="signup" element={<Signup />} />
 
       </Route>
       <Route path="admin" element={<AdminLayout />}>
