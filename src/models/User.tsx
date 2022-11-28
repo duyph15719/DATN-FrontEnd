@@ -1,6 +1,6 @@
 
 export type IUsers = {
-  _id?: string,
+    _id?: string|any,
     email?: string,
     password?: string,
     username?: string,

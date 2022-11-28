@@ -2,50 +2,45 @@ import { RecaiptType } from "../models/receipt";
 import instance from "./instance";
 
 
-export const listReceipt: any = () => {
-    const url = `/receipts`;
-    return instance.get(url);
-}
-
-export const getReceiptId: any = (id: any) => {
-    const url = `/receipts/${id}`;
-    return instance.get(url);
-}
-// export const get = (slug?: string) => {
-//     const url = `/${DB_NAME}/${slug}/?_expand=UserId`;
-//     return instance.get(url);
-// }
-export const add: any = (receipt: any) => {
-    const url = `/receipts`;
-    return instance.post(url, receipt);
-}
-
-export const editReceipt: any = (receipt: any) => {
-    const url = `/receipts/${receipt._id}`;
-    return instance.put(url, receipt);
-}
-export const getReceiptsRelated = (start = 0, limit = 0, id: string | undefined, UserId: string | undefined) => {
-    let url = `/${DB_NAME}/?UserId=${UserId}&_id_ne=${id}&status=1&_expand=UserId&_sort=createdAt&_order=desc`;
+export const listReceipt = ( start = 0, limit = 0) => {
+    let url = `/${DB_NAME}/?_sort=createdAt&_order=desc`;
     if (limit) url += `&_start=${start}&_limit=${limit}`;
     return instance.get(url);
 }
-const DB_NAME = "receipts";
-export const clientUpdate = (product: RecaiptType) => {
-    const url = `/${DB_NAME}/userUpdate/${product._id}`;
-    return instance.patch(url, product);
+
+export const getReceiptId = (id: any) => {
+    const url = `/orders/${id}`;
+    return instance.get(url);
+}
+export const add = (receipt: RecaiptType) => {
+    const url = `/orders`;
+    return instance.post(url, receipt);
 }
 
-export const removeReceipt: any = (id: any) => {
-    const url = `/receipts/${id}`;
+export const getByUserId = (userId: string, start = 0, limit = 0) => {
+    let url = `/${DB_NAME}/?userId=${userId}&_sort=createdAt&_receipt=desc`;
+    if (limit) url += `&_start=${start}&_limit=${limit}`;
+    return instance.get(url);
+}
+
+export const removeReceipt = (id: any) => {
+    const url = `/orders/${id}`;
     return instance.delete(url);
 }
 
-export const getReceiptIdUser: any = (id: number) => {
-    const url = `/receipts?User=${id}`;
-    return instance.get(url);
+export const update = (order: RecaiptType, { token, user } = isAuthenticate()) => {
+    const url = `/${DB_NAME}/${order._id}/${user._id}`;
+    return instance.put(url, order, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
 }
 
-export const listReceiptIdUserdetail: any = (id: number) => {
-    const url = `/receipts?detailUser=${id}`;
-    return instance.get(url);
+const DB_NAME = "orders";
+export const isAuthenticate = () => {
+    return JSON.parse(JSON.parse(localStorage.getItem("persist:root") as string).auth).value;
 }
+
+
+
