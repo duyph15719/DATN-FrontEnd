@@ -34,8 +34,7 @@ const ListProduct = (props: Props) => {
             id: item._id,
             image: item.image,
             category: item.categoryId?.name,
-            size: item.idSize,
-            color: item.idcolor
+
         }
     })
     const remove = (id: any) => {
@@ -90,27 +89,7 @@ const ListProduct = (props: Props) => {
 
         // },
 
-        {
-            title: 'Size',
-            dataIndex: 'size',
-            key: 'size',
-            render: (item: any) => (
-                item.map((x: any) => (
-                    x.name + "   "
-                ))
-            )
-        },
-        {
-            title: 'color',
-            dataIndex: 'color',
-            key: 'color',
-            render: (item: any) => (
-                item.map((x: any) => (
-                    x.name + "   "
-                ))
 
-            )
-        },
         {
             title: 'Category',
             dataIndex: 'category',
