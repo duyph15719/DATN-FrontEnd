@@ -63,8 +63,7 @@ const ProductList = (props: Props) => {
   };
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
-  const { size } = useAppSelector((state: any) => state.SizeReducer)
-  const { color } = useAppSelector((state: any) => state.ColorReducer)
+
   const [Url, setUrl] = useState();
   const uploadImage = async (options: any) => {
     const { onSuccess, onError, file } = options;
@@ -135,34 +134,7 @@ const ProductList = (props: Props) => {
 
           </Select>
         </Form.Item>
-        {/* <Form.Item name="idSize" label="Size" rules={[{ required: true }]}>
-          <Select mode="multiple"
-            placeholder="Select a option and change input text above"
-            allowClear
 
-          >
-            {size?.map((item: any) => (
-
-              <Option value={item._id}>{item.name}</Option>
-
-            ))}
-
-          </Select>
-        </Form.Item>
-        <Form.Item name="idcolor" label="color" rules={[{ required: true }]}>
-          <Select mode="multiple"
-            placeholder="Select a option and change input text above"
-            allowClear
-
-          >
-            {color?.map((item: any) => (
-
-              <Option value={item._id}>{item.name}</Option>
-
-            ))}
-
-          </Select>
-        </Form.Item> */}
         <Form.Item>
           <Upload
             name="avatar"

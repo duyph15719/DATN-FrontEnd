@@ -1,29 +1,39 @@
 import ListAddress from "./components/Address";
 import { CardComponents } from "./components/Card";
+import { decreaseItemInCart, getLocalStorage, increaseItemInCart, removeItemInCart, sumTotal } from "../../../ultils/cart/cart";
+import { useEffect, useState } from "react";
 
 type Props = {};
 
 const Cart = (props: Props) => {
-  const data = [
-    {
-      name: "string 1",
-      price: "string 1",
-      amount: " 1",
-      total: "string 1",
-      id: "string 1",
-      categories: "string 1",
-      img: "http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-2-300x225.jpg",
-    },
-    {
-      name: "string 12",
-      price: "400",
-      amount: " 400",
-      total: "400",
-      id: "1",
-      categories: "string 12",
-      img: "http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/women-classic-2-300x225.jpg",
-    },
-  ];
+  const [cart, setCart] = useState<any>([]);
+  const [reload, setReload] = useState<any>(true);
+
+  const remove = (id: any) => {
+    if (window.confirm("bạn có muốn xóa không ?")) {
+      removeItemInCart(id, () => {
+
+        setReload(!reload);
+      });
+    }
+  };
+  const increaseItem = (id: any) => {
+    increaseItemInCart(id, () => {
+      setReload(!reload);
+    });
+  };
+  const decreaseItem = (id: any) => {
+    decreaseItemInCart(id, () => {
+      setReload(!reload);
+    });
+  };
+  let total = 0;
+  // let total = cart.reduce((a:any,b:any)=>{
+  //   return a.
+  // },0)
+  useEffect(() => {
+    setCart(getLocalStorage("cart"));
+  }, [reload]);
   return (
     <div className="container mx-auto mt-10">
       <div className="md:flex  my-10 sm:">
@@ -32,6 +42,110 @@ const Cart = (props: Props) => {
             <h1 className="font-semibold text-2xl">Giỏ Hàng</h1>
             <h2 className="font-semibold text-2xl text-right">3 Items</h2>
           </div>
+          <table className="w-full shadow-inner">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="px-6 py-3 font-bold whitespace-nowrap">Ảnh</th>
+                <th className="px-6 py-3 font-bold whitespace-nowrap">Tên sản phẩm</th>
+                <th className="px-6 py-3 font-bold whitespace-nowrap">Màu sắc</th>
+                <th className="px-6 py-3 font-bold whitespace-nowrap">kích cỡ</th>
+                <th className="px-6 py-3 font-bold whitespace-nowrap">Số lượng</th>
+                <th className="px-6 py-3 font-bold whitespace-nowrap">Giá</th>
+                <th className="px-6 py-3 font-bold whitespace-nowrap">Xoá</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart &&
+                cart?.map((item: any) => (
+                  <tr key={item._id}>
+                    <td>
+                      <div className="flex justify-center">
+                        <img src={item?.id?.image} className="object-cover h-28 w-28 rounded-2xl" alt="image" />
+                      </div>
+                    </td>
+                    <td className="p-4 px-6 text-center whitespace-nowrap">
+                      <div className="flex flex-col items-center justify-center">
+                        <h3>{item?.id?.name}</h3>
+                      </div>
+                    </td>
+                    <td className="p-4 px-6 text-center whitespace-nowrap">{item?.color?.colorName}</td>
+                    <td className="p-4 px-6 text-center whitespace-nowrap">{item?.size?.sizeName}</td>
+                    <td className="p-4 px-6 text-center whitespace-nowrap">
+                      <div>
+                        <button
+                          onClick={() => {
+                            decreaseItem(item?.randomid);
+                          }}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="inline-flex w-6 h-6 text-red-600"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                        </button>
+                        <span className="mx-3">{item?.quantity}</span>
+                        <button
+                          onClick={() => {
+                            increaseItem(item?.randomid);
+                          }}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="inline-flex w-6 h-6 text-green-600"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                    <td className="p-4 px-6 text-center whitespace-nowrap">
+                      {sumTotal(item?.id?.price, item?.quantity)}
+                    </td>
+                    <div className="hidden">
+                      <p className="hidden"> {(total += sumTotal(item?.id?.price, item?.quantity))}</p>
+                    </div>
+
+                    <td className="p-4 px-6 text-center whitespace-nowrap">
+                      <button onClick={() => remove(item)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-6 h-6 text-red-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
+
+
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
           <div className="flex mt-10 mb-5">
             <h3 className="font-semibold text-gray-600 text-sm uppercase w-2/5">
               Sản Phẩm
@@ -46,16 +160,7 @@ const Cart = (props: Props) => {
               Tổng
             </h3>
           </div>
-          {data.map((row, index) => (
-            <CardComponents
-              key={index}
-              name={row.name}
-              price={row.price}
-              amount={row.amount}
-              total={row.total}
-              img={row.img}
-            />
-          ))}
+
 
           <a
             href="#"
@@ -79,13 +184,13 @@ const Cart = (props: Props) => {
           </div>
           <div className="flex justify-between mt-10 mb-5">
             <span className="font-normal text-xs uppercase">Tổng phụ</span>
-            <span className="font-semibold text-sm">5,000,000 ₫</span>
+            <span className="font-semibold text-sm">{total}</span>
           </div>
           <ListAddress />
           <div className="border-t mt-8">
             <div className="flex font-semibold justify-between py-6 text-sm uppercase">
               <span>Tổng</span>
-              <span>$600</span>
+              <span>{total}</span>
             </div>
             <button className="bg-orange-700 font-semibold hover:bg-orange-800 py-3 text-sm text-white uppercase w-full">
               Thanh Toán
@@ -135,3 +240,4 @@ const Cart = (props: Props) => {
 };
 
 export default Cart;
+

@@ -87,15 +87,7 @@ const DetailProduct = (props: Props) => {
   }, [data]);
   // const data = products.find((item: any) => item._id == id)
 
-  const Addtocart = () => {
-    addToCart({ ...data, totalNumber: 1 })
-    Swal.fire({
-      icon: 'success',
-      title: 'Đã thêm vào giỏ hàng',
-      showConfirmButton: false,
-      timer: 1500
-    })
-  }
+
   const onSelectColor = (color: ProductColor) => {
     setColorSelected(color);
     form.resetFields(["size", "quantity"]);
@@ -108,6 +100,19 @@ const DetailProduct = (props: Props) => {
       setSizeSelected(null);
     }
     form.resetFields(["quantity"]);
+  };
+  const AddToCart = () => {
+    console.log(sizeSelected);
+    addToCart(
+      {
+        color: colorSelected,
+        size: sizeSelected,
+        quantity: quantity,
+        id: data,
+        randomid: "_" + Math.random().toString(36).substring(2, 9),
+      },
+      () => { },
+    );
   };
   if (!data) return <div>loading</div>
   return (
@@ -182,7 +187,7 @@ const DetailProduct = (props: Props) => {
 
 
 
-              <Button size="large" htmlType="submit" type="primary" onClick={() => Addtocart()} className=" flex ml-auto  px-3 py-2 bg-orange-400 font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]" disabled={!colorSelected || !sizeSelected}>Thêm vào giỏ hàng</Button>
+              <Button size="large" htmlType="submit" type="primary" onClick={() => AddToCart()} className=" flex ml-auto  px-3 py-2 bg-orange-400 font-semibold uppercase text-white text-sm transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]" disabled={!colorSelected || !sizeSelected}>Thêm vào giỏ hàng</Button>
 
             </div>
             <div className="flex items-center mt-2">

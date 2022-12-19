@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Checkbox, Form, Input, message, Select, Upload } from 'antd';
+import { Button, Checkbox, Col, Divider, Form, Input, InputNumber, message, Row, Select, Space, Upload } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 
 import Swal from 'sweetalert2';
@@ -7,8 +7,9 @@ import { useNavigate, useParams } from 'react-router';
 import { productList, productUpdate } from '../../../redux/slice/productSlice';
 import { categoriesList } from '../../../redux/slice/categoriesSlice';
 import { uploadCloudinary } from '../../../api/upload';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { CloseOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import ReactQuill from 'react-quill';
+import { findStringDuplicates } from '../../../ultils';
 
 const { Option } = Select;
 type Props = {}
@@ -142,6 +143,78 @@ const EditProduct = (props: Props) => {
                 >
                     <ReactQuill theme="snow" value={value} onChange={setValue} />
                 </Form.Item>
+                <Form.List rules={[{
+                    validator: async (rule, value) => {
+                        if (value.length === 0) {
+                            return Promise.reject('Vui lòng thêm mẫu mã sản phẩm')
+                        }
+                        const duplicates = findStringDuplicates(value.filter((i: any) => i.colorName?.trim()).map((i: any) => i.colorName.toLowerCase()))
+                        if (duplicates.length > 0) {
+                            return Promise.reject('Màu đã bị trùng')
+                        }
+                        return Promise.resolve()
+                    }
+                }]} name="colors" initialValue={[{ colorName: '', sizes: [{ sizeName: '', amount: 0 }] }]}>
+                    {(colors, { add: addColor, remove: removeColor }, { errors }) => (
+                        <div style={{ marginBottom: 5 }}>
+                            {colors.map((color) => (
+                                <div key={`color-${color.name}`}>
+                                    <Row gutter={16}>
+                                        <Col span={11}>
+                                            <Form.Item name={[color.name, "colorName"]} fieldKey={[color.name, 'colorName']} rules={[{ required: true, message: 'Vui lòng nhập màu sắc' }]}>
+                                                <Input placeholder="Màu sắc" />
+                                            </Form.Item>
+                                        </Col>
+                                        <Col span={11}>
+                                            <Form.List name={[color.name, 'sizes']} rules={[{
+                                                validator: async (rule, value) => {
+                                                    const duplicates = findStringDuplicates(value.filter((i: any) => i.sizeName?.trim()).map((i: any) => i.sizeName.toLowerCase()))
+                                                    if (duplicates.length > 0) {
+                                                        return Promise.reject('Size đã bị trùng')
+                                                    }
+                                                    return Promise.resolve()
+                                                }
+                                            }]}>
+                                                {(sizes, { add: addSize, remove: removeSize }, { errors: sizeErrors }) => (
+                                                    <div>
+                                                        {sizes.map((size) => (
+                                                            <Space key={`size-${color.name}-${size.name}`} align="start">
+                                                                <Form.Item name={[size.name, "sizeName"]} rules={[{ required: true, message: 'Vui lòng nhập size' }]}>
+                                                                    <Input placeholder="Size" />
+                                                                </Form.Item>
+                                                                <Form.Item name={[size.name, "amount"]} rules={[{ required: true, message: 'Vui lòng nhập số lượng' }]}>
+                                                                    <InputNumber min={0} placeholder="Số lượng" />
+                                                                </Form.Item>
+                                                                {size.name > 0 ? (
+                                                                    <Button type="dashed" onClick={() => {
+                                                                        removeSize(size.name);
+                                                                    }} icon={<CloseOutlined />} />
+                                                                ) : (
+                                                                    <Button onClick={() => {
+                                                                        addSize({ sizeName: "", amount: 0 });
+                                                                    }} icon={<PlusOutlined />} />
+                                                                )}
+                                                            </Space>
+                                                        ))}
+                                                        <Form.ErrorList errors={sizeErrors} />
+                                                    </div>
+                                                )}
+                                            </Form.List>
+                                        </Col>
+                                        <Col span={2}>
+                                            <Button style={{ borderRadius: '50%' }} danger onClick={() => {
+                                                removeColor(color.name);
+                                            }} icon={<CloseOutlined />} disabled={color.name === 0} />
+                                        </Col>
+                                    </Row>
+                                    <Divider />
+                                </div>
+                            ))}
+                            <Form.ErrorList errors={errors} />
+                            <Button type="default" onClick={() => { addColor({ sizes: [{ sizeName: '', amount: 0 }] }) }}>+ màu</Button>
+                        </div>
+                    )}
+                </Form.List>
                 <Form.Item wrapperCol={{ offset: 3, span: 10 }}>
                     <Button type="primary" htmlType="submit">
                         Submit
