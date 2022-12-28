@@ -51,6 +51,7 @@ import SizeAdd from "./pages/admin/Size/SizeAdd";
 import SizeEdit from "./pages/admin/Size/SizeEdit";
 import ProductsList from "./pages/ProductList/products";
 import Listquanlyty from "./pages/admin/Quanlyty/Listquanlyty";
+import { PrivateRouter } from "./ultils/PrivateRouter";
 
 
 
@@ -77,7 +78,7 @@ function App() {
         <Route path="pay" element={<Pay />} />
 
       </Route>
-      <Route path="admin" element={<AdminLayout />}>
+      <Route path="admin" element={<PrivateRouter><AdminLayout /></PrivateRouter>}>
         {/* <Route index element={<Dashbroad />} /> */}
         <Route path="product">
           <Route index element={<ListProduct />} />
