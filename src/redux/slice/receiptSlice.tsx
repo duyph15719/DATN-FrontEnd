@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { add, update, getReceiptId, listReceipt, removeReceipt } from '../../api/receipt';
 import { RecaiptType } from '../../models/receipt';
+import { GetCart } from '../../pages/Website/Pay/Pay';
+import { add as addreceiptDetail } from "../../api/receiptDetail";
 
 
 const initialState: any = {
@@ -11,6 +13,33 @@ export const addReceipt = createAsyncThunk(
   "receipt/addReceipt",
   async (receipt: any) => {
     const { data } = await add(receipt)
+    const orderId = data._id;
+    const dataOrder = GetCart()
+    const GetProductsId = () => {
+      return (
+        <>
+          {dataOrder.map((item: any) => {
+            return [item?.id._id, item?.id.name, item?.quantity, item?.id.price, item?.color.colorName, item?.color._id, item?.size._id, item?.size.sizeName,item?.quantity*item?.id.price];
+          })}
+        </>
+      );
+    };
+    const newData=GetProductsId().props.children;
+    newData.forEach(async (order:any) => {
+      await order
+       addreceiptDetail({
+        orderId,
+        ProductsId:order[0],
+        productName:order[1],
+        quantity:order[2],
+        price:order[3],
+        colorId:order[5],
+        colorName:order[4],
+        sizeId:order[6],
+        sizeName:order[7],
+        total:order[8],
+      });
+    })
     return data;
   }
 )
