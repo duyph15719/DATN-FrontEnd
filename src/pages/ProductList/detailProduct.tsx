@@ -182,7 +182,9 @@ const DetailProduct = (props: Props) => {
 
             <div className="flex">
               <span
-                className="title-font font-medium text-2xl text-gray-900">{thousandFormat((data.price ? +data.price : 0) * quantity)} VND</span>
+                className="title-font font-medium text-2xl text-gray-900">
+                {thousandFormat((data.price ? +data.price : 0) * quantity)} VND
+              </span>
 
 
 
@@ -250,6 +252,8 @@ const DetailProduct = (props: Props) => {
                 </div>
               </div>
             </div>
+
+
           </div>
 
         </div>
