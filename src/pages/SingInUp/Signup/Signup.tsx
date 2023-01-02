@@ -28,14 +28,15 @@ const Signup = () => {
   };
   const navigate = useNavigate();
   return (
-    <div>     <Form
+    <div className=" p-6 uppercase  font-bold text-lg">     <Form
       name="basic"
       labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
+      wrapperCol={{ span: 8 }}
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
+      className=' '
     >
       <Form.Item
         label="Username"

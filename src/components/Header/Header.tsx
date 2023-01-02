@@ -5,7 +5,8 @@ import "antd/dist/antd.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAddressBook } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
-import SingInUp from "../../pages/SingInUp/SingInUp";
+import Signin from "../../pages/SingInUp/Signin/Signin";
+import Signup from "../../pages/SingInUp/Signup/Signup";
 const { Search } = Input;
 // import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 
@@ -14,12 +15,6 @@ type Props = {};
 
 const Header = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = async () => {
-    await setIsModalOpen(true);
-    const antmodalfooter: any = document.querySelector(".ant-modal-footer");
-    console.log(antmodalfooter);
-    antmodalfooter.style.display = "none";
-  };
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -75,13 +70,33 @@ const Header = (props: Props) => {
       </li>
     </>
   );
+
+  const user = () => {
+    const data= window.localStorage.getItem('user')
+    console.log(data);
+    
+  }
   return (
     <>
       <section className="bg-black">
         <div className="Nav  max-w-7xl mx-auto">
-          <div className=" Signinup font-bold text-sm leading-[84px]">
-            <button onClick={showModal}>ĐĂNG NHẬP / ĐĂNG KÝ</button>
-          </div>
+
+          {!user ? (
+            <div className=" Signinup font-bold text-sm leading-[84px]">
+              <Link to={`/signin`}>
+                <button className="text-cyan-50" >ĐĂNG NHẬP </button>
+              </Link>
+              <span> / </span>
+              <Link to={`/signup`}>
+                <button className="text-cyan-50">ĐĂNG KÝ </button>
+              </Link>
+            </div>
+          ) : (
+            <div className="">
+              <p className="text-cyan-50">XIN CHÀO :  </p>
+              <button className="text-cyan-50">ĐĂNG XUẤT </button>
+            </div>
+          )}
           <div onClick={showmenu} className="icon">
             <svg
               className="h-8 w-8 text-red-500"
@@ -284,7 +299,6 @@ const Header = (props: Props) => {
           onCancel={handleCancel}
           width="870px"
         >
-          <SingInUp />
         </Modal>
       </section>
       <section className='bg-[#DCDCDC] hidden'>
