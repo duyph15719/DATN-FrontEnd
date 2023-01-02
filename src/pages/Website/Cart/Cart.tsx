@@ -192,7 +192,7 @@ const Cart = (props: Props) => {
               <span>Tổng</span>
               <span>{total}</span>
             </div>
-            <button className="bg-orange-700 font-semibold hover:bg-orange-800 py-3 text-sm text-white uppercase w-full">
+            <button  className="bg-orange-700 font-semibold hover:bg-orange-800 py-3 text-sm text-white uppercase w-full">
               Thanh Toán
             </button>
           </div>
