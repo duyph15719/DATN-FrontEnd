@@ -1,16 +1,10 @@
 
 export type IUsers = {
-  _id?: string,
+    _id?: string|any,
     email?: string,
     password?: string,
     username?: string,
-    fullName?: string,
     phone?: string,
-    wardsCode?: number,
-    districtCode?: number,
-    provinceCode?: number,
-    address?: string,
-    avatar?: string,
     role?: number,
     active?: number,
     createdAt?: Date,

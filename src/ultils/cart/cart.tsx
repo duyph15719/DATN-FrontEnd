@@ -1,53 +1,94 @@
-import { toast } from "react-toastify"
-import Swal from "sweetalert2"
+import { message } from "antd";
+import Swal from "sweetalert2";
 
-let cart: any = []
-// lấy sản phẩm trong giỏ hàng gán vào biến cart
-export const getCart = () => {
-
-    if (localStorage.getItem('cart')) {
-        return cart = JSON.parse(localStorage.getItem('cart') as string)
+export const setLocalStorage = (key: any, value: any) => {
+    localStorage.setItem(key, JSON.stringify(value));
+};
+let cart: any = [];
+// eslint-disable-next-line consistent-return
+export const getLocalStorage = (key: string) => {
+    if (localStorage.getItem(key)) {
+        return JSON.parse(localStorage.getItem(key) || "{}");
     }
-    return cart = []
+};
+
+
+const getCart = () => {
+    if (typeof window !== 'undefined') {
+        if (localStorage.getItem('cart')) {
+            return cart = JSON.parse(localStorage.getItem('cart') as string)
+        }
+        return cart = []
+    }
 }
-// add to cart
-export const addToCart = (newProduct: any) => {
+// eslint-disable-next-line import/prefer-default-export
+export const addToCart = (newItem: any, next: any) => {
+
     getCart()
-    const exist = cart.find((item: any) => item._id === newProduct._id)
-    if (!exist) {
-        cart.push(newProduct)
+    const existItem = cart.find((item: any) => item.id._id === newItem.id._id && item.color?._id === newItem.color._id && item.size?._id === newItem.size._id);
+    if (!existItem) {
+        cart.push(newItem);
+        Swal.fire({
+            icon: 'success',
+            title: "Thêm vào giỏ hàng thành công ",
+            timer: 1500,
+            showConfirmButton: false,
+        })
+    } else {
+        existItem.quantity += newItem.quantity;
+        if (existItem.quantity > existItem.size?.amount) {
+            existItem.quantity = existItem.size?.amount
+            return Swal.fire({
+                icon: 'warning',
+                title: "Số lượng sản phẩm trong giỏ hàng của bạn không được thêm quá số lượng kho ",
+            })
+
+        }
+        // eslint-disable-next-line no-plusplus
+
+        Swal.fire({
+            icon: 'success',
+            title: "Sản phẩm này đã có trong giỏ, tăng số lượng thêm " + newItem.quantity,
+            timer: 1400,
+            showConfirmButton: false,
+        })
     }
-    else {
-        exist.totalNumber++
-    }
+    setLocalStorage("cart", cart);
+    next();
+};
+export const sumTotal = (price: any, quantity: any) => {
+    return price * quantity
+}
+export const increaseItemInCart = (id: any, next: () => void) => {
+    getCart()
+    cart.find((item: any) => item?.randomid === id).quantity++;
     localStorage.setItem('cart', JSON.stringify(cart))
+    next();
 }
-// 
-export const increase = (id: string) => {
+export const decreaseItemInCart = (id: any, next: () => void) => {
     getCart()
-    cart.find((item: any) => item._id === id).totalNumber++;
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
-export const decrease = (id: string) => {
-    getCart()
-    const Item = cart.find((product: any) => product._id === id);
-    Item.totalNumber--;
+    const currenProduct = cart.find((product: any) => (product?.randomid === id));
+
+
+    currenProduct.quantity--;
     // nếu sản phẩm giảm nhỏ hơn 1 thì xóa
-    if (Item.totalNumber < 1) {
+    if (currenProduct.quantity < 1) {
         const confirm = window.confirm('Bạn có muốn xóa sản phẩm này không?');
         if (confirm) {
-            cart = cart.filter((item: any) => item._id !== Item._id);
+            cart = cart.filter((item: any) => item.randomid !== currenProduct.randomid);
         } else {
-            Item.totalNumber = 1;
+            currenProduct.quantity = 1
         }
     }
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(cart))
+    next();
 }
-export const removeItemCart = (id: string) => {
+export const removeItemInCart = (newItem: any, next: () => void) => {
     getCart()
-    const confirm = window.confirm('Bạn có muốn xóa sản phẩm này không?');
-    if (confirm) {
-        cart = cart.filter((item: any) => item._id !== id);
-    }
+    cart = cart.filter((item: any) => item.randomid !== newItem.randomid);
     localStorage.setItem('cart', JSON.stringify(cart));
+    console.log(newItem);
+
+
+    next();
 }

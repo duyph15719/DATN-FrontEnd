@@ -5,20 +5,20 @@ import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 type Props = {
-  email: string
+  emailogin: string
   password: string
 }
 
 const Signin = () => {
   const navigate = useNavigate();
-    const onFinish: SubmitHandler<Props> = async dataInput => {
+    const onFinish: SubmitHandler<Props> = async dataInput => {      
       try {
-        await signin(dataInput);
-        localStorage.setItem("user", JSON.stringify(dataInput))
+        const { data } = await signin(dataInput);
+        localStorage.setItem("user", JSON.stringify(data))
         toast.success("Đăng nhập tài khoản thành công");
         navigate("/");
       } catch (error: any) {
-        toast.error(error.response.data.message);
+        //toast.error(error.response.data.message);
       }
       };
     

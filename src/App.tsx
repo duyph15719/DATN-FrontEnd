@@ -48,8 +48,12 @@ import SizeAdd from "./pages/admin/Size/SizeAdd";
 import SizeEdit from "./pages/admin/Size/SizeEdit";
 import SizeList from "./pages/admin/Size/SizeList";
 import ProductsList from "./pages/ProductList/products";
+
+import { PrivateRouter } from "./ultils/PrivateRouter";
+
 import Signin from "./pages/SingInUp/Signin/Signin";
 import Signup from "./pages/SingInUp/Signup/Signup";
+
 
 
 
@@ -78,7 +82,7 @@ function App() {
         <Route path="signup" element={<Signup />} />
 
       </Route>
-      <Route path="admin" element={<AdminLayout />}>
+      <Route path="admin" element={<PrivateRouter><AdminLayout /></PrivateRouter>}>
         {/* <Route index element={<Dashbroad />} /> */}
         <Route path="product">
           <Route index element={<ListProduct />} />

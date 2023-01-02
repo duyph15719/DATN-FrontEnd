@@ -9,7 +9,6 @@ export const listUser =() =>{
 export const readUser =(id:string|number) =>{
     return instance.get(`/users/${id}`)
 }
-
 export const removeUser =(id:string|number) =>{
     return instance.delete(`/users/${id}`)
 }
