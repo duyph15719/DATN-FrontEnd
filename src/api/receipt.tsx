@@ -3,9 +3,9 @@ import instance from "./instance";
 
 
 export const listReceipt = ( start = 0, limit = 0) => {
-    let url = `/${DB_NAME}/?_sort=createdAt&_order=desc`;
-    if (limit) url += `&_start=${start}&_limit=${limit}`;
-    return instance.get(url);
+    // let url = `/${DB_NAME}/?_sort=createdAt&_order=desc`;
+    // if (limit) url += `&_start=${start}&_limit=${limit}`;
+    return instance.get(`/orders`);
 }
 
 export const getReceiptId = (id: any) => {

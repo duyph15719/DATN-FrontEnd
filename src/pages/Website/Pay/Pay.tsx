@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputComponent } from "./components/Input";
 import ListLogin from "./components/ListLogin";
 import ListPromoCode from "./components/ListPromoCode";
@@ -33,14 +33,19 @@ export function GetCart() {
   const cart = window.localStorage.getItem('cart')
   return cart && JSON.parse(cart);
 }
-const data = GetCart()
+
 
 // const renderUserRoles = (userId: string) => {
 //   const user = USER_ROLE.filter((o) => o.id === userId);
 //   return <>{user[0]?.name}</>
 // }
-let Sum = 0;
+
 const Pay = (props: Props) => {
+  const [reload, setReload] = useState<any>(true);
+  useEffect(() => {
+    GetCart();
+  }, []);
+  let Sum = 0;
   const [transferForm, setTransferForm] = useState<any>({
     payment1: false,
     payment2: false,
@@ -62,6 +67,7 @@ const Pay = (props: Props) => {
   };
   const handldClick = (e: any) => {
     const currentRadio = e.target.id;
+    //window.localStorage.clear();
     if (currentRadio === "0") {
       setTransferForm({
         payment1: true,
@@ -74,6 +80,7 @@ const Pay = (props: Props) => {
       });
     }
   };
+  const data = GetCart()
   const {
     register,
     handleSubmit,
@@ -225,10 +232,11 @@ const Pay = (props: Props) => {
                 Ghi chú đơn hàng (tuỳ chọn)
               </label>
               <textarea
+                {...register("note")}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Ghi chú về đơn hàng, 
                             Ví dụ: thời gian hay chỉ dẫn địa điểm giao hàng chi tiết hơn"
-              ></textarea>
+              />
             </div>
           </div>
           <div id="summary" className=" md:w-1/2 px-8 py-10 border-2 border-orange-700  h-1/2 sm:p-5" >
@@ -239,17 +247,18 @@ const Pay = (props: Props) => {
               <span className="font-semibold text-sm uppercase">Sản phẩm</span>
               <span className="font-semibold text-sm">Tổng</span>
             </div>
-            {data.map((item: any) => (
-              <div>
-                <span className="text-base">
-                  {item?.id?.name} × {item?.quantity}
-                </span>
-                <span className="float-right font-semibold text-sm">
-                  {sumTotal(item?.id?.price, item?.quantity)} ₫
-                </span>
-                <span className=" invisible">{(Sum += sumTotal(item?.id?.price, item?.quantity))}</span>
-              </div>
-            ))}
+            {data &&
+              data?.map((item: any) => (
+                <div>
+                  <span className="text-base">
+                    {item?.id?.name} × {item?.quantity}
+                  </span>
+                  <span className="float-right font-semibold text-sm">
+                    {sumTotal(item?.id?.price, item?.quantity)} ₫
+                  </span>
+                  <span className=" invisible">{(Sum += sumTotal(item?.id?.price, item?.quantity))}</span>
+                </div>
+              ))}
             <div className="flex justify-between mt-10 mb-5 border-b pb-3">
               <span className="font-semibold text-sm uppercase">Tổng phụ</span>
               <span className="font-semibold text-sm">{Sum} ₫</span>

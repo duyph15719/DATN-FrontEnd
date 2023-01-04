@@ -7,6 +7,7 @@ import BannerReducer from './slice/BannerSlice'
 import ColorReducer from './slice/colorList'
 import SizeReducer from './slice/sizeSlice'
 import QuantityReducer from './slice/quantity'
+import ReceiptSlice from "./slice/receiptSlice";
 const persistConfig = {
     key: "root",
     storage,
@@ -18,8 +19,8 @@ const reducers = combineReducers({
     BannerReducer,
     ColorReducer,
     SizeReducer,
-    QuantityReducer
-
+    QuantityReducer,
+    ReceiptSlice
 
 
 });
