@@ -5,7 +5,6 @@ import Homepage from "./pages/Homepage";
 
 import "antd/dist/antd.css";
 import About from "./pages/About/About";
-import Products from "./pages/ProductList/products";
 import Lienhe from "./pages/Lienhe/lienhe";
 
 
@@ -22,7 +21,6 @@ import Categories from "./pages/admin/Categories/Categories";
 import Users from "./pages/admin/User/User";
 import CommentEdit from "./pages/admin/Comment/CommentEdit";
 import CommentAdd from "./pages/admin/Comment/CommentAdd";
-import Comment from "./pages/admin/Comment/Comment";
 import BlogAdd from "./pages/admin/Blog/BlogAdd";
 import BlogEdit from "./pages/admin/Blog/BlogEdit";
 import Blog from "./pages/admin/Blog/Blog";
@@ -52,6 +50,7 @@ import SizeEdit from "./pages/admin/Size/SizeEdit";
 import ProductsList from "./pages/ProductList/products";
 import Listquanlyty from "./pages/admin/Quanlyty/Listquanlyty";
 import OrderManager from "./pages/admin/receipt/list";
+import OrderDetail from "./pages/admin/receipt/detail";
 
 
 
@@ -122,8 +121,7 @@ function App() {
         </Route>
         <Route path='orders'>
           <Route index element={<OrderManager />} />
-          <Route path='add' element={<CommentAdd />} />
-          <Route path='edit/:id' element={<CommentEdit />} />
+          <Route path='edit/:id' element={<OrderDetail />} />
         </Route>
 
       </Route>

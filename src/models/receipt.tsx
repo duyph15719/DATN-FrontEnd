@@ -1,6 +1,6 @@
 export type RecaiptType = {
     _id?: any,
-    name?: string;
+    name?: string |any;
     status?: number,
     address?:string,
     payments?:number,
@@ -24,10 +24,11 @@ export type RecaiptDetailType = {
     colorName?: string,
     sizeName?: string,
     productName?:string,
+    image?:string,
 }
 export type OrderLogsType = {
     orderId?: string | any,
-    status: number,
+    statusOrderLogs: number,
     userId?: string | any,
     createdAt?: string
 }

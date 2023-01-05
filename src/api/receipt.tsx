@@ -28,7 +28,7 @@ export const removeReceipt = (id: any) => {
     return instance.delete(url);
 }
 
-export const update = (order: RecaiptType, { token, user } = isAuthenticate()) => {
+export const update = (order:{ _id?: string; status: number }, { token, user } = isAuthenticate()) => {
     const url = `/${DB_NAME}/${order._id}/${user._id}`;
     return instance.put(url, order, {
         headers: {
@@ -36,7 +36,6 @@ export const update = (order: RecaiptType, { token, user } = isAuthenticate()) =
         }
     });
 }
-
 const DB_NAME = "orders";
 export const isAuthenticate = () => {
     return JSON.parse(JSON.parse(localStorage.getItem("persist:root") as string).auth).value;
