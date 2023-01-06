@@ -1,15 +1,5 @@
 
-import React from 'react'
-
-type Props = {}
-
-const detail = (props: Props) => {
-  return (
-    <div>detail</div>
-  )
-}
-
-export default detail// // import { message } from 'antd';
+// // import { message } from 'antd';
 // // import React, { useEffect } from 'react'
 // // import { useParams } from 'react-router-dom'
 // // import { useAppDispatch, useAppSelector } from '../../../redux/hook';
@@ -132,234 +122,230 @@ export default detail// // import { message } from 'antd';
 
 // // export default cartDetail
 
-// import { Button, Col, Image, message, Row, Modal, Table, Typography } from "antd";
-// import type { ColumnsType } from "antd/es/table";
-// import { ExclamationCircleOutlined } from "@ant-design/icons";
-// import { useEffect, useState } from "react";
-// import { Link, useParams } from "react-router-dom";
-// import moment from "moment";
-// import { getOrderDetail, receiptUpdate } from "../../../redux/slice/receiptSlice";
-// import { RecaiptType, RecaiptDetailType } from "../../../models/receipt";
-// import { GetUser } from "../../Website/Pay/Pay";
-// import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-// import { getStatusOrder } from "./list";
+import { Button, Col, Image, message, Row, Modal, Table, Typography } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import moment from "moment";
+import { getOrderDetail, receiptUpdate } from "../../../redux/slice/receiptSlice";
+import { RecaiptType, RecaiptDetailType } from "../../../models/receipt";
+import { GetUser } from "../../Website/Pay/Pay";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { getStatusOrder } from "./list";
+import { add as addreceiptHistory } from "../../../api/receiptHistory";
 
-// const { confirm } = Modal;
-// const { Text } = Typography;
+const { confirm } = Modal;
+const { Text } = Typography;
 
-// const OrderDetail = () => {
-//     const dispatch = useAppDispatch()
-//     const { order } = useAppSelector((state: any) => state.ReceiptSlice)
-//     const [showLog, setShowLog] = useState(false);
-//     const currentUser = GetUser();
+const OrderDetail = () => {
+  const dispatch = useAppDispatch()
+  const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
+  const [showLog, setShowLog] = useState(false);
+  const currentUser = GetUser();
 
-//     const { id } = useParams();
+  const { id } = useParams();
+  useEffect(() => {
+    (async () => {
+      try {
+        const dataOrderDetail= await dispatch(getOrderDetail(id)).unwrap(); 
+        console.log(dataOrderDetail);
+      } catch (error) {
+        message.error("Có lỗi getOrderDetail xảy ra");
+      }
+    })();
+  }, []);
+  
 
-//     useEffect(() => {
-//         (async () => {
-//             try {
-//                 await dispatch(getOrderDetail(id)).unwrap();
-//             } catch (error) {
-//                 message.error("Có lỗi xảy ra");
-//             }
-//         })();
-//     }, []);
+  const columns: ColumnsType<RecaiptDetailType> = [
+    {
+      title: "#",
+      key: "#",
+      render: (_, item, index) => <Text>{++index}</Text>,
+    },
+    {
+      title: "Name",
+      key: "name",
+      render: (_, record) => <Text className="text-[#1890ff]">{record.productName}</Text>
+    },
+    {
+      title: "Image",
+      key: "image",
+      render: (_, record) => <Image src={record.image} width={100} height={100} className="object-cover" />,
+    },
+    {
+      title: "Price",
+      key: "price",
+      dataIndex: "productPrice",
+      render: (price) => <Text>{(price)}</Text>,
+    },
+    {
+      title: "Quantity",
+      key: "quantity",
+      dataIndex: "quantity",
+      render: (qnt) => <Text>{qnt}</Text>,
+    },
+    {
+      title: "Total",
+      key: "total",
+      render: (_, record) => (
+        <Text>{record.total}</Text>
+      ),
+    },
+  ];
 
-//     const columns: ColumnsType<RecaiptDetailType> = [
-//         {
-//             title: "#",
-//             key: "#",
-//             render: (_, item, index) => <Text>{++index}</Text>,
-//         },
-//         {
-//             title: "Name",
-//             key: "name",
-//             render: (_, record) => <Text className="text-[#1890ff]">{record.productName}</Text>   
-//         },
-//         {
-//             title: "Image",
-//             key: "image",
-//             render: (_, record) => <Image src={record.image} width={100} height={100} className="object-cover" />,
-//         },
-//         {
-//             title: "Price",
-//             key: "price",
-//             dataIndex: "productPrice",
-//             render: (price) => <Text>{(price)}</Text>,
-//         },
-//         {
-//             title: "Quantity",
-//             key: "quantity",
-//             dataIndex: "quantity",
-//             render: (qnt) => <Text>{qnt}</Text>,
-//         },
-//         {
-//             title: "Total",
-//             key: "total",
-//             render: (_, record) => (
-//                 <Text>{record.total}</Text>
-//             ),
-//         },
-//     ];
+  // cập nhật trạng thái đơn hàng
+  const handleUpdateStt = (stt: number) => {
+    confirm({
+      title: "Xác nhận cập nhật trạng thái đơn hàng?",
+      icon: <ExclamationCircleOutlined />,
+      content: "Không thể hoàn tác sau khi cập nhật",
+      async onOk() {
+        try {
+          const res = await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();
+          await addreceiptHistory({ orderId: id, userId: currentUser._id, statusOrderLogs: stt, createdAt: res.updatedAt });
 
-//     // cập nhật trạng thái đơn hàng
-//     const handleUpdateStt = (stt: number) => {
-//         confirm({
-//             title: "Xác nhận cập nhật trạng thái đơn hàng?",
-//             icon: <ExclamationCircleOutlined />,
-//             content: "Không thể hoàn tác sau khi cập nhật",
-//             async onOk() {
-//                 try {
-//                     const res = await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();
-//                     await OrderApi.addOrderLog({ orderId: id, userId: currentUser._id, status: stt, createdAt: res.updatedAt });
+          message.success("Cập nhật trạng thái thành công");
+        } catch (error) {
+          message.error("Có lỗi xảy ra, vui lòng thử lại");
+        }
+      },
+    });
+  };
+  const dataTable = receipts?.map((item: any, index: any) => {
+    return {
+        key: index,
+        name: item.name,
+        id: item._id,
+        email: item.email,
+        payments: item.payments,
+        phone: item.phone,
+        status: item.status,
+        address: item.address,
+        city: item.city,
+        total: item.total,
+        note: item.note,
+        statusOrderLogs: item.statusOrderLogs,
+        createdAt: item.createdAt
+    }
 
-//                     message.success("Cập nhật trạng thái thành công");
-//                 } catch (error) {
-//                     message.error("Có lỗi xảy ra, vui lòng thử lại");
-//                 }
-//             },
-//         });
-//     };
+})
+const data = receipts.find((item: any) => item._id == id)
+console.log(id);
 
-//     return (
-//     <>
-//                 <div className="grid grid-cols-2">
-//                     <div className="">
-//                         <div className="">
-//                             <p className="mb-[26px]">Mã đơn: <a href="">{id}</a></p>
-//                             <p className="mb-[26px]">Thông tin giao hàng:</p>
-//                             <div className="border border-[#A4A5AE] w-10/12	h-[200px]">
-//                                 <div className="py-[30px] ml-[24px] ">
-//                                     <p className="mt-[4px]">Tên: <a href="">Nguyễn Văn A</a></p>
-//                                     <p className="py-[10px]">Địa chỉ: <a href="">Mê Linh, Hà Nội</a></p>
-//                                     <p>SĐT: <a href="">0987654321</a></p>
-//                                     <p className="py-[10px]">Email: <a href="">example@gmail.com</a></p>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div className="">
-//                         <div className="ml-[60px]">
-//                             <p className="mb-[26px]">Ngày tạo: <a href="">22/9/2022 11:22:25</a></p>
-//                             <p className="mb-[26px]">Ghi chú:</p>
-//                             {/* <textarea name="" className="border border-[#A4A5AE] w-full	h-[200px]">
+  return (
+    <>
+      <Row justify="space-between">
+        <Col>
+          <Text>
+            Đơn hàng đặt lúc <Text mark>{moment(receipts.order?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Text>
+            <span> hiện tại </span>
+            <Text mark>
+              {getStatusOrder(receipts.order?.status)} lúc {moment(receipts.order?.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
+            </Text>
+          </Text>
+        </Col>
 
-//                              </textarea> */}
+        <Col>
+          {receipts.order?.status === 0 ? (
+            <Button type="primary" onClick={() => handleUpdateStt(1)}>
+              Xác nhận ĐH
+            </Button>
+          ) : receipts.order?.status === 1 ? (
+            <Button type="primary" onClick={() => handleUpdateStt(2)}>
+              Đang giao hàng
+            </Button>
+          ) : receipts.order?.status === 2 ? (
+            <Button type="primary" onClick={() => handleUpdateStt(3)}>
+              Đã giao hàng
+            </Button>
+          ) : (
+            ""
+          )}
 
-//                         </div>
-//                     </div>
-//                 </div>
-//                 <Row justify="space-between">
-//                     <Col>
-//                         <Text>
-//                             Đơn hàng đặt lúc <Text mark>{moment(order.order?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Text>
-//                             <span> hiện tại </span>
-//                             <Text mark>
-//                                 {getStatusOrder(order.order?.status)} lúc {moment(order.order?.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
-//                             </Text>
-//                         </Text>
-//                     </Col>
+          {receipts.order?.status !== 3 && receipts.order?.status !== 4 && (
+            <Button type="primary" onClick={() => handleUpdateStt(4)} className="ml-1">
+              Hủy ĐH
+            </Button>
+          )}
 
-//                     <Col>
-//                         {order.order?.status === 0 ? (
-//                             <Button type="primary" onClick={() => handleUpdateStt(1)}>
-//                                 Xác nhận ĐH
-//                             </Button>
-//                         ) : order.order?.status === 1 ? (
-//                             <Button type="primary" onClick={() => handleUpdateStt(2)}>
-//                                 Đang giao hàng
-//                             </Button>
-//                         ) : order.order?.status === 2 ? (
-//                             <Button type="primary" onClick={() => handleUpdateStt(3)}>
-//                                 Đã giao hàng
-//                             </Button>
-//                         ) : (
-//                             ""
-//                         )}
+          <Button type="primary" className="ml-1" onClick={() => setShowLog(true)}>
+            Lịch sử ĐH
+          </Button>
+        </Col>
+      </Row>
 
-//                         {order.order?.status !== 3 && order.order?.status !== 4 && (
-//                             <Button type="primary" onClick={() => handleUpdateStt(4)} className="ml-1">
-//                                 Hủy ĐH
-//                             </Button>
-//                         )}
+      <Typography.Title level={3} style={{ margin: "8px 0 8px" }}>
+        Chi tiết đơn hàng
+      </Typography.Title>
 
-//                         <Button type="primary" className="ml-1" onClick={() => setShowLog(true)}>
-//                             Lịch sử ĐH
-//                         </Button>
-//                     </Col>
-//                 </Row>
+      <Table columns={columns} dataSource={dataTable} pagination={false} rowKey="_id" />
 
-//                 <Typography.Title level={3} style={{ margin: "8px 0 8px" }}>
-//                     Chi tiết đơn hàng
-//                 </Typography.Title>
+      <Typography.Title level={3} style={{ margin: "16px 0 0" }}>
+        Tổng thanh toán
+      </Typography.Title>
 
-//                 <Table columns={columns} dataSource={order.orderDetail} pagination={false} rowKey="_id" />
+      <table className="text-gray-600 w-full text-left">
+        <tbody>
+          <tr className="border-b">
+            <td className="py-1.5 font-medium">Tiền tạm tính:</td>
+            <td className="py-1.5 text-right">{(receipts.order?.totalPrice)}</td>
+          </tr>
+          {receipts.order?.voucherText && (
+            <>
+              <tr className="border-b">
+                <td className="py-1.5 font-medium">Voucher đã sử dụng</td>
+                <td className="py-1.5 text-right">{receipts.order?.voucherText}</td>
+              </tr>
+              <tr className="border-b">
+                <td className="py-1.5 font-medium">Tổng giảm:</td>
+                <td className="py-1.5 text-right">{(receipts.order?.priceDecrease)}</td>
+              </tr>
+            </>
+          )}
+          <tr>
+            <td className="py-1.5 font-medium">Tổng tiền:</td>
+            <td className="py-1.5 text-right">
+              {((receipts.order?.totalPrice || 0) - (receipts.order?.priceDecrease || 0))}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-//                 <Typography.Title level={3} style={{ margin: "16px 0 0" }}>
-//                     Tổng thanh toán
-//                 </Typography.Title>
+      <Typography.Title level={3} style={{ margin: "16px 0 0" }}>
+        Thông tin vận chuyển
+      </Typography.Title>
 
-//                 <table className="text-gray-600 w-full text-left">
-//                     <tbody>
-//                         <tr className="border-b">
-//                             <td className="py-1.5 font-medium">Tiền tạm tính:</td>
-//                             <td className="py-1.5 text-right">{(order.order?.totalPrice)}</td>
-//                         </tr>
-//                         {order.order?.voucherText && (
-//                             <>
-//                                 <tr className="border-b">
-//                                     <td className="py-1.5 font-medium">Voucher đã sử dụng</td>
-//                                     <td className="py-1.5 text-right">{order.order?.voucherText}</td>
-//                                 </tr>
-//                                 <tr className="border-b">
-//                                     <td className="py-1.5 font-medium">Tổng giảm:</td>
-//                                     <td className="py-1.5 text-right">{(order.order?.priceDecrease)}</td>
-//                                 </tr>
-//                             </>
-//                         )}
-//                         <tr>
-//                             <td className="py-1.5 font-medium">Tổng tiền:</td>
-//                             <td className="py-1.5 text-right">
-//                                 {((order.order?.totalPrice || 0) - (order.order?.priceDecrease || 0))}
-//                             </td>
-//                         </tr>
-//                     </tbody>
-//                 </table>
+      <table className="mt-1 text-gray-600 w-full text-left">
+        <tbody>
+          <tr className="border-b">
+            <td className="py-1.5 font-medium">Họ và tên:</td>
+            <td className="py-1.5 text-right">{receipts.order?.customerName}</td>
+          </tr>
+          <tr className="border-b">
+            <td className="py-1.5 font-medium">Địa chỉ:</td>
+            <td className="py-1.5 text-right">{receipts.order?.address}</td>
+          </tr>
+          <tr className="border-b">
+            <td className="py-1.5 font-medium">Số điện thoại:</td>
+            <td className="py-1.5 text-right">{receipts.order?.phone}</td>
+          </tr>
+          <tr className="border-b">
+            <td className="py-1.5 font-medium">Email:</td>
+            <td className="py-1.5 text-right">{receipts.order?.email}</td>
+          </tr>
+          <tr className="border-b">
+            <td className="py-1.5 font-medium">Thời gian đặt:</td>
+            <td className="py-1.5 text-right">{moment(receipts.order?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</td>
+          </tr>
+          <tr>
+            <td className="py-1.5 font-medium">Ghi chú:</td>
+            <td className="py-1.5 text-right">{receipts.order?.message || "Không có ghi chú"}</td>
+          </tr>
+        </tbody>
+      </table>
+    </>
+  );
+};
 
-//                 <Typography.Title level={3} style={{ margin: "16px 0 0" }}>
-//                     Thông tin vận chuyển
-//                 </Typography.Title>
-
-//                 <table className="mt-1 text-gray-600 w-full text-left">
-//                     <tbody>
-//                         <tr className="border-b">
-//                             <td className="py-1.5 font-medium">Họ và tên:</td>
-//                             <td className="py-1.5 text-right">{order.order?.customerName}</td>
-//                         </tr>
-//                         <tr className="border-b">
-//                             <td className="py-1.5 font-medium">Địa chỉ:</td>
-//                             <td className="py-1.5 text-right">{order.order?.address}</td>
-//                         </tr>
-//                         <tr className="border-b">
-//                             <td className="py-1.5 font-medium">Số điện thoại:</td>
-//                             <td className="py-1.5 text-right">{order.order?.phone}</td>
-//                         </tr>
-//                         <tr className="border-b">
-//                             <td className="py-1.5 font-medium">Email:</td>
-//                             <td className="py-1.5 text-right">{order.order?.email}</td>
-//                         </tr>
-//                         <tr className="border-b">
-//                             <td className="py-1.5 font-medium">Thời gian đặt:</td>
-//                             <td className="py-1.5 text-right">{moment(order.order?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</td>
-//                         </tr>
-//                         <tr>
-//                             <td className="py-1.5 font-medium">Ghi chú:</td>
-//                             <td className="py-1.5 text-right">{order.order?.message || "Không có ghi chú"}</td>
-//                         </tr>
-//                     </tbody>
-//                 </table>
-//             </>
-//             );
-// };
-
-//             export default OrderDetail;
+export default OrderDetail;

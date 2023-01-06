@@ -26,7 +26,7 @@ const EditProduct = (props: Props) => {
 
     const onFinish = async (values: any) => {
 
-        // console.log(values);
+         console.log(categories);
         values._id = id
         dispatch(productUpdate({ ...values, image: Url })).unwrap()
             .then(() => {

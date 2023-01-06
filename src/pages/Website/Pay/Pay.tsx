@@ -109,6 +109,7 @@ const Pay = (props: Props) => {
 
     dispatch(addReceipt(orderData)).unwrap()
       .then(() => {
+        window.localStorage.removeItem("cart");
         Swal.fire({
           icon: 'success',
           title: 'Thêm thành công',

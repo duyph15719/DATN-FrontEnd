@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { add, update, getReceiptId, listReceipt, removeReceipt } from '../../api/receipt';
 import { GetCart, GetUser } from '../../pages/Website/Pay/Pay';
-import { add as addreceiptDetail, get } from "../../api/receiptDetail";
+import { add as addreceiptDetail, getByOrderId ,getReceiptIdDetail} from "../../api/receiptDetail";
 import { add as addreceiptHistory } from "../../api/receiptHistory";
 import { RootState } from '../store';
 
@@ -85,7 +85,7 @@ export const receiptread = createAsyncThunk(
 export const getOrderDetail = createAsyncThunk(
   "order/getOrderDetail",
   async (orderId?: string) => {
-    const { data } = await getReceiptId(orderId)
+    const { data } = await getByOrderId(orderId)
     return data;
   }
 );
@@ -98,8 +98,8 @@ export const receiptSlice = createSlice({
     builder.addCase(addReceipt.fulfilled, (state, action) => {
       state.receipts.push(action.payload)
     });
-    builder.addCase(getOrderDetail.fulfilled, (state, { payload }) => {
-      state.order = payload;
+    builder.addCase(getOrderDetail.fulfilled, (state, action ) => {
+      state.order = action.payload;
     });
     builder.addCase(Receiptlist.fulfilled, (state, action) => {
       state.receipts = action.payload
