@@ -41,7 +41,6 @@ export function GetCart() {
 // }
 
 const Pay = (props: Props) => {
-  const [reload, setReload] = useState<any>(true);
   useEffect(() => {
     GetCart();
   }, []);

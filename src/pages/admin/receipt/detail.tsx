@@ -128,7 +128,7 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import moment from "moment";
-import { getOrderDetail, receiptUpdate } from "../../../redux/slice/receiptSlice";
+import { getOrderDetail, receiptread, receiptUpdate } from "../../../redux/slice/receiptSlice";
 import { RecaiptType, RecaiptDetailType } from "../../../models/receipt";
 import { GetUser } from "../../Website/Pay/Pay";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
@@ -140,53 +140,65 @@ const { Text } = Typography;
 
 const OrderDetail = () => {
   const dispatch = useAppDispatch()
-  const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
-  const [showLog, setShowLog] = useState(false);
-  const currentUser = GetUser();
-
   const { id } = useParams();
+  const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
+  const { order } = useAppSelector((state: any) => state.ReceiptSlice)
+  const [showLog, setShowLog] = useState(false);
+  const [data, setData] = useState<any>();
+  const currentUser = GetUser();
   useEffect(() => {
     (async () => {
       try {
-        const dataOrderDetail= await dispatch(getOrderDetail(id)).unwrap(); 
-        console.log(dataOrderDetail);
+        const data=await dispatch(receiptread(id)).unwrap();
+        setData(data);
+        await dispatch(getOrderDetail(id)).unwrap();
       } catch (error) {
         message.error("Có lỗi getOrderDetail xảy ra");
       }
     })();
   }, []);
-  
+ 
 
   const columns: ColumnsType<RecaiptDetailType> = [
     {
-      title: "#",
+      title: "STT",
       key: "#",
       render: (_, item, index) => <Text>{++index}</Text>,
     },
     {
-      title: "Name",
+      title: "Tên sản phẩm",
       key: "name",
       render: (_, record) => <Text className="text-[#1890ff]">{record.productName}</Text>
     },
     {
-      title: "Image",
+      title: "Hình ảnh",
       key: "image",
       render: (_, record) => <Image src={record.image} width={100} height={100} className="object-cover" />,
     },
     {
-      title: "Price",
+      title: "Màu",
+      key: "color",
+      render: (_, record) => <Text className="text-[#1890ff]">{record.colorName}</Text>
+    },
+    {
+      title: "Size",
+      key: "size",
+      render: (_, record) => <Text className="text-[#1890ff]">{record.sizeName}</Text>
+    },
+    {
+      title: "Giá tiền",
       key: "price",
-      dataIndex: "productPrice",
+      dataIndex: "price",
       render: (price) => <Text>{(price)}</Text>,
     },
     {
-      title: "Quantity",
+      title: "Số lượng",
       key: "quantity",
       dataIndex: "quantity",
       render: (qnt) => <Text>{qnt}</Text>,
     },
     {
-      title: "Total",
+      title: "Tổng",
       key: "total",
       render: (_, record) => (
         <Text>{record.total}</Text>
@@ -212,50 +224,46 @@ const OrderDetail = () => {
       },
     });
   };
-  const dataTable = receipts?.map((item: any, index: any) => {
+  const dataTable = order?.map((item: any, index: any) => {
     return {
         key: index,
-        name: item.name,
+        productName: item.productName,
         id: item._id,
-        email: item.email,
-        payments: item.payments,
-        phone: item.phone,
-        status: item.status,
+        quantity: item.quantity,
+        sizeName: item.sizeName,
+        price: item.price,
+        colorName: item.colorName,
         address: item.address,
-        city: item.city,
+        image: item.image,
+        orderId:item.orderId,
         total: item.total,
-        note: item.note,
-        statusOrderLogs: item.statusOrderLogs,
         createdAt: item.createdAt
     }
 
 })
-const data = receipts.find((item: any) => item._id == id)
-console.log(id);
-
   return (
     <>
       <Row justify="space-between">
         <Col>
           <Text>
-            Đơn hàng đặt lúc <Text mark>{moment(receipts.order?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Text>
+            Đơn hàng đặt lúc <Text mark>{moment(data?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Text>
             <span> hiện tại </span>
             <Text mark>
-              {getStatusOrder(receipts.order?.status)} lúc {moment(receipts.order?.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
+              {getStatusOrder(data?.status)} lúc {moment(data.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
             </Text>
           </Text>
         </Col>
 
         <Col>
-          {receipts.order?.status === 0 ? (
+          {data?.status === 0 ? (
             <Button type="primary" onClick={() => handleUpdateStt(1)}>
               Xác nhận ĐH
             </Button>
-          ) : receipts.order?.status === 1 ? (
+          ) : data?.status === 1 ? (
             <Button type="primary" onClick={() => handleUpdateStt(2)}>
               Đang giao hàng
             </Button>
-          ) : receipts.order?.status === 2 ? (
+          ) : data?.status === 2 ? (
             <Button type="primary" onClick={() => handleUpdateStt(3)}>
               Đã giao hàng
             </Button>
@@ -263,7 +271,7 @@ console.log(id);
             ""
           )}
 
-          {receipts.order?.status !== 3 && receipts.order?.status !== 4 && (
+          {data?.status !== 3 && data?.status !== 4 && (
             <Button type="primary" onClick={() => handleUpdateStt(4)} className="ml-1">
               Hủy ĐH
             </Button>
@@ -289,24 +297,12 @@ console.log(id);
         <tbody>
           <tr className="border-b">
             <td className="py-1.5 font-medium">Tiền tạm tính:</td>
-            <td className="py-1.5 text-right">{(receipts.order?.totalPrice)}</td>
+            <td className="py-1.5 text-right">{data?.total}</td>
           </tr>
-          {receipts.order?.voucherText && (
-            <>
-              <tr className="border-b">
-                <td className="py-1.5 font-medium">Voucher đã sử dụng</td>
-                <td className="py-1.5 text-right">{receipts.order?.voucherText}</td>
-              </tr>
-              <tr className="border-b">
-                <td className="py-1.5 font-medium">Tổng giảm:</td>
-                <td className="py-1.5 text-right">{(receipts.order?.priceDecrease)}</td>
-              </tr>
-            </>
-          )}
           <tr>
             <td className="py-1.5 font-medium">Tổng tiền:</td>
             <td className="py-1.5 text-right">
-              {((receipts.order?.totalPrice || 0) - (receipts.order?.priceDecrease || 0))}
+            {data?.total}
             </td>
           </tr>
         </tbody>
@@ -320,27 +316,27 @@ console.log(id);
         <tbody>
           <tr className="border-b">
             <td className="py-1.5 font-medium">Họ và tên:</td>
-            <td className="py-1.5 text-right">{receipts.order?.customerName}</td>
+            <td className="py-1.5 text-right">{data?.name}</td>
           </tr>
           <tr className="border-b">
             <td className="py-1.5 font-medium">Địa chỉ:</td>
-            <td className="py-1.5 text-right">{receipts.order?.address}</td>
+            <td className="py-1.5 text-right">{data?.address}</td>
           </tr>
           <tr className="border-b">
             <td className="py-1.5 font-medium">Số điện thoại:</td>
-            <td className="py-1.5 text-right">{receipts.order?.phone}</td>
+            <td className="py-1.5 text-right">{data?.phone}</td>
           </tr>
           <tr className="border-b">
             <td className="py-1.5 font-medium">Email:</td>
-            <td className="py-1.5 text-right">{receipts.order?.email}</td>
+            <td className="py-1.5 text-right">{data?.email}</td>
           </tr>
           <tr className="border-b">
             <td className="py-1.5 font-medium">Thời gian đặt:</td>
-            <td className="py-1.5 text-right">{moment(receipts.order?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</td>
+            <td className="py-1.5 text-right">{moment(data?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</td>
           </tr>
           <tr>
             <td className="py-1.5 font-medium">Ghi chú:</td>
-            <td className="py-1.5 text-right">{receipts.order?.message || "Không có ghi chú"}</td>
+            <td className="py-1.5 text-right">{data?.note || "Không có ghi chú"}</td>
           </tr>
         </tbody>
       </table>

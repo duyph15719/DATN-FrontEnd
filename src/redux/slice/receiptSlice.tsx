@@ -78,7 +78,7 @@ export const receiptUpdate = createAsyncThunk(
 export const receiptread = createAsyncThunk(
   "receipt/receiptread",
   async (_id: any) => {
-    const { data } = await getReceiptId(_id)
+    const { data } = await getReceiptId(_id)    
     return data;
   }
 )
