@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { productList } from '../../redux/slice/productSlice';
 import { categoriesList } from '../../redux/slice/categoriesSlice';
-import { quantityList } from '../../redux/slice/quantity';
+
 import { addToCart } from '../../ultils/cart/cart';
 import Swal from 'sweetalert2';
 import { ProductColor, ProductSize } from '../../models/product';
@@ -77,7 +77,7 @@ const DetailProduct = (props: Props) => {
   useEffect(() => {
     dispatch(categoriesList())
     dispatch(productList())
-    dispatch(quantityList())
+
 
   }, [dispatch])
   useEffect(() => {

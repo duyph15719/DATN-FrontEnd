@@ -7,8 +7,7 @@ import { useNavigate } from 'react-router';
 import { CloseOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { uploadCloudinary } from '../../../api/upload';
 import { categoriesList } from '../../../redux/slice/categoriesSlice';
-import { sizeList } from '../../../redux/slice/sizeSlice';
-import { ColorList } from '../../../redux/slice/colorList';
+
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { findStringDuplicates } from '../../../ultils';
@@ -87,8 +86,7 @@ const ProductList = (props: Props) => {
   );
   React.useEffect(() => {
     dispatch(categoriesList())
-    dispatch(sizeList())
-    dispatch(ColorList())
+
   }, [])
   const { categories } = useAppSelector(state => state.CategoriesReducer)
   return (
