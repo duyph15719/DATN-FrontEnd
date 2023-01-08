@@ -1,13 +1,17 @@
-
 import { CardComponents } from "./components/Card";
 
 import { useEffect, useState } from "react";
 
-import { decreaseItemInCart, getLocalStorage, increaseItemInCart, removeItemInCart, sumTotal } from "../../../ultils/cart/cart";
+import {
+  decreaseItemInCart,
+  getLocalStorage,
+  increaseItemInCart,
+  removeItemInCart,
+  sumTotal,
+} from "../../../ultils/cart/cart";
 import ListAddress from "./components/Address";
 
 import { Link } from "react-router-dom";
-
 
 type Props = {};
 
@@ -18,7 +22,6 @@ const Cart = (props: Props) => {
   const remove = (id: any) => {
     if (window.confirm("bạn có muốn xóa không ?")) {
       removeItemInCart(id, () => {
-
         setReload(!reload);
       });
     }
@@ -46,16 +49,23 @@ const Cart = (props: Props) => {
         <div className="md:w-4/6 bg-white px-10 py-10 sm:w-full">
           <div className="flex justify-between border-b pb-8">
             <h1 className="font-semibold text-2xl">Giỏ Hàng</h1>
-            <h2 className="font-semibold text-2xl text-right">3 Items</h2>
           </div>
           <table className="w-full shadow-inner">
             <thead>
               <tr className="bg-gray-100">
                 <th className="px-6 py-3 font-bold whitespace-nowrap">Ảnh</th>
-                <th className="px-6 py-3 font-bold whitespace-nowrap">Tên sản phẩm</th>
-                <th className="px-6 py-3 font-bold whitespace-nowrap">Màu sắc</th>
-                <th className="px-6 py-3 font-bold whitespace-nowrap">kích cỡ</th>
-                <th className="px-6 py-3 font-bold whitespace-nowrap">Số lượng</th>
+                <th className="px-6 py-3 font-bold whitespace-nowrap">
+                  Tên sản phẩm
+                </th>
+                <th className="px-6 py-3 font-bold whitespace-nowrap">
+                  Màu sắc
+                </th>
+                <th className="px-6 py-3 font-bold whitespace-nowrap">
+                  kích cỡ
+                </th>
+                <th className="px-6 py-3 font-bold whitespace-nowrap">
+                  Số lượng
+                </th>
                 <th className="px-6 py-3 font-bold whitespace-nowrap">Giá</th>
                 <th className="px-6 py-3 font-bold whitespace-nowrap">Xoá</th>
               </tr>
@@ -66,7 +76,11 @@ const Cart = (props: Props) => {
                   <tr key={item._id}>
                     <td>
                       <div className="flex justify-center">
-                        <img src={item?.id?.image} className="object-cover h-28 w-28 rounded-2xl" alt="image" />
+                        <img
+                          src={item?.id?.image}
+                          className="object-cover h-28 w-28 rounded-2xl"
+                          alt="image"
+                        />
                       </div>
                     </td>
                     <td className="p-4 px-6 text-center whitespace-nowrap">
@@ -74,8 +88,12 @@ const Cart = (props: Props) => {
                         <h3>{item?.id?.name}</h3>
                       </div>
                     </td>
-                    <td className="p-4 px-6 text-center whitespace-nowrap">{item?.color?.colorName}</td>
-                    <td className="p-4 px-6 text-center whitespace-nowrap">{item?.size?.sizeName}</td>
+                    <td className="p-4 px-6 text-center whitespace-nowrap">
+                      {item?.color?.colorName}
+                    </td>
+                    <td className="p-4 px-6 text-center whitespace-nowrap">
+                      {item?.size?.sizeName}
+                    </td>
                     <td className="p-4 px-6 text-center whitespace-nowrap">
                       <div>
                         <button
@@ -122,11 +140,13 @@ const Cart = (props: Props) => {
                       </div>
                     </td>
                     <td className="p-4 px-6 text-center whitespace-nowrap">
-                      {sumTotal(item?.id?.price, item?.quantity)}
+                      <div className="hidden">
+                        <p className="hidden">
+                          {" "}
+                          {(total += sumTotal(item?.id?.price, item?.quantity))}
+                        </p>
+                      </div>
                     </td>
-                    <div className="hidden">
-                      <p className="hidden"> {(total += sumTotal(item?.id?.price, item?.quantity))}</p>
-                    </div>
 
                     <td className="p-4 px-6 text-center whitespace-nowrap">
                       <button onClick={() => remove(item)}>
@@ -145,8 +165,6 @@ const Cart = (props: Props) => {
                           />
                         </svg>
                       </button>
-
-
                     </td>
                   </tr>
                 ))}
@@ -167,7 +185,6 @@ const Cart = (props: Props) => {
             </h3>
           </div>
 
-
           <a
             href="#"
             className="flex font-semibold text-indigo-600 text-sm mt-10"
@@ -181,7 +198,10 @@ const Cart = (props: Props) => {
             Tiếp Tục Xem Sản Phẩm
           </a>
         </div>
-        <div id="summary" className="md:w-2/6 px-8 py-10 sm:w-full border-l border-gray-6000">
+        <div
+          id="summary"
+          className="md:w-2/6 px-8 py-10 sm:w-full border-l border-gray-6000"
+        >
           <h1 className="font-semibold text-2xl border-b pb-8">Thông Tin</h1>
           <div className="flex justify-between mt-10 mb-5">
             <span className="font-semibold text-sm uppercase">
@@ -199,13 +219,11 @@ const Cart = (props: Props) => {
               <span>{total}</span>
             </div>
 
-            <Link to={'/pay'}>
+            <Link to={"/pay"}>
               <button className="bg-orange-700 font-semibold hover:bg-orange-800 py-3 text-sm text-white uppercase w-full">
-
                 Thanh Toán
               </button>
             </Link>
-
           </div>
 
           <div className="py-5 ">
@@ -251,4 +269,3 @@ const Cart = (props: Props) => {
 };
 
 export default Cart;
-

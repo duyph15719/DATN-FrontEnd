@@ -4,36 +4,35 @@ import ListLogin from "./components/ListLogin";
 import ListPromoCode from "./components/ListPromoCode";
 import ListSignup from "./components/ListSigup";
 import "./Pay.css";
-import Swal from 'sweetalert2';
-import { useAppDispatch } from '../../../redux/hook';
-import { useNavigate } from 'react-router';
+import Swal from "sweetalert2";
+import { useAppDispatch } from "../../../redux/hook";
+import { useNavigate } from "react-router";
 import { addReceipt } from "../../../redux/slice/receiptSlice";
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from "react-hook-form";
 import { add as addreceiptDetail } from "../../../api/receiptDetail";
 import { add as addreceipt } from "../../../api/receipt";
 import { sumTotal } from "../../../ultils/cart/cart";
 type Props = {
   name?: string;
-  status?: number,
-  address?: string,
-  payments?: number,
-  phone?: number,
-  note?: string,
-  UserId?: string | any,
-  city?: string,
-  email?: string,
-  ProductsId?: string | any,
+  status?: number;
+  address?: string;
+  payments?: number;
+  phone?: number;
+  note?: string;
+  UserId?: string | any;
+  city?: string;
+  email?: string;
+  ProductsId?: string | any;
 };
 
 export function GetUser() {
-  const user = window.localStorage.getItem('user')
+  const user = window.localStorage.getItem("user");
   return user && JSON.parse(user);
 }
 export function GetCart() {
-  const cart = window.localStorage.getItem('cart')
+  const cart = window.localStorage.getItem("cart");
   return cart && JSON.parse(cart);
 }
-
 
 // const renderUserRoles = (userId: string) => {
 //   const user = USER_ROLE.filter((o) => o.id === userId);
@@ -59,8 +58,8 @@ const Pay = (props: Props) => {
   const transfer = () => {
     return (
       <p className="text-grey-darkest py-3 pl-3 text-base ">
-        Thực hiện thanh toán thông qua ví điện tử MoMo. Đơn
-        hàng sẽ được giao sau khi tiền đã chuyển thành công.
+        Thực hiện thanh toán thông qua ví điện tử MoMo. Đơn hàng sẽ được giao
+        sau khi tiền đã chuyển thành công.
       </p>
     );
   };
@@ -79,21 +78,19 @@ const Pay = (props: Props) => {
       });
     }
   };
-  const data = GetCart()
+  const data = GetCart();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm<Props>();
-  const dispatch = useAppDispatch()
-  const navigation = useNavigate()
-  const onFinish: SubmitHandler<Props> = async dataInput => {
+  const dispatch = useAppDispatch();
+  const navigation = useNavigate();
+  const onFinish: SubmitHandler<Props> = async (dataInput) => {
     const user = GetUser();
 
     const orderData = {
-      UserId: user.user._id || "",
-      email: user.user.email || dataInput.email || "",
       name: dataInput.name,
       address: dataInput.address,
       phone: dataInput.phone,
@@ -101,26 +98,25 @@ const Pay = (props: Props) => {
       payments: dataInput.payments,
       note: dataInput.note,
       city: dataInput.city,
-      total: Sum
-    }
+      total: Sum,
+    };
     console.log(dataInput);
 
-
-    dispatch(addReceipt(orderData)).unwrap()
+    dispatch(addReceipt(orderData))
+      .unwrap()
       .then(() => {
         window.localStorage.removeItem("cart");
         Swal.fire({
-          icon: 'success',
-          title: 'Thêm thành công',
+          icon: "success",
+          title: "Thêm thành công",
           timer: 1000,
           showConfirmButton: false,
-        })
+        });
         setTimeout(() => {
-          navigation("/pay")
+          navigation("/pay");
         }, 1200);
-
       })
-      .catch((err: any) => alert(err))
+      .catch((err: any) => alert(err));
   };
 
   return (
@@ -128,18 +124,30 @@ const Pay = (props: Props) => {
       <ListLogin />
       <ListPromoCode />
       <div className="">
-
-        <form onSubmit={handleSubmit(onFinish)} method="POST" className="border-t-2  md:flex  my-10 sm:flex-none ">
-
+        <form
+          onSubmit={handleSubmit(onFinish)}
+          method="POST"
+          className="border-t-2  md:flex  my-10 sm:flex-none "
+        >
           <div className="md:w-3/4 bg-white px-10    ">
             <p className="pb-5 text-red-700">(*): bắt buộc điền thông tin</p>
             <div className="mb-6">
-              <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Họ và tên (*)</label>
-              <input type="text" id=""
-                className={'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
+              <label
+                htmlFor="first_name"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Họ và tên (*)
+              </label>
+              <input
+                type="text"
+                id=""
+                className={
+                  "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                }
                 placeholder="Nguyễn, Trần, Lê, ..."
                 required
-                {...register("name")} />
+                {...register("name")}
+              />
             </div>
             <div className="mb-6">
               <label
@@ -192,36 +200,76 @@ const Pay = (props: Props) => {
             </div>
 
             <div className="mb-6">
-              <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tỉnh / Thành phố (*)</label>
-              <input type="text" id=""
-                className={'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
+              <label
+                htmlFor="first_name"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Tỉnh / Thành phố (*)
+              </label>
+              <input
+                type="text"
+                id=""
+                className={
+                  "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                }
                 placeholder="Tỉnh / Thành phố *"
                 required
-                {...register("city")} />
+                {...register("city")}
+              />
             </div>
             <div className="mb-6">
-              <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Địa chỉ (*)</label>
-              <input type="text" id=""
-                className={'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
+              <label
+                htmlFor="first_name"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Địa chỉ (*)
+              </label>
+              <input
+                type="text"
+                id=""
+                className={
+                  "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                }
                 placeholder="Địa chỉ nhà"
                 required
-                {...register("address")} />
+                {...register("address")}
+              />
             </div>
             <div className="mb-6">
-              <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Địa chỉ Email (*)</label>
-              <input type="email" id=""
-                className={'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
+              <label
+                htmlFor="first_name"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Địa chỉ Email (*)
+              </label>
+              <input
+                type="email"
+                id=""
+                className={
+                  "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                }
                 placeholder="...@gmail.com"
                 required
-                {...register("email")} />
+                {...register("email")}
+              />
             </div>
             <div className="mb-6">
-              <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Số điện thoại (*)</label>
-              <input type="number" id=""
-                className={'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
+              <label
+                htmlFor="first_name"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Số điện thoại (*)
+              </label>
+              <input
+                type="number"
+                id=""
+                className={
+                  "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                }
                 placeholder="Số điện thoại "
                 required
-                {...register("phone")} />
+                {...register("phone")}
+              />
             </div>
             {/* <ListSignup /> */}
             <div className="mb-6">
@@ -239,7 +287,10 @@ const Pay = (props: Props) => {
               />
             </div>
           </div>
-          <div id="summary" className=" md:w-1/2 px-8 py-10 border-2 border-orange-700  h-1/2 sm:p-5" >
+          <div
+            id="summary"
+            className=" md:w-1/2 px-8 py-10 border-2 border-orange-700  h-1/2 sm:p-5"
+          >
             <h1 className="font-semibold text-2xl border-b pb-8">
               Đơn Hàng Của Bạn
             </h1>
@@ -256,7 +307,9 @@ const Pay = (props: Props) => {
                   <span className="float-right font-semibold text-sm">
                     {sumTotal(item?.id?.price, item?.quantity)} ₫
                   </span>
-                  <span className=" invisible">{(Sum += sumTotal(item?.id?.price, item?.quantity))}</span>
+                  <span className=" invisible">
+                    {(Sum += sumTotal(item?.id?.price, item?.quantity))}
+                  </span>
                 </div>
               ))}
             <div className="flex justify-between mt-10 mb-5 border-b pb-3">
@@ -275,9 +328,12 @@ const Pay = (props: Props) => {
               <label className="inline-flex items-center">
                 <input
                   {...register("payments", { required: true })}
-                  type="radio" value="0" id='0'
+                  type="radio"
+                  value="0"
+                  id="0"
                   onClick={(e: any) => handldClick(e)}
-                  checked={transferForm.payment1} />
+                  checked={transferForm.payment1}
+                />
                 <span className="text-grey-darkest font-thin text-xl  ml-2 py-3">
                   Trả tiền mặt khi nhận hàng
                 </span>
@@ -288,9 +344,12 @@ const Pay = (props: Props) => {
               <label className="inline-flex items-center">
                 <input
                   {...register("payments", { required: true })}
-                  type="radio" value="1" id='1'
+                  type="radio"
+                  value="1"
+                  id="1"
                   onClick={(e: any) => handldClick(e)}
-                  checked={transferForm.payment2} />
+                  checked={transferForm.payment2}
+                />
                 <span className="text-grey-darkest font-thin text-xl ml-2">
                   {" "}
                   Thanh toán thông qua ví điện tử MoMo
@@ -304,9 +363,6 @@ const Pay = (props: Props) => {
             </button>
           </div>
         </form>
-
-
-
       </div>
     </div>
   );

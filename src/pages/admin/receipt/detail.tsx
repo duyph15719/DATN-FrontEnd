@@ -1,4 +1,3 @@
-
 // // import { message } from 'antd';
 // // import React, { useEffect } from 'react'
 // // import { useParams } from 'react-router-dom'
@@ -88,7 +87,6 @@
 // //                                     </td>
 // //                                 </tr>
 
-
 // //                             </tbody>
 // //                         </table>
 // //                     </div>
@@ -100,7 +98,6 @@
 // //                         <div className=" my-auto flex">
 // //                             <a href="" className="text-lg text-[#000000] ml-[84px]">Tổng tiền: </a>
 // //                             <p><a href="" className="text-lg ml-[220px] text-[#E22C43]">160.000 vnđ</a></p>
-
 
 // //                         </div>
 // //                     </div>
@@ -122,13 +119,26 @@
 
 // // export default cartDetail
 
-import { Button, Col, Image, message, Row, Modal, Table, Typography } from "antd";
+import {
+  Button,
+  Col,
+  Image,
+  message,
+  Row,
+  Modal,
+  Table,
+  Typography,
+} from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import moment from "moment";
-import { getOrderDetail, receiptread, receiptUpdate } from "../../../redux/slice/receiptSlice";
+import {
+  getOrderDetail,
+  receiptread,
+  receiptUpdate,
+} from "../../../redux/slice/receiptSlice";
 import { RecaiptType, RecaiptDetailType } from "../../../models/receipt";
 import { GetUser } from "../../Website/Pay/Pay";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
@@ -139,17 +149,17 @@ const { confirm } = Modal;
 const { Text } = Typography;
 
 const OrderDetail = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const { id } = useParams();
-  const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
-  const { order } = useAppSelector((state: any) => state.ReceiptSlice)
+  const { receipts } = useAppSelector((state: any) => state.ReceiptSlice);
+  const { order } = useAppSelector((state: any) => state.ReceiptSlice);
   const [showLog, setShowLog] = useState(false);
   const [data, setData] = useState<any>();
   const currentUser = GetUser();
   useEffect(() => {
     (async () => {
       try {
-        const data=await dispatch(receiptread(id)).unwrap();
+        const data = await dispatch(receiptread(id)).unwrap();
         setData(data);
         await dispatch(getOrderDetail(id)).unwrap();
       } catch (error) {
@@ -157,7 +167,6 @@ const OrderDetail = () => {
       }
     })();
   }, []);
- 
 
   const columns: ColumnsType<RecaiptDetailType> = [
     {
@@ -168,28 +177,41 @@ const OrderDetail = () => {
     {
       title: "Tên sản phẩm",
       key: "name",
-      render: (_, record) => <Text className="text-[#1890ff]">{record.productName}</Text>
+      render: (_, record) => (
+        <Text className="text-[#1890ff]">{record.productName}</Text>
+      ),
     },
     {
       title: "Hình ảnh",
       key: "image",
-      render: (_, record) => <Image src={record.image} width={100} height={100} className="object-cover" />,
+      render: (_, record) => (
+        <Image
+          src={record.image}
+          width={100}
+          height={100}
+          className="object-cover"
+        />
+      ),
     },
     {
       title: "Màu",
       key: "color",
-      render: (_, record) => <Text className="text-[#1890ff]">{record.colorName}</Text>
+      render: (_, record) => (
+        <Text className="text-[#1890ff]">{record.colorName}</Text>
+      ),
     },
     {
       title: "Size",
       key: "size",
-      render: (_, record) => <Text className="text-[#1890ff]">{record.sizeName}</Text>
+      render: (_, record) => (
+        <Text className="text-[#1890ff]">{record.sizeName}</Text>
+      ),
     },
     {
       title: "Giá tiền",
       key: "price",
       dataIndex: "price",
-      render: (price) => <Text>{(price)}</Text>,
+      render: (price) => <Text>{price}</Text>,
     },
     {
       title: "Số lượng",
@@ -200,9 +222,7 @@ const OrderDetail = () => {
     {
       title: "Tổng",
       key: "total",
-      render: (_, record) => (
-        <Text>{record.total}</Text>
-      ),
+      render: (_, record) => <Text>{record.total}</Text>,
     },
   ];
 
@@ -214,8 +234,15 @@ const OrderDetail = () => {
       content: "Không thể hoàn tác sau khi cập nhật",
       async onOk() {
         try {
-          const res = await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();
-          await addreceiptHistory({ orderId: id, userId: currentUser._id, statusOrderLogs: stt, createdAt: res.updatedAt });
+          const res = await dispatch(
+            receiptUpdate({ _id: id, status: stt })
+          ).unwrap();
+          await addreceiptHistory({
+            orderId: id,
+            userId: currentUser._id,
+            statusOrderLogs: stt,
+            createdAt: res.updatedAt,
+          });
 
           message.success("Cập nhật trạng thái thành công");
         } catch (error) {
@@ -226,30 +253,33 @@ const OrderDetail = () => {
   };
   const dataTable = order?.map((item: any, index: any) => {
     return {
-        key: index,
-        productName: item.productName,
-        id: item._id,
-        quantity: item.quantity,
-        sizeName: item.sizeName,
-        price: item.price,
-        colorName: item.colorName,
-        address: item.address,
-        image: item.image,
-        orderId:item.orderId,
-        total: item.total,
-        createdAt: item.createdAt
-    }
-
-})
+      key: index,
+      productName: item.productName,
+      id: item._id,
+      quantity: item.quantity,
+      sizeName: item.sizeName,
+      price: item.price,
+      colorName: item.colorName,
+      address: item.address,
+      image: item.image,
+      orderId: item.orderId,
+      total: item.total,
+      createdAt: item.createdAt,
+    };
+  });
   return (
     <>
       <Row justify="space-between">
         <Col>
           <Text>
-            Đơn hàng đặt lúc <Text mark>{moment(data?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Text>
+            Đơn hàng đặt lúc{" "}
+            <Text mark>
+              {moment(data?.createdAt).format("DD/MM/YYYY HH:mm:ss")}
+            </Text>
             <span> hiện tại </span>
             <Text mark>
-              {getStatusOrder(data?.status)} lúc {moment(data.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
+              {getStatusOrder(data?.status)} lúc{" "}
+              {moment(data.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
             </Text>
           </Text>
         </Col>
@@ -272,12 +302,20 @@ const OrderDetail = () => {
           )}
 
           {data?.status !== 3 && data?.status !== 4 && (
-            <Button type="primary" onClick={() => handleUpdateStt(4)} className="ml-1">
+            <Button
+              type="primary"
+              onClick={() => handleUpdateStt(4)}
+              className="ml-1"
+            >
               Hủy ĐH
             </Button>
           )}
 
-          <Button type="primary" className="ml-1" onClick={() => setShowLog(true)}>
+          <Button
+            type="primary"
+            className="ml-1"
+            onClick={() => setShowLog(true)}
+          >
             Lịch sử ĐH
           </Button>
         </Col>
@@ -287,7 +325,12 @@ const OrderDetail = () => {
         Chi tiết đơn hàng
       </Typography.Title>
 
-      <Table columns={columns} dataSource={dataTable} pagination={false} rowKey="_id" />
+      <Table
+        columns={columns}
+        dataSource={dataTable}
+        pagination={false}
+        rowKey="_id"
+      />
 
       <Typography.Title level={3} style={{ margin: "16px 0 0" }}>
         Tổng thanh toán
@@ -301,9 +344,7 @@ const OrderDetail = () => {
           </tr>
           <tr>
             <td className="py-1.5 font-medium">Tổng tiền:</td>
-            <td className="py-1.5 text-right">
-            {data?.total}
-            </td>
+            <td className="py-1.5 text-right">{data?.total}</td>
           </tr>
         </tbody>
       </table>
@@ -332,11 +373,15 @@ const OrderDetail = () => {
           </tr>
           <tr className="border-b">
             <td className="py-1.5 font-medium">Thời gian đặt:</td>
-            <td className="py-1.5 text-right">{moment(data?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</td>
+            <td className="py-1.5 text-right">
+              {moment(data?.createdAt).format("DD/MM/YYYY HH:mm:ss")}
+            </td>
           </tr>
           <tr>
             <td className="py-1.5 font-medium">Ghi chú:</td>
-            <td className="py-1.5 text-right">{data?.note || "Không có ghi chú"}</td>
+            <td className="py-1.5 text-right">
+              {data?.note || "Không có ghi chú"}
+            </td>
           </tr>
         </tbody>
       </table>
