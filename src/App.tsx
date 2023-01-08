@@ -45,6 +45,7 @@ import { PrivateRouter } from "./ultils/PrivateRouter";
 
 import Signin from "./pages/SingInUp/Signin/Signin";
 import Signup from "./pages/SingInUp/Signup/Signup";
+import Chart from "./pages/admin/Chart/Chart";
 
 function App() {
   return (
@@ -105,6 +106,9 @@ function App() {
         <Route path="orders">
           <Route index element={<OrderManager />} />
           <Route path="edit/:id" element={<OrderDetail />} />
+        </Route>
+        <Route path="chart">
+          <Route index element={<Chart />} />
         </Route>
       </Route>
       <Route path="*" element={<ErrorsWeb />} />

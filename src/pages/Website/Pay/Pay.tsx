@@ -163,38 +163,7 @@ const Pay = (props: Props) => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 <option value="">Chọn quốc gia…</option>
-                <option value="AF">Afghanistan</option>
-                <option value="EG">Ai Cập</option>
-                <option value="AL">Albania</option>
-                <option value="DZ">Algeria</option>
-                <option value="AS">American Samoa</option>
-                <option value="AD">Andorra</option>
-                <option value="AO">Angola</option>
-                <option value="AI">Anguilla</option>
-                <option value="GB">Anh (UK)</option>
-                <option value="AQ">Antarctica</option>
-                <option value="AG">Antigua và Barbuda</option>
-                <option value="AR">Argentina</option>
-                <option value="AM">Armenia</option>
-                <option value="AW">Aruba</option>
-                <option value="AZ">Azerbaijan</option>
-                <option value="BS">Bahamas</option>
-                <option value="BH">Bahrain</option>
-                <option value="BD">Bangladesh</option>
-                <option value="BB">Barbados</option>
-                <option value="BY">Belarus</option>
-                <option value="PW">Belau</option>
-                <option value="BZ">Belize</option>
-                <option value="BJ">Benin</option>
-                <option value="BM">Bermuda</option>
-                <option value="BT">Bhutan</option>
-                <option value="BO">Bolivia</option>
-                <option value="BQ">Bonaire, Saint Eustatius và Saba</option>
-                <option value="BA">Bosnia và Herzegovina</option>
-                <option value="BW">Botswana</option>
-                <option value="BR">Brazil</option>
-                <option value="BN">Brunei</option>
-                <option value="BG">Bulgaria</option>
+
                 <option value="VN">Việt Nam</option>
               </select>
             </div>
