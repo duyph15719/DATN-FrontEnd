@@ -7,7 +7,7 @@ type Props = {};
 
 const Footer = (props: Props) => {
   return (
-    <section className="bg-black ">
+    <section className="bg-black  ">
       <div className="max-w-7xl mx-auto text-white grid md:grid-cols-4 grid-cols-1 gap-4 pt-10 mb-5">
         <div>
           <h1 className="text-white font-bold text-lg ">GIỚI THIỆU</h1>
