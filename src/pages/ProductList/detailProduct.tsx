@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { productList } from '../../redux/slice/productSlice';
 import { categoriesList } from '../../redux/slice/categoriesSlice';
-import { quantityList } from '../../redux/slice/quantity';
+
 import { addToCart } from '../../ultils/cart/cart';
 import Swal from 'sweetalert2';
 import { ProductColor, ProductSize } from '../../models/product';
@@ -77,7 +77,7 @@ const DetailProduct = (props: Props) => {
   useEffect(() => {
     dispatch(categoriesList())
     dispatch(productList())
-    dispatch(quantityList())
+
 
   }, [dispatch])
   useEffect(() => {
@@ -182,7 +182,9 @@ const DetailProduct = (props: Props) => {
 
             <div className="flex">
               <span
-                className="title-font font-medium text-2xl text-gray-900">{thousandFormat((data.price ? +data.price : 0) * quantity)} VND</span>
+                className="title-font font-medium text-2xl text-gray-900">
+                {thousandFormat((data.price ? +data.price : 0) * quantity)} VND
+              </span>
 
 
 
@@ -250,6 +252,8 @@ const DetailProduct = (props: Props) => {
                 </div>
               </div>
             </div>
+
+
           </div>
 
         </div>

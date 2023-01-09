@@ -1,8 +1,13 @@
-import ListAddress from "./components/Address";
+
 import { CardComponents } from "./components/Card";
-import { decreaseItemInCart, getLocalStorage, increaseItemInCart, removeItemInCart, sumTotal } from "../../../ultils/cart/cart";
+
 import { useEffect, useState } from "react";
+
+import { decreaseItemInCart, getLocalStorage, increaseItemInCart, removeItemInCart, sumTotal } from "../../../ultils/cart/cart";
+import ListAddress from "./components/Address";
+
 import { Link } from "react-router-dom";
+
 
 type Props = {};
 
@@ -193,12 +198,14 @@ const Cart = (props: Props) => {
               <span>Tổng</span>
               <span>{total}</span>
             </div>
+
             <Link to={'/pay'}>
-            <button   className="bg-orange-700 font-semibold hover:bg-orange-800 py-3 text-sm text-white uppercase w-full">
-              Thanh Toán
-            </button>
+              <button className="bg-orange-700 font-semibold hover:bg-orange-800 py-3 text-sm text-white uppercase w-full">
+
+                Thanh Toán
+              </button>
             </Link>
-            
+
           </div>
 
           <div className="py-5 ">
