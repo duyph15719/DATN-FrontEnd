@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { add, update, getReceiptId, listReceipt, removeReceipt } from '../../api/receipt';
 import { GetCart, GetUser } from '../../pages/Website/Pay/Pay';
-import { add as addreceiptDetail, getByOrderId ,getReceiptIdDetail} from "../../api/receiptDetail";
-import { add as addreceiptHistory } from "../../api/receiptHistory";
-import { RootState } from '../store';
+import { add as addreceiptDetail, getByOrderId } from "../../api/receiptDetail";
+import { add as addreceiptHistory, getHistory } from "../../api/receiptHistory";
+
 
 const initialState: any = {
   receipts: [],
@@ -44,7 +44,7 @@ export const addReceipt = createAsyncThunk(
     })
     const addOderHistory = {
       orderId,
-      UserId: dataUser.user._id || "",
+      userId: dataUser.user._id || "",
       statusOrderLogs: 0,
     }
     await addreceiptHistory(addOderHistory);
@@ -89,6 +89,13 @@ export const getOrderDetail = createAsyncThunk(
     return data;
   }
 );
+export const getOrderHistory = createAsyncThunk(
+  "orderHistory/getOrderHistory",
+  async (orderId?: string) => {
+    const { data } = await getHistory(orderId)
+    return data;
+  }
+);
 export const receiptSlice = createSlice({
   name: "receipts",
   initialState,
@@ -99,6 +106,9 @@ export const receiptSlice = createSlice({
       state.receipts.push(action.payload)
     });
     builder.addCase(getOrderDetail.fulfilled, (state, action ) => {
+      state.order = action.payload;
+    });
+    builder.addCase(getOrderHistory.fulfilled, (state, action ) => {
       state.order = action.payload;
     });
     builder.addCase(Receiptlist.fulfilled, (state, action) => {

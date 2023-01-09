@@ -86,12 +86,18 @@ const Order = (props: Props) => {
             render: (stt) => <Tag color={stt === 2 ? "red" : "green"}>{getPaymentsOrder(stt)}</Tag>,
         },
         {
+            title: "Ghi chú",
+            key: "note",
+            dataIndex: "note",
+            render: (item) => <Text className="text-[#1890ff]">{item}</Text>
+            ,
+        },
+        {
             title: "Tổng tiền hoá đơn",
             key: "total",
             dataIndex: "total",
             render: (item) => <Text className="text-[#1890ff]">{item} VND</Text>
             ,
-
         },
         {
             title: "Tuỳ chọn",
@@ -118,18 +124,17 @@ const Order = (props: Props) => {
     const dataTable = receipts?.map((item: any, index: any) => {
         return {
             key: index,
-            name: item.name,
-            id: item._id,
-            email: item.email,
-            payments: item.payments,
-            phone: item.phone,
-            status: item.status,
-            address: item.address,
-            city: item.city,
-            total: item.total,
-            note: item.note,
-            statusOrderLogs: item.statusOrderLogs,
-            createdAt: item.createdAt
+            name: item?.name,
+            id: item?._id,
+            email: item?.email,
+            payments: item?.payments,
+            phone: item?.phone,
+            status: item?.status,
+            address: item?.address,
+            city: item?.city,
+            total: item?.total,
+            note: item?.note,
+            createdAt: item?.createdAt
         }
 
     })

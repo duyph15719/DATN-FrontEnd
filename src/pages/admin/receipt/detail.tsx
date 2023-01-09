@@ -122,18 +122,18 @@
 
 // // export default cartDetail
 
-import { Button, Col, Image, message, Row, Modal, Table, Typography } from "antd";
-import type { ColumnsType } from "antd/es/table";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Button, Col, Image, message, Modal, Row, Table, Typography } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import moment from "moment";
-import { getOrderDetail, receiptread, receiptUpdate } from "../../../redux/slice/receiptSlice";
-import { RecaiptType, RecaiptDetailType } from "../../../models/receipt";
-import { GetUser } from "../../Website/Pay/Pay";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { add, add as addreceiptHistory } from "../../../api/receiptHistory";
+import { RecaiptDetailType } from "../../../models/receipt";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { getOrderDetail, getOrderHistory, receiptread, receiptUpdate } from "../../../redux/slice/receiptSlice";
+import { GetUser } from "../../Website/Pay/Pay";
 import { getStatusOrder } from "./list";
-import { add as addreceiptHistory } from "../../../api/receiptHistory";
 
 const { confirm } = Modal;
 const { Text } = Typography;
@@ -143,22 +143,20 @@ const OrderDetail = () => {
   const { id } = useParams();
   const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
   const { order } = useAppSelector((state: any) => state.ReceiptSlice)
-  const [showLog, setShowLog] = useState(false);
   const [data, setData] = useState<any>();
-  const currentUser = GetUser();
-  useEffect(() => {
-    (async () => {
-      try {
-        const data=await dispatch(receiptread(id)).unwrap();
-        setData(data);
-        await dispatch(getOrderDetail(id)).unwrap();
-      } catch (error) {
-        message.error("Có lỗi getOrderDetail xảy ra");
-      }
-    })();
-  }, []);
- 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const currentUser = GetUser(); 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const columns: ColumnsType<RecaiptDetailType> = [
     {
       title: "STT",
@@ -206,6 +204,22 @@ const OrderDetail = () => {
     },
   ];
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const data=await dispatch(receiptread(id)).unwrap();
+        setData(data);
+        await dispatch(getOrderDetail(id)).unwrap();
+        // const showLog = await dispatch(getOrderHistory(id))
+        // setShowLog(showLog)
+      } catch (error) {
+        message.error("Có lỗi getOrderDetail xảy ra");
+      }
+    })();
+  }, []);
+
+ 
+
   // cập nhật trạng thái đơn hàng
   const handleUpdateStt = (stt: number) => {
     confirm({
@@ -214,9 +228,10 @@ const OrderDetail = () => {
       content: "Không thể hoàn tác sau khi cập nhật",
       async onOk() {
         try {
-          const res = await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();
-          await addreceiptHistory({ orderId: id, userId: currentUser._id, statusOrderLogs: stt, createdAt: res.updatedAt });
-
+          const {res} = await dispatch(receiptUpdate({ _id: id, status: stt})).unwrap();
+          console.log(res);
+          
+          //await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt });
           message.success("Cập nhật trạng thái thành công");
         } catch (error) {
           message.error("Có lỗi xảy ra, vui lòng thử lại");
@@ -224,6 +239,15 @@ const OrderDetail = () => {
       },
     });
   };
+  useEffect(() => {
+    (async () => {
+      try {
+        await dispatch(receiptread(id)).unwrap();
+      } catch (error) {
+        message.error("Có lỗi getOrderDetail xảy ra");
+      }
+    })();
+  }, []);
   const dataTable = order?.map((item: any, index: any) => {
     return {
         key: index,
@@ -233,11 +257,8 @@ const OrderDetail = () => {
         sizeName: item.sizeName,
         price: item.price,
         colorName: item.colorName,
-        address: item.address,
         image: item.image,
-        orderId:item.orderId,
         total: item.total,
-        createdAt: item.createdAt
     }
 
 })
@@ -246,10 +267,10 @@ const OrderDetail = () => {
       <Row justify="space-between">
         <Col>
           <Text>
-            Đơn hàng đặt lúc <Text mark>{moment(data?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Text>
+            Đơn hàng đặt lúc <Text mark>{moment(receipts?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Text>
             <span> hiện tại </span>
             <Text mark>
-              {getStatusOrder(data?.status)} lúc {moment(data.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
+              {getStatusOrder(receipts?.status)} lúc {moment(receipts.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
             </Text>
           </Text>
         </Col>
@@ -277,9 +298,14 @@ const OrderDetail = () => {
             </Button>
           )}
 
-          <Button type="primary" className="ml-1" onClick={() => setShowLog(true)}>
+          <Button type="primary" className="ml-1" onClick={() => showModal()}>
             Lịch sử ĐH
           </Button>
+          <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
         </Col>
       </Row>
 

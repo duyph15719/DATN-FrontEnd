@@ -28,13 +28,9 @@ export const removeReceipt = (id: any) => {
     return instance.delete(url);
 }
 
-export const update = (order:{ _id?: string; status: number }, { token, user } = isAuthenticate()) => {
-    const url = `/${DB_NAME}/${order._id}/${user._id}`;
-    return instance.put(url, order, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
+export const update = (order:{ _id?: string; status: number }) => {
+    const url = `/${DB_NAME}/${order._id}`;
+    return instance.put(url, order);
 }
 const DB_NAME = "orders";
 export const isAuthenticate = () => {

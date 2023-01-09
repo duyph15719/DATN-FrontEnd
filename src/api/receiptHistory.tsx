@@ -8,7 +8,7 @@ export const add = (data: OrderLogsType) => {
     return instance.post(url, data);
 }
 
-export const get = (orderId?: string) => {
+export const getHistory = (orderId?: string) => {
     const url = `/${DB_NAME}/?orderId=${orderId}&_expand=userId&_expand=orderId&_sort=createdAt`;
     return instance.get(url);
 }
