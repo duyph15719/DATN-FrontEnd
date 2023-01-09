@@ -41,6 +41,8 @@ import { PrivateRouter } from "./ultils/PrivateRouter";
 
 import Signin from "./pages/SingInUp/Signin/Signin";
 import Signup from "./pages/SingInUp/Signup/Signup";
+import Oder from "./pages/Website/Oder/Oder";
+import Success from "./pages/Website/Oder/Success";
 
 function App() {
   return (
@@ -59,6 +61,9 @@ function App() {
         <Route path={"/newsdetail"} element={<NewsDetail />} />
         <Route path="cart" element={<Cart />} />
         <Route path="pay" element={<Pay />} />
+        <Route path="pay/success" element={<Success />} />
+
+        <Route path="oder" element={<Oder />} />
         <Route path="signin" element={<Signin />} />
         <Route path="signup" element={<Signup />} />
       </Route>
