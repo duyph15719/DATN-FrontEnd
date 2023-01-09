@@ -3,6 +3,7 @@ import { add, update, getReceiptId, listReceipt, removeReceipt } from '../../api
 import { GetCart, GetUser } from '../../pages/Website/Pay/Pay';
 import { add as addreceiptDetail, getByOrderId } from "../../api/receiptDetail";
 import { add as addreceiptHistory, getHistory } from "../../api/receiptHistory";
+import { RecaiptType } from '../../models/receipt';
 
 
 const initialState: any = {
@@ -90,7 +91,7 @@ export const getOrderDetail = createAsyncThunk(
   }
 );
 export const getOrderHistory = createAsyncThunk(
-  "orderHistory/getOrderHistory",
+  "orderHistory/getorderHistory",
   async (orderId?: string) => {
     const { data } = await getHistory(orderId)
     return data;
@@ -109,7 +110,7 @@ export const receiptSlice = createSlice({
       state.order = action.payload;
     });
     builder.addCase(getOrderHistory.fulfilled, (state, action ) => {
-      state.order = action.payload;
+      state.orderHistory = action.payload;
     });
     builder.addCase(Receiptlist.fulfilled, (state, action) => {
       state.receipts = action.payload
@@ -121,7 +122,11 @@ export const receiptSlice = createSlice({
       state.receipts = state.receipts.filter((item: any) => item._id !== action.payload._id)
     });
     builder.addCase(receiptUpdate.fulfilled, (state, action) => {
-      state.receipts = state.receipts.map((item: any) => item._id == action.payload._id ? action.payload : item)
+      state.receipts = state.orders?.map((item:any) => (item._id === action.payload?._id ? action.payload : item)) as RecaiptType[];
+      state.receipts = {
+        ...state.order,
+        order: action.payload,
+      };
     });
   }
 }
