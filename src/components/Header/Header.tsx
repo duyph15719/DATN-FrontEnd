@@ -1,12 +1,11 @@
-import { Drawer, Collapse, Popover, Space, Input, Modal } from "antd";
-import React, { useState } from "react";
-import "./Header.css";
-import "antd/dist/antd.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAddressBook } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Collapse, Drawer, Input, Modal, Popover, Space } from "antd";
+import "antd/dist/antd.css";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import Signin from "../../pages/SingInUp/Signin/Signin";
-import Signup from "../../pages/SingInUp/Signup/Signup";
+import { GetUser } from "../../pages/Website/Pay/Pay";
+import "./Header.css";
 const { Search } = Input;
 // import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 
@@ -71,10 +70,9 @@ const Header = (props: Props) => {
     </>
   );
 
-  const user = () => {
-    const data= window.localStorage.getItem('user')
-    console.log(data);
-    
+  const user = GetUser();
+  const LogOut = () => {
+    window.localStorage.removeItem('user')  
   }
   return (
     <>
@@ -93,8 +91,8 @@ const Header = (props: Props) => {
             </div>
           ) : (
             <div className="">
-              <p className="text-cyan-50">XIN CHÀO :  </p>
-              <button className="text-cyan-50">ĐĂNG XUẤT </button>
+              <p className="text-cyan-50">XIN CHÀO :{user.user.username}  </p>
+              <button className="text-cyan-50" onClick={LogOut}>ĐĂNG XUẤT </button>
             </div>
           )}
           <div onClick={showmenu} className="icon">
