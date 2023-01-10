@@ -103,9 +103,6 @@ const Pay = (props: Props) => {
       city: dataInput.city,
       total: Sum
     }
-    console.log(dataInput);
-
-
     dispatch(addReceipt(orderData)).unwrap()
       .then(() => {
         window.localStorage.removeItem("cart");

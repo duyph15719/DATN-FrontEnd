@@ -120,8 +120,12 @@ const Order = (props: Props) => {
             ),
         },
     ];
-
+    useEffect(() => {
+        dispatch(Receiptlist())
+    }, [dispatch])
     const dataTable = receipts?.map((item: any, index: any) => {
+        console.log("item",item);
+        
         return {
             key: index,
             name: item?.name,
@@ -136,8 +140,9 @@ const Order = (props: Props) => {
             note: item?.note,
             createdAt: item?.createdAt
         }
-
     })
+    console.log(dataTable);
+    
     const { confirm } = Modal;
     const handleRemove = async (id?: string) => {
         confirm({
@@ -157,9 +162,6 @@ const Order = (props: Props) => {
             },
         });
     };
-    useEffect(() => {
-        dispatch(Receiptlist())
-    }, [dispatch])
     if (!receipts) return <div>Loading...</div>
     return (
         <div className="pt-10">

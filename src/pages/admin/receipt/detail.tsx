@@ -22,8 +22,8 @@ const OrderDetail = () => {
   const { orderHistory } = useAppSelector((state: any) => state.ReceiptSlice)
   const [data, setData] = useState<any>();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
   const currentUser = GetUser();
-  
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -93,8 +93,7 @@ const OrderDetail = () => {
         message.error("Có lỗi xảy ra");
       }
     })();
-  }, []);
-
+  }, [dispatch]);
   const History: ColumnsType<OrderLogsType> = [
     {
       title: "STT",
@@ -129,7 +128,6 @@ const OrderDetail = () => {
       createdAt: item.createdAt
     }
   })
-  console.log(dataTableHistory);
   
   // cập nhật trạng thái đơn hàng
   const handleUpdateStt = (stt: number) => {
@@ -139,8 +137,9 @@ const OrderDetail = () => {
       content: "Không thể hoàn tác sau khi cập nhật",
       async onOk() {
         try {
-          const { res } = await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();
-          await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt ,userName:currentUser.user.username});
+          await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();      
+          setIsUpdate(true);    
+          // await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt ,userName:currentUser.user.username});
           message.success("Cập nhật trạng thái thành công");
         } catch (error) {
           message.error("Có lỗi xảy ra, vui lòng thử lại");
@@ -148,15 +147,6 @@ const OrderDetail = () => {
       },
     });
   };
-  useEffect(() => {
-    (async () => {
-      try {
-        await dispatch(receiptread(id)).unwrap();
-      } catch (error) {
-        message.error("Có lỗi getOrderDetail xảy ra");
-      }
-    })();
-  }, []);
   const dataTable = order?.map((item: any, index: any) => {
     return {
       key: index,
@@ -169,31 +159,31 @@ const OrderDetail = () => {
       image: item.image,
       total: item.total,
     }
-
   })
   return (
     <>
       <Row justify="space-between">
         <Col>
           <Text>
-            Đơn hàng đặt lúc <Text mark>{moment(receipts?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Text>
+            Đơn hàng đặt lúc <Text mark>{moment(data?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Text>
             <span> hiện tại </span>
             <Text mark>
-              {getStatusOrder(receipts?.status)} lúc {moment(receipts.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
+              {getStatusOrder(isUpdate ? receipts.order.status : receipts.status)} lúc {moment(receipts.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
+               
             </Text>
           </Text>
         </Col>
 
         <Col>
-          {data?.status === 0 ? (
+          {isUpdate ? receipts.order?.status  : receipts.status  === 0 ? (
             <Button type="primary" onClick={() => handleUpdateStt(1)}>
               Xác nhận ĐH
             </Button>
-          ) : data?.status === 1 ? (
+          ) : isUpdate ? receipts.order?.status  : receipts.status  === 1 ? (
             <Button type="primary" onClick={() => handleUpdateStt(2)}>
               Đang giao hàng
             </Button>
-          ) : data?.status === 2 ? (
+          ) : isUpdate ? receipts.order?.status : receipts.status  === 2 ? (
             <Button type="primary" onClick={() => handleUpdateStt(3)}>
               Đã giao hàng
             </Button>
@@ -201,7 +191,7 @@ const OrderDetail = () => {
             ""
           )}
 
-          {data?.status !== 3 && data?.status !== 4 && (
+          {receipts.status=== 0  && (
             <Button type="primary" onClick={() => handleUpdateStt(4)} className="ml-1">
               Hủy ĐH
             </Button>

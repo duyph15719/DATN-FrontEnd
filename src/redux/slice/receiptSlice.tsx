@@ -46,6 +46,7 @@ export const addReceipt = createAsyncThunk(
     const addOderHistory = {
       orderId,
       userId: dataUser.user._id || "",
+      userName:dataUser.user.username,
       statusOrderLogs: 0,
     }
     await addreceiptHistory(addOderHistory);
