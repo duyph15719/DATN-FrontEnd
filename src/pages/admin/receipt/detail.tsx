@@ -175,15 +175,15 @@ const OrderDetail = () => {
         </Col>
 
         <Col>
-          {isUpdate ? receipts.order?.status  : receipts.status  === 0 ? (
+          {isUpdate ? receipts.order?.status===0  : receipts.status  === 0 ? (
             <Button type="primary" onClick={() => handleUpdateStt(1)}>
               Xác nhận ĐH
             </Button>
-          ) : isUpdate ? receipts.order?.status  : receipts.status  === 1 ? (
+          ) : isUpdate ? receipts.order?.status===1  : receipts.status  === 1 ? (
             <Button type="primary" onClick={() => handleUpdateStt(2)}>
               Đang giao hàng
             </Button>
-          ) : isUpdate ? receipts.order?.status : receipts.status  === 2 ? (
+          ) : isUpdate ? receipts.order?.status===2 : receipts.status  === 2 ? (
             <Button type="primary" onClick={() => handleUpdateStt(3)}>
               Đã giao hàng
             </Button>
