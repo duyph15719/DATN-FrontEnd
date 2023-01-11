@@ -2,8 +2,9 @@ import { faAddressBook } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Collapse, Drawer, Input, Modal, Popover, Space } from "antd";
 import "antd/dist/antd.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import SingInUp from "../../pages/SingInUp/SingInUp";
 import { GetUser } from "../../pages/Website/Pay/Pay";
 import "./Header.css";
@@ -14,6 +15,7 @@ const { Panel } = Collapse;
 type Props = {};
 
 const Header = (props: Props) => {
+  const [userModal, setUserModal] = useState<any>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = async () => {
     await setIsModalOpen(true);
@@ -77,23 +79,35 @@ const Header = (props: Props) => {
     </>
   );
 
-  const user = GetUser();
+  useEffect(()=>{
+    setUserModal(GetUser())
+  },
+  [GetUser()])
+
+
+
   const LogOut = () => {
     window.localStorage.removeItem('user')  
-    GetUser();
+    Swal.fire({
+      icon: 'success',
+      title: 'Đăng xuất tài khoản thành công',
+      timer: 1000,
+      showConfirmButton: false,
+    })
+    setUserModal(null)
   }
   return (
     <>
       <section className="bg-black">
         <div className="Nav  max-w-7xl mx-auto">
 
-          {!user ? (
+          {!userModal ? (
             <div className=" Signinup font-bold text-sm leading-[84px]">
             <button onClick={showModal}>ĐĂNG NHẬP / ĐĂNG KÝ</button>
           </div>
           ) : (
             <div className="">
-              <p className="text-cyan-50">XIN CHÀO :{user.user.username}  </p>
+              <p className="text-cyan-50">XIN CHÀO :{userModal.user.username}  </p>
               <button className="text-cyan-50" onClick={LogOut}>ĐĂNG XUẤT </button>
             </div>
           )}

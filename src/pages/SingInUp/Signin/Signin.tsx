@@ -1,9 +1,8 @@
-import React from 'react'
 import { Button, Checkbox, Form, Input } from 'antd';
-import { signin } from '../../../api/User';
-import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+import { signin } from '../../../api/User';
 type Props = {
   emailogin: string
   password: string
@@ -15,7 +14,12 @@ const Signin = () => {
       try {
         const { data } = await signin(dataInput);
         localStorage.setItem("user", JSON.stringify(data))
-        toast.success("Đăng nhập tài khoản thành công");
+        Swal.fire({
+          icon: 'success',
+          title: 'Đăng nhập tài khoản thành công',
+          timer: 1000,
+          showConfirmButton: false,
+        })
         navigate("/");
       } catch (error: any) {
         //toast.error(error.response.data.message);

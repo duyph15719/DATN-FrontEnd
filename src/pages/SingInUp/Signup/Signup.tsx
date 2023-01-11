@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 import { signup } from "../../../api/User";
 import { toast } from "react-toastify";
+import Swal from 'sweetalert2';
 
 type Props = {
   username: string,
@@ -16,8 +17,12 @@ const Signup = () => {
   const onFinish: SubmitHandler<Props> = async dataInput => {
     try {
       await signup(dataInput);
-      toast.success("Đăng ký tài khoản thành công");
-      navigate("/");
+      Swal.fire({
+        icon: 'success',
+        title: 'Đăng ký tài khoản thành công',
+        timer: 1000,
+        showConfirmButton: false,
+      })
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
@@ -26,7 +31,6 @@ const Signup = () => {
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
-  const navigate = useNavigate();
   return (
     <div className=" p-6 uppercase  font-bold text-lg">     <Form
       name="basic"
