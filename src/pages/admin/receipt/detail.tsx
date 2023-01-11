@@ -147,9 +147,11 @@ const OrderDetail = () => {
       async onOk() {
         try {
           await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();
+          await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt, userName: currentUser.user.username });
           const data = await dispatch(receiptread(id)).unwrap();
           setData(data);
-          await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt, userName: currentUser.user.username });
+          await dispatch(getOrderHistory(id)).unwrap();
+          dispatch(Receiptlist())
           message.success("Cập nhật trạng thái thành công");
         } catch (error) {
           message.error("Có lỗi xảy ra, vui lòng thử lại");
@@ -200,7 +202,7 @@ const OrderDetail = () => {
             ""
           )}
 
-          {receipts.status === 0 && (
+          {data?.status === 0 && (
             <Button type="primary" onClick={() => handleUpdateStt(4)} className="ml-1">
               Hủy ĐH
             </Button>
