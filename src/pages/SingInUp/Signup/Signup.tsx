@@ -31,7 +31,7 @@ const Signup = () => {
     <div className=" p-6 uppercase  font-bold text-lg">     <Form
       name="basic"
       labelCol={{ span: 8 }}
-      wrapperCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}

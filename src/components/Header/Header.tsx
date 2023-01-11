@@ -4,6 +4,7 @@ import { Collapse, Drawer, Input, Modal, Popover, Space } from "antd";
 import "antd/dist/antd.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import SingInUp from "../../pages/SingInUp/SingInUp";
 import { GetUser } from "../../pages/Website/Pay/Pay";
 import "./Header.css";
 const { Search } = Input;
@@ -14,6 +15,12 @@ type Props = {};
 
 const Header = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = async () => {
+    await setIsModalOpen(true);
+    const antmodalfooter: any = document.querySelector(".ant-modal-footer");
+    console.log(antmodalfooter);
+    antmodalfooter.style.display = "none";
+  };
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -73,6 +80,7 @@ const Header = (props: Props) => {
   const user = GetUser();
   const LogOut = () => {
     window.localStorage.removeItem('user')  
+    GetUser();
   }
   return (
     <>
@@ -81,14 +89,8 @@ const Header = (props: Props) => {
 
           {!user ? (
             <div className=" Signinup font-bold text-sm leading-[84px]">
-              <Link to={`/signin`}>
-                <button className="text-cyan-50" >ĐĂNG NHẬP </button>
-              </Link>
-              <span> / </span>
-              <Link to={`/signup`}>
-                <button className="text-cyan-50">ĐĂNG KÝ </button>
-              </Link>
-            </div>
+            <button onClick={showModal}>ĐĂNG NHẬP / ĐĂNG KÝ</button>
+          </div>
           ) : (
             <div className="">
               <p className="text-cyan-50">XIN CHÀO :{user.user.username}  </p>
@@ -297,6 +299,7 @@ const Header = (props: Props) => {
           onCancel={handleCancel}
           width="870px"
         >
+          <SingInUp />
         </Modal>
       </section>
       <section className='bg-[#DCDCDC] hidden'>
