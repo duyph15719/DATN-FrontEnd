@@ -117,7 +117,13 @@ const Pay = (props: Props) => {
         }, 1200);
 
       })
-      .catch((err: any) => alert(err))
+      .catch((err: any) =>{
+        if(!user){
+          alert("Yêu cầu đăng nhập tài khoản để thực hiện thanh toán")
+        } else {
+          alert("Yêu cầu điền đầy đủ thông tin để thực hiện thanh toán")
+        }
+      })
   };
 
   return (
