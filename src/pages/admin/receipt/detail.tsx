@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { add as addreceiptHistory } from "../../../api/receiptHistory";
 import { OrderLogsType, RecaiptDetailType } from "../../../models/receipt";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { getOrderDetail, getOrderHistory, receiptread, receiptUpdate } from "../../../redux/slice/receiptSlice";
+import { getOrderDetail, getOrderHistory, Receiptlist, receiptread, receiptUpdate } from "../../../redux/slice/receiptSlice";
 import { GetUser } from "../../Website/Pay/Pay";
 import { getStatusOrder } from "./list";
 
@@ -22,7 +22,7 @@ const OrderDetail = () => {
   const { orderHistory } = useAppSelector((state: any) => state.ReceiptSlice)
   const [data, setData] = useState<any>();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isUpdate, setIsUpdate] = useState(false);
+  const [receiptResult, setReceiptResult] = useState<any>(receipts);
   const currentUser = GetUser();
   const showModal = () => {
     setIsModalOpen(true);
@@ -83,12 +83,21 @@ const OrderDetail = () => {
   ];
 
   useEffect(() => {
+    if (typeof (receipts) === 'object') {
+      setReceiptResult(receipts);
+    } else {
+      setReceiptResult(receipts.order);
+    }
+  }, [receipts]);
+
+  useEffect(() => {
     (async () => {
       try {
         const data = await dispatch(receiptread(id)).unwrap();
         setData(data);
         await dispatch(getOrderDetail(id)).unwrap();
         await dispatch(getOrderHistory(id)).unwrap();
+        dispatch(Receiptlist())
       } catch (error) {
         message.error("Có lỗi xảy ra");
       }
@@ -103,7 +112,7 @@ const OrderDetail = () => {
     {
       title: "Tài khoản",
       key: "username",
-      dataIndex:"userName",
+      dataIndex: "userName",
     },
     {
       title: "Trạng thái đơn hàng",
@@ -123,12 +132,12 @@ const OrderDetail = () => {
       key: index,
       orderId: item.orderId,
       id: item._id,
-      userName:item.userName,
+      userName: item.userName,
       statusOrderLogs: item.statusOrderLogs,
       createdAt: item.createdAt
     }
   })
-  
+
   // cập nhật trạng thái đơn hàng
   const handleUpdateStt = (stt: number) => {
     confirm({
@@ -137,9 +146,10 @@ const OrderDetail = () => {
       content: "Không thể hoàn tác sau khi cập nhật",
       async onOk() {
         try {
-          await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();      
-          setIsUpdate(true);    
-          // await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt ,userName:currentUser.user.username});
+          await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();
+          const data = await dispatch(receiptread(id)).unwrap();
+          setData(data);
+          await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt, userName: currentUser.user.username });
           message.success("Cập nhật trạng thái thành công");
         } catch (error) {
           message.error("Có lỗi xảy ra, vui lòng thử lại");
@@ -168,22 +178,21 @@ const OrderDetail = () => {
             Đơn hàng đặt lúc <Text mark>{moment(data?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Text>
             <span> hiện tại </span>
             <Text mark>
-              {getStatusOrder(isUpdate ? receipts.order.status : receipts.status)} lúc {moment(receipts.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
-               
+              {getStatusOrder(data?.status)} lúc {moment(receipts.updatedAt).format("DD/MM/YYYY HH:mm:ss")}
             </Text>
           </Text>
         </Col>
 
         <Col>
-          {isUpdate ? receipts.order?.status===0  : receipts.status  === 0 ? (
+          {data?.status === 0 ? (
             <Button type="primary" onClick={() => handleUpdateStt(1)}>
               Xác nhận ĐH
             </Button>
-          ) : isUpdate ? receipts.order?.status===1  : receipts.status  === 1 ? (
+          ) : data?.status === 1 ? (
             <Button type="primary" onClick={() => handleUpdateStt(2)}>
               Đang giao hàng
             </Button>
-          ) : isUpdate ? receipts.order?.status===2 : receipts.status  === 2 ? (
+          ) : data?.status === 2 ? (
             <Button type="primary" onClick={() => handleUpdateStt(3)}>
               Đã giao hàng
             </Button>
@@ -191,7 +200,7 @@ const OrderDetail = () => {
             ""
           )}
 
-          {receipts.status=== 0  && (
+          {receipts.status === 0 && (
             <Button type="primary" onClick={() => handleUpdateStt(4)} className="ml-1">
               Hủy ĐH
             </Button>
