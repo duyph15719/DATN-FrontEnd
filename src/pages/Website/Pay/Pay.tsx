@@ -1,17 +1,13 @@
-import { useEffect, useState } from "react";
-import { InputComponent } from "./components/Input";
-import ListLogin from "./components/ListLogin";
-import ListPromoCode from "./components/ListPromoCode";
-import ListSignup from "./components/ListSigup";
-import "./Pay.css";
+import { useState } from "react";
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import { useAppDispatch } from '../../../redux/hook';
-import { useNavigate } from 'react-router';
 import { addReceipt } from "../../../redux/slice/receiptSlice";
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { add as addreceiptDetail } from "../../../api/receiptDetail";
-import { add as addreceipt } from "../../../api/receipt";
 import { sumTotal } from "../../../ultils/cart/cart";
+import ListLogin from "./components/ListLogin";
+import ListPromoCode from "./components/ListPromoCode";
+import "./Pay.css";
 type Props = {
   name?: string;
   status?: number,
@@ -41,11 +37,9 @@ export function GetCart() {
 // }
 
 const Pay = (props: Props) => {
-  useEffect(() => {
-    GetCart();
-  }, []);
   let Sum = 0;
   const [transferForm, setTransferForm] = useState<any>({
+    payment: 0,
     payment1: false,
     payment2: false,
   });
@@ -69,11 +63,13 @@ const Pay = (props: Props) => {
     //window.localStorage.clear();
     if (currentRadio === "0") {
       setTransferForm({
+        payment: 0,
         payment1: true,
         payment2: false,
       });
     } else {
       setTransferForm({
+        payment: 1,
         payment1: false,
         payment2: true,
       });
@@ -105,7 +101,9 @@ const Pay = (props: Props) => {
     }
     dispatch(addReceipt(orderData)).unwrap()
       .then(() => {
-        window.localStorage.removeItem("cart");
+        if(transferForm.payment===0){
+          window.localStorage.removeItem("cart");
+        }
         Swal.fire({
           icon: 'success',
           title: 'Thêm thành công',

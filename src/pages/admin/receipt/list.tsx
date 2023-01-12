@@ -1,6 +1,6 @@
 
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { message, Modal, Space, Table, Tag, Typography } from 'antd';
+import { message, Modal, Space, Table, TableProps, Tag, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { Button } from 'antd/lib/radio';
 import moment from "moment";
@@ -53,6 +53,7 @@ const { Text } = Typography;
 const Order = (props: Props) => {
     const dispatch = useAppDispatch()
     const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
+
     const columns: ColumnsType<RecaiptType> = [
         {
             title: "Thông tin khách hàng",
@@ -78,6 +79,14 @@ const Order = (props: Props) => {
             key: "status",
             dataIndex: "status",
             render: (stt) => <Tag color={stt === 4 ? "red" : "green"}>{getStatusOrder(stt)}</Tag>,
+            filters: receipts.map((item: any) => {
+                return {
+                    text: getStatusOrder(item.status),
+                    value: item.status,
+                };
+            }),
+            onFilter: (value: number | any, record: RecaiptType | any) =>record.status === value,
+            filterSearch: true,
         },
         {
             title: "Phương thức thanh toán",
@@ -102,14 +111,6 @@ const Order = (props: Props) => {
         {
             title: "Tuỳ chọn",
             key: "actions",
-            // render: (_,record) => (
-            //     <Space size="middle">
-            //         <Link to={`/admin/order/${record._id}/detail`} className="text-[#1890ff]">
-            //             Detail
-            //         </Link>
-            //         <button onClick={() => handleRemove(record._id)}>Delete</button>
-            //     </Space>
-            // ),
             render: (item: any) => (
                 <Space size="middle">
                     <Link to={`edit/${item.id}`} className="text-[#1890ff]">
@@ -120,12 +121,13 @@ const Order = (props: Props) => {
             ),
         },
     ];
+    const onChange: TableProps<RecaiptType>['onChange'] = (pagination, filters, sorter, extra) => {
+        console.log('params', pagination, filters, sorter, extra);
+    };
     useEffect(() => {
         dispatch(Receiptlist())
     }, [dispatch])
     const dataTable = receipts?.map((item: any, index: any) => {
-        console.log("item",item);
-        
         return {
             key: index,
             name: item?.name,
@@ -142,7 +144,7 @@ const Order = (props: Props) => {
         }
     })
     console.log(dataTable);
-    
+
     const { confirm } = Modal;
     const handleRemove = async (id?: string) => {
         confirm({
@@ -166,7 +168,7 @@ const Order = (props: Props) => {
     return (
         <div className="pt-10">
 
-            <Table columns={columns} dataSource={dataTable}
+            <Table columns={columns} dataSource={dataTable} onChange={onChange}
                 expandable={{
                     rowExpandable: record => record.name !== 'Not Expandable',
                     // expandedRowRender: (record) => { return <Table columns={columns} dataSource={dataTable} /> }

@@ -6,12 +6,15 @@ import { toast } from "react-toastify";
 import Swal from 'sweetalert2';
 
 type Props = {
-  username: string,
-  fullName: string,
+  firstName: string,
+  lastName: string,
   email: string,
   phone: string,
   password: string,
   confirm: string,
+  gender:string,
+  birthday:string,
+  note?:string,
 }
 const Signup = () => {
   const onFinish: SubmitHandler<Props> = async dataInput => {
@@ -43,9 +46,16 @@ const Signup = () => {
       className=' '
     >
       <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        label="firstName"
+        name="firstName"
+        rules={[{ required: true, message: 'Please input your firstName!' }]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="lastName"
+        name="lastName"
+        rules={[{ required: true, message: 'Please input your lastName!' }]}
       >
         <Input />
       </Form.Item>
@@ -68,6 +78,26 @@ const Signup = () => {
         label="Email"
         name="email"
         rules={[{ required: true, message: 'Please input your email!' }]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="gender"
+        name="gender"
+        rules={[{ required: true, message: 'Please input your gender!' }]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="birthday"
+        name="birthday"
+        rules={[{ required: true, message: 'Please input your birthday!' }]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="note"
+        name="note"
       >
         <Input />
       </Form.Item>

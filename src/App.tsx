@@ -45,6 +45,8 @@ import { PrivateRouter } from "./ultils/PrivateRouter";
 
 import Signin from "./pages/SingInUp/Signin/Signin";
 import Signup from "./pages/SingInUp/Signup/Signup";
+import ManagerAccount from "./pages/User/managerAccount";
+import OrderDetailUser from "./pages/User/Detail";
 
 function App() {
   return (
@@ -59,7 +61,10 @@ function App() {
         <Route path="news">
           <Route index element={<NewsPage />} />
         </Route>
-        <Route path={"/a"} element={<NewsDetail />} />
+        <Route path="/managerAccount">
+          <Route index element={<ManagerAccount />} />
+          <Route path="edit/:id" element={<OrderDetailUser />} />
+        </Route>
         <Route path={"/newsdetail"} element={<NewsDetail />} />
         <Route path="cart" element={<Cart />} />
         <Route path="pay" element={<Pay />} />

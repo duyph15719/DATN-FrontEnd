@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { add, update, getReceiptId, listReceipt, removeReceipt } from '../../api/receipt';
+import { add, update, getReceiptId, listReceipt, removeReceipt, getByUserId } from '../../api/receipt';
 import { GetCart, GetUser } from '../../pages/Website/Pay/Pay';
 import { add as addreceiptDetail, getByOrderId } from "../../api/receiptDetail";
 import { add as addreceiptHistory, getHistory } from "../../api/receiptHistory";
@@ -46,10 +46,10 @@ export const addReceipt = createAsyncThunk(
     const addOderHistory = {
       orderId,
       userId: dataUser.user._id || "",
-      userName:dataUser.user.username,
+      userName:dataUser.user.firstName,
       statusOrderLogs: 0,
     }
-    await addreceiptHistory(addOderHistory);
+    await addreceiptHistory(addOderHistory); 
     return data;
   }
 )
@@ -81,6 +81,13 @@ export const receiptread = createAsyncThunk(
   "receipt/receiptread",
   async (_id: any) => {
     const { data } = await getReceiptId(_id)    
+    return data;
+  }
+)
+export const getOrderByUserId = createAsyncThunk(
+  "receipt/getOrderByUserId",
+  async (userId: any) => {
+    const { data } = await getByUserId(userId)    
     return data;
   }
 )
@@ -118,6 +125,9 @@ export const receiptSlice = createSlice({
     });
     builder.addCase(receiptread.fulfilled, (state, action) => {
       state.receipts = action.payload
+    });
+    builder.addCase(getOrderByUserId.fulfilled, (state, action) => {
+      state.getOrderByUserId = action.payload
     });
     builder.addCase(receiptRemove.fulfilled, (state, action) => {
       state.receipts = state.receipts.filter((item: any) => item._id !== action.payload._id)

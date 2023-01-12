@@ -3,9 +3,9 @@ import instance from "./instance";
 
 
 export const listReceipt = ( start = 0, limit = 0) => {
-    // let url = `/${DB_NAME}/?_sort=createdAt&_order=desc`;
-    // if (limit) url += `&_start=${start}&_limit=${limit}`;
-    return instance.get(`/orders`);
+    let url = `/${DB_NAME}/?_sort=createdAt&_orders=desc`;
+    if (limit) url += `&_start=${start}&_limit=${limit}`;
+    return instance.get(url);
 }
 
 export const getReceiptId = (id: any) => {
@@ -18,7 +18,7 @@ export const add = (receipt: RecaiptType) => {
 }
 
 export const getByUserId = (userId: string, start = 0, limit = 0) => {
-    let url = `/${DB_NAME}/?userId=${userId}&_sort=createdAt&_receipt=desc`;
+    let url = `/${DB_NAME}/?UserId=${userId}&_sort=createdAt&_receipt=desc`;
     if (limit) url += `&_start=${start}&_limit=${limit}`;
     return instance.get(url);
 }
