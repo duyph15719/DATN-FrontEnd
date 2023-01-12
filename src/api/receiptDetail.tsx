@@ -7,9 +7,12 @@ export const getAll = () => {
     const url = `/${DB_NAME}/?_sort=createdAt&_order=desc`;
     return instance.get(url);
 };
-
-export const get = (orderId: string | undefined) => {
-    const url = `/${DB_NAME}/?orderId=${orderId}&_expand=sizeId&_expand=productId&_expand=toppingId`;
+export const getReceiptIdDetail = (id: any) => {
+    const url = `/orderDetail/${id}`;
+    return instance.get(url);
+}
+export const getByOrderId = (orderId: string | undefined) => {
+    const url = `/${DB_NAME}/?orderId=${orderId}`;
     return instance.get(url);
 }
 

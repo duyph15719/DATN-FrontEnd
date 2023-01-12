@@ -1,23 +1,23 @@
 import { persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import ProductReducer from './slice/productSlice'
-import CategoriesReducer from './slice/categoriesSlice'
-import BannerReducer from './slice/BannerSlice'
+import ProductReducer from "./slice/productSlice";
+import CategoriesReducer from "./slice/categoriesSlice";
+import BannerReducer from "./slice/BannerSlice";
+
+import ReceiptSlice from "./slice/receiptSlice";
 
 const persistConfig = {
-    key: "root",
-    storage,
-    whitelist: ["authReducer"],
+  key: "root",
+  storage,
+  whitelist: ["authReducer"],
 };
 const reducers = combineReducers({
-    ProductReducer,
-    CategoriesReducer,
-    BannerReducer,
+  ProductReducer,
+  CategoriesReducer,
+  BannerReducer,
 
-
-
-
+  ReceiptSlice,
 });
 const rootReducer = persistReducer(persistConfig, reducers);
 

@@ -1,12 +1,13 @@
-import { Drawer, Collapse, Popover, Space, Input, Modal } from "antd";
-import React, { useState } from "react";
-import "./Header.css";
-import "antd/dist/antd.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAddressBook } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Collapse, Drawer, Input, Modal, Popover, Space } from "antd";
+import "antd/dist/antd.css";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Signin from "../../pages/SingInUp/Signin/Signin";
-import Signup from "../../pages/SingInUp/Signup/Signup";
+import Swal from "sweetalert2";
+import SingInUp from "../../pages/SingInUp/SingInUp";
+import { GetUser } from "../../pages/Website/Pay/Pay";
+import "./Header.css";
 const { Search } = Input;
 // import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 
@@ -14,7 +15,14 @@ const { Panel } = Collapse;
 type Props = {};
 
 const Header = (props: Props) => {
+  const [userModal, setUserModal] = useState<any>();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = async () => {
+    await setIsModalOpen(true);
+    const antmodalfooter: any = document.querySelector(".ant-modal-footer");
+    console.log(antmodalfooter);
+    antmodalfooter.style.display = "none";
+  };
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -71,30 +79,36 @@ const Header = (props: Props) => {
     </>
   );
 
-  const user = () => {
-    const data= window.localStorage.getItem('user')
-    console.log(data);
-    
+  useEffect(()=>{
+    setUserModal(GetUser())
+  },
+  [GetUser()])
+
+
+
+  const LogOut = () => {
+    window.localStorage.removeItem('user')  
+    Swal.fire({
+      icon: 'success',
+      title: 'Đăng xuất tài khoản thành công',
+      timer: 1000,
+      showConfirmButton: false,
+    })
+    setUserModal(null)
   }
   return (
     <>
       <section className="bg-black">
         <div className="Nav  max-w-7xl mx-auto">
 
-          {!user ? (
+          {!userModal ? (
             <div className=" Signinup font-bold text-sm leading-[84px]">
-              <Link to={`/signin`}>
-                <button className="text-cyan-50" >ĐĂNG NHẬP </button>
-              </Link>
-              <span> / </span>
-              <Link to={`/signup`}>
-                <button className="text-cyan-50">ĐĂNG KÝ </button>
-              </Link>
-            </div>
+            <button onClick={showModal}>ĐĂNG NHẬP / ĐĂNG KÝ</button>
+          </div>
           ) : (
             <div className="">
-              <p className="text-cyan-50">XIN CHÀO :  </p>
-              <button className="text-cyan-50">ĐĂNG XUẤT </button>
+              <p className="text-cyan-50">XIN CHÀO :{userModal.user.username}  </p>
+              <button className="text-cyan-50" onClick={LogOut}>ĐĂNG XUẤT </button>
             </div>
           )}
           <div onClick={showmenu} className="icon">
@@ -299,6 +313,7 @@ const Header = (props: Props) => {
           onCancel={handleCancel}
           width="870px"
         >
+          <SingInUp />
         </Modal>
       </section>
       <section className='bg-[#DCDCDC] hidden'>

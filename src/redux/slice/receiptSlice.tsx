@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { add, update, getReceiptId, listReceipt, removeReceipt } from '../../api/receipt';
+import { GetCart, GetUser } from '../../pages/Website/Pay/Pay';
+import { add as addreceiptDetail, getByOrderId } from "../../api/receiptDetail";
+import { add as addreceiptHistory, getHistory } from "../../api/receiptHistory";
 import { RecaiptType } from '../../models/receipt';
-import { GetCart } from '../../pages/Website/Pay/Pay';
-import { add as addreceiptDetail } from "../../api/receiptDetail";
 
 
 const initialState: any = {
-    receipts: [],
+  receipts: [],
 }
 
 export const addReceipt = createAsyncThunk(
@@ -15,31 +16,40 @@ export const addReceipt = createAsyncThunk(
     const { data } = await add(receipt)
     const orderId = data._id;
     const dataOrder = GetCart()
+    const dataUser = GetUser()
     const GetProductsId = () => {
       return (
         <>
           {dataOrder.map((item: any) => {
-            return [item?.id._id, item?.id.name, item?.quantity, item?.id.price, item?.color.colorName, item?.color._id, item?.size._id, item?.size.sizeName,item?.quantity*item?.id.price];
+            return [item?.id._id, item?.id.name, item?.quantity, item?.id.price, item?.color.colorName, item?.color._id, item?.size._id, item?.size.sizeName, item?.quantity * item?.id.price,item?.id.image];
           })}
         </>
       );
     };
-    const newData=GetProductsId().props.children;
-    newData.forEach(async (order:any) => {
+    const newData = GetProductsId().props.children;
+    newData.forEach(async (order: any) => {
       await order
-       addreceiptDetail({
+      addreceiptDetail({
         orderId,
-        ProductsId:order[0],
-        productName:order[1],
-        quantity:order[2],
-        price:order[3],
-        colorId:order[5],
-        colorName:order[4],
-        sizeId:order[6],
-        sizeName:order[7],
-        total:order[8],
+        ProductsId: order[0],
+        productName: order[1],
+        quantity: order[2],
+        price: order[3],
+        colorId: order[5],
+        colorName: order[4],
+        sizeId: order[6],
+        sizeName: order[7],
+        total: order[8],
+        image:order[9]
       });
     })
+    const addOderHistory = {
+      orderId,
+      userId: dataUser.user._id || "",
+      userName:dataUser.user.username,
+      statusOrderLogs: 0,
+    }
+    await addreceiptHistory(addOderHistory);
     return data;
   }
 )
@@ -62,7 +72,7 @@ export const receiptRemove = createAsyncThunk(
 )
 export const receiptUpdate = createAsyncThunk(
   "receipt/receiptUpdate",
-  async (receipt: any) => {
+  async (receipt: { _id?: string; status: number }) => {
     const { data } = await update(receipt)
     return data;
   }
@@ -70,11 +80,24 @@ export const receiptUpdate = createAsyncThunk(
 export const receiptread = createAsyncThunk(
   "receipt/receiptread",
   async (_id: any) => {
-    const { data } = await getReceiptId(_id)
+    const { data } = await getReceiptId(_id)    
     return data;
   }
 )
-
+export const getOrderDetail = createAsyncThunk(
+  "order/getOrderDetail",
+  async (orderId?: string) => {
+    const { data } = await getByOrderId(orderId)
+    return data;
+  }
+);
+export const getOrderHistory = createAsyncThunk(
+  "orderHistory/getorderHistory",
+  async (orderId?: string) => {
+    const { data } = await getHistory(orderId)
+    return data;
+  }
+);
 export const receiptSlice = createSlice({
   name: "receipts",
   initialState,
@@ -84,7 +107,12 @@ export const receiptSlice = createSlice({
     builder.addCase(addReceipt.fulfilled, (state, action) => {
       state.receipts.push(action.payload)
     });
-
+    builder.addCase(getOrderDetail.fulfilled, (state, action ) => {
+      state.order = action.payload;
+    });
+    builder.addCase(getOrderHistory.fulfilled, (state, action ) => {
+      state.orderHistory = action.payload;
+    });
     builder.addCase(Receiptlist.fulfilled, (state, action) => {
       state.receipts = action.payload
     });
@@ -95,12 +123,13 @@ export const receiptSlice = createSlice({
       state.receipts = state.receipts.filter((item: any) => item._id !== action.payload._id)
     });
     builder.addCase(receiptUpdate.fulfilled, (state, action) => {
-      state.receipts = state.receipts.map((item: any) => item._id == action.payload._id ? action.payload : item)
+      state.receipts = state.orders?.map((item:any) => (item._id === action.payload?._id ? action.payload : item)) as RecaiptType[];
+      state.receipts = {
+        ...state.order,
+        order: action.payload,
+      };
     });
   }
 }
 )
-
-// Action creators are generated for each case reducer function
-
 export default receiptSlice.reducer

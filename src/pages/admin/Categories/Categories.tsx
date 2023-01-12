@@ -1,13 +1,13 @@
 
 
-import { Space, Table, Tag } from 'antd';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Space, Table } from 'antd';
+import { Button } from 'antd/lib/radio';
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { categoriesList, categoriesRemove } from '../../../redux/slice/categoriesSlice';
-import Swal from 'sweetalert2'
-import { Link, useParams } from 'react-router-dom';
-import { Button } from 'antd/lib/radio';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 const { Column, ColumnGroup } = Table;
 interface DataType {
@@ -27,6 +27,8 @@ type Props = {
 const Categories = (props: Props) => {
   const dispatch = useAppDispatch()
   const { categories } = useAppSelector((state: any) => state.CategoriesReducer)
+  console.log(categories);
+  
   const remove = (id: any) => {
     Swal.fire({
       title: 'Are you sure?',

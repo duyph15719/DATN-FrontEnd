@@ -3,9 +3,9 @@ import instance from "./instance";
 
 
 export const listReceipt = ( start = 0, limit = 0) => {
-    let url = `/${DB_NAME}/?_sort=createdAt&_order=desc`;
-    if (limit) url += `&_start=${start}&_limit=${limit}`;
-    return instance.get(url);
+    // let url = `/${DB_NAME}/?_sort=createdAt&_order=desc`;
+    // if (limit) url += `&_start=${start}&_limit=${limit}`;
+    return instance.get(`/orders`);
 }
 
 export const getReceiptId = (id: any) => {
@@ -28,15 +28,10 @@ export const removeReceipt = (id: any) => {
     return instance.delete(url);
 }
 
-export const update = (order: RecaiptType, { token, user } = isAuthenticate()) => {
-    const url = `/${DB_NAME}/${order._id}/${user._id}`;
-    return instance.put(url, order, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
+export const update = (order:{ _id?: string; status: number }) => {
+    const url = `/${DB_NAME}/${order._id}`;
+    return instance.put(url, order);
 }
-
 const DB_NAME = "orders";
 export const isAuthenticate = () => {
     return JSON.parse(JSON.parse(localStorage.getItem("persist:root") as string).auth).value;

@@ -15,6 +15,7 @@ import Layoutclient from "./Layout/Layoutclient";
 import Categories from "./pages/admin/Categories/Categories";
 
 import Blog from "./pages/admin/Blog/Blog";
+
 import BlogAdd from "./pages/admin/Blog/BlogAdd";
 import BlogEdit from "./pages/admin/Blog/BlogEdit";
 import CommentAdd from "./pages/admin/Comment/CommentAdd";
@@ -36,6 +37,9 @@ import NewsDetail from "./pages/News/Newsdetail";
 import DetailProduct from "./pages/ProductList/detailProduct";
 
 import ProductsList from "./pages/ProductList/products";
+
+import OrderManager from "./pages/admin/receipt/list";
+import OrderDetail from "./pages/admin/receipt/detail";
 
 import { PrivateRouter } from "./ultils/PrivateRouter";
 
@@ -101,6 +105,11 @@ function App() {
           <Route index element={<ListBanner />} />
           <Route path="add" element={<BannerAdd />} />
           <Route path="edit/:id" element={<EditBanner />} />
+        </Route>
+
+        <Route path="orders">
+          <Route index element={<OrderManager />} />
+          <Route path="edit/:id" element={<OrderDetail />} />
         </Route>
       </Route>
       <Route path="*" element={<ErrorsWeb />} />
