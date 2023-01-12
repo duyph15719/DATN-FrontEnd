@@ -18,7 +18,7 @@ export const add = (receipt: RecaiptType) => {
 }
 
 export const getByUserId = (userId: string, start = 0, limit = 0) => {
-    let url = `/${DB_NAME}/?UserId=${userId}&_sort=createdAt&_receipt=desc`;
+    let url = `/${DB_NAME}/?UserId=${userId}&_sort=createdAt&_orders=desc`;
     if (limit) url += `&_start=${start}&_limit=${limit}`;
     return instance.get(url);
 }
