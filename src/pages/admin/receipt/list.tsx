@@ -124,8 +124,8 @@ const Order = (props: Props) => {
         dispatch(Receiptlist())
     }, [dispatch])
     const dataTable = receipts?.map((item: any, index: any) => {
-        console.log("item",item);
-        
+        console.log("item", item);
+
         return {
             key: index,
             name: item?.name,
@@ -142,7 +142,7 @@ const Order = (props: Props) => {
         }
     })
     console.log(dataTable);
-    
+
     const { confirm } = Modal;
     const handleRemove = async (id?: string) => {
         confirm({

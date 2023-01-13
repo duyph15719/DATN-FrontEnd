@@ -9,7 +9,7 @@ const Oder = (props: Props) => {
   let sum = 0;
   const data = GetCart();
   data.map((item: any) => (sum += sumTotal(item?.id?.price, item?.quantity)));
-  console.log(sum);
+
   const navigate = useNavigate();
   const createUrl: any = {
     amount: sum,
