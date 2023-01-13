@@ -7,6 +7,7 @@ import { decreaseItemInCart, getLocalStorage, increaseItemInCart, removeItemInCa
 import ListAddress from "./components/Address";
 
 import { Link } from "react-router-dom";
+import { GetCart } from "../Pay/Pay";
 
 
 type Props = {};
@@ -124,8 +125,8 @@ const Cart = (props: Props) => {
                     <td className="p-4 px-6 text-center whitespace-nowrap">
                       {sumTotal(item?.id?.price, item?.quantity)}
                     </td>
-                    <div className="hidden">
-                      <p className="hidden"> {(total += sumTotal(item?.id?.price, item?.quantity))}</p>
+                    <div className="invisible">
+                      <p className="invisible"> {(total += sumTotal(item?.id?.price, item?.quantity))}</p>
                     </div>
 
                     <td className="p-4 px-6 text-center whitespace-nowrap">
@@ -200,8 +201,8 @@ const Cart = (props: Props) => {
             </div>
 
             <Link to={'/pay'}>
-              <button className="bg-orange-700 font-semibold hover:bg-orange-800 py-3 text-sm text-white uppercase w-full">
-
+              <button disabled={!GetCart()}
+                className="bg-orange-700 font-semibold hover:bg-orange-800 py-3 text-sm text-white uppercase w-full">
                 Thanh Toán
               </button>
             </Link>

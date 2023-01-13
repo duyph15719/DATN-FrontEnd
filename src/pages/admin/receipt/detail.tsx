@@ -110,7 +110,12 @@ const OrderDetail = () => {
       render: (_, item, index) => <Text>{++index}</Text>,
     },
     {
-      title: "Tài khoản",
+      title: "Mã tài khoản",
+      key: "_id",
+      dataIndex: "id",
+    },
+    {
+      title: "Tên tài khoản",
       key: "username",
       dataIndex: "userName",
     },
@@ -137,7 +142,6 @@ const OrderDetail = () => {
       createdAt: item.createdAt
     }
   })
-
   // cập nhật trạng thái đơn hàng
   const handleUpdateStt = (stt: number) => {
     confirm({
@@ -147,7 +151,7 @@ const OrderDetail = () => {
       async onOk() {
         try {
           await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();
-          await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt, userName: currentUser.user.username });
+          await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt, userName: currentUser.user.firstName +" "+ currentUser.user.lastName });
           const data = await dispatch(receiptread(id)).unwrap();
           setData(data);
           await dispatch(getOrderHistory(id)).unwrap();
@@ -211,8 +215,8 @@ const OrderDetail = () => {
           <Button type="primary" className="ml-1" onClick={() => showModal()}>
             Lịch sử ĐH
           </Button>
-          <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-            <Table columns={History} dataSource={dataTableHistory} pagination={false} rowKey="_id" />
+          <Modal title="Lịch sử hoá đơn" centered open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
+            <Table columns={History} dataSource={dataTableHistory} pagination={false}  />
           </Modal>
         </Col>
       </Row>
@@ -221,7 +225,7 @@ const OrderDetail = () => {
         Chi tiết đơn hàng
       </Typography.Title>
 
-      <Table columns={columns} dataSource={dataTable} pagination={false} rowKey="_id" />
+      <Table columns={columns} dataSource={dataTable} pagination={false}  />
 
       <Typography.Title level={3} style={{ margin: "16px 0 0" }}>
         Tổng thanh toán

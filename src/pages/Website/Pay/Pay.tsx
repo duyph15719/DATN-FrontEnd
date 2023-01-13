@@ -101,7 +101,7 @@ const Pay = (props: Props) => {
     }
     dispatch(addReceipt(orderData)).unwrap()
       .then(() => {
-        if(transferForm.payment===0){
+        if (transferForm.payment === 0) {
           window.localStorage.removeItem("cart");
         }
         Swal.fire({
@@ -115,8 +115,8 @@ const Pay = (props: Props) => {
         }, 1200);
 
       })
-      .catch((err: any) =>{
-        if(!user){
+      .catch((err: any) => {
+        if (!user) {
           alert("Yêu cầu đăng nhập tài khoản để thực hiện thanh toán")
         } else {
           alert("Yêu cầu điền đầy đủ thông tin để thực hiện thanh toán")
@@ -139,8 +139,8 @@ const Pay = (props: Props) => {
               <input type="text" id=""
                 className={'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
                 placeholder="Nguyễn, Trần, Lê, ..."
-                required
-                {...register("name")} />
+                {...register("name", { required: "Yêu cầu nhập thông tin." })} />
+              <p className="text-red-500 text-sm">{errors.name?.message}</p>
             </div>
             <div className="mb-6">
               <label
@@ -197,32 +197,32 @@ const Pay = (props: Props) => {
               <input type="text" id=""
                 className={'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
                 placeholder="Tỉnh / Thành phố *"
-                required
                 {...register("city")} />
+                <p className="text-red-500 text-sm">{errors.city?.message}</p>
             </div>
             <div className="mb-6">
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Địa chỉ (*)</label>
               <input type="text" id=""
                 className={'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
                 placeholder="Địa chỉ nhà"
-                required
                 {...register("address")} />
+                <p className="text-red-500 text-sm">{errors.address?.message}</p>
             </div>
             <div className="mb-6">
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Địa chỉ Email (*)</label>
               <input type="email" id=""
                 className={'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
                 placeholder="...@gmail.com"
-                required
                 {...register("email")} />
+                <p className="text-red-500 text-sm">{errors.email?.message}</p>
             </div>
             <div className="mb-6">
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Số điện thoại (*)</label>
               <input type="number" id=""
                 className={'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}
                 placeholder="Số điện thoại "
-                required
                 {...register("phone")} />
+                <p className="text-red-500 text-sm">{errors.phone?.message}</p>
             </div>
             {/* <ListSignup /> */}
             <div className="mb-6">

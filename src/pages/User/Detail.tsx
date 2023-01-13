@@ -111,7 +111,7 @@ const OrderDetailUser = () => {
       render: (_, item, index) => <Text>{++index}</Text>,
     },
     {
-      title: "Tài khoản",
+      title: "Tên tài khoản",
       key: "username",
       dataIndex: "userName",
     },
@@ -148,7 +148,7 @@ const OrderDetailUser = () => {
       async onOk() {
         try {
           await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();
-          await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt, userName: currentUser.user.username });
+          await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt, userName: currentUser.user.firstName +" "+ currentUser.user.lastName });
           const data = await dispatch(receiptread(id)).unwrap();
           setData(data);
           await dispatch(getOrderHistory(id)).unwrap();
@@ -196,7 +196,7 @@ const OrderDetailUser = () => {
           <Button type="primary" className="ml-1" onClick={() => showModal()}>
             Lịch sử ĐH
           </Button>
-          <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+          <Modal title="Lịch sử hoá đơn" centered open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={800}>
             <Table columns={History} dataSource={dataTableHistory} pagination={false} rowKey="_id" />
           </Modal>
         </Col>
