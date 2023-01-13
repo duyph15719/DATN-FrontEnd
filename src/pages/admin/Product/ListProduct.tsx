@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Image, Space, Table } from "antd";
+import { Button, Image, Space, Table, Typography } from "antd";
 import { Option } from "antd/lib/mentions";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -33,6 +33,7 @@ const ListProduct = (props: Props) => {
       category: item.categoryId?.name,
     };
   });
+  const { Text } = Typography;
   const remove = (id: any) => {
     Swal.fire({
       title: "Are you sure?",
@@ -64,6 +65,7 @@ const ListProduct = (props: Props) => {
       title: "Price",
       dataIndex: "price",
       key: "price",
+      render: (item: any) => <Text className="text-[#1890ff]">{new Intl.NumberFormat().format(item)} VND</Text>,
     },
 
     {

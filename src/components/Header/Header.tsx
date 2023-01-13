@@ -106,7 +106,7 @@ const Header = (props: Props) => {
           ) : (
             <div className=" Signinup font-bold text-sm py-3">
               <Link to="/managerAccount">
-              <p className="text-cyan-50">XIN CHÀO :{userModal.user.lastName}  </p>
+              <p className="text-cyan-50">XIN CHÀO :{userModal.user.firstName+" "+userModal.user.lastName}  </p>
                 </Link>
               
               <button className="text-cyan-50" onClick={LogOut}>ĐĂNG XUẤT </button>

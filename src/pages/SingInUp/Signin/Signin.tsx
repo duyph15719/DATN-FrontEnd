@@ -28,10 +28,10 @@ const Signin = () => {
     console.log('Failed:', errorInfo);
   };
   return (
-    <div className=" p-6 uppercase  font-bold text-lg m-16">     <Form
+    <div className=" pt-36 uppercase  font-bold text-lg m-9">     <Form
       name="basic"
       labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
+      wrapperCol={{ span: 20 }}
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
@@ -40,26 +40,26 @@ const Signin = () => {
       <Form.Item
         label="Email"
         name="email"
-        rules={[{ required: true, message: 'Please input your email!' }]}
+        rules={[{ required: true, message: 'Yêu cầu nhập Email!' }]}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
-        label="Password"
+        label="Mật khẩu"
         name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
+        rules={[{ required: true, message: 'Yêu cầu nhập Mật khẩu!' }]}
       >
         <Input.Password />
       </Form.Item>
 
       <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-        <Checkbox>Remember me</Checkbox>
+        <Checkbox>Nhớ tài khoản</Checkbox>
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
-          Submit
+          Đăng Nhập
         </Button>
       </Form.Item>
     </Form></div>

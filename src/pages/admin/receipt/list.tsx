@@ -105,7 +105,7 @@ const Order = (props: Props) => {
             title: "Tổng tiền hoá đơn",
             key: "total",
             dataIndex: "total",
-            render: (item) => <Text className="text-[#1890ff]">{item} VND</Text>
+            render: (item) => <Text className="text-[#1890ff]">{new Intl.NumberFormat().format(item)} VND</Text>
             ,
         },
         {

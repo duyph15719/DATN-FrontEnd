@@ -74,7 +74,7 @@ const ManagerAccount = (props: Props) => {
             title: "Tổng tiền hoá đơn",
             key: "total",
             dataIndex: "total",
-            render: (item) => <Text className="text-[#1890ff]">{item} VND</Text>
+            render: (item) => <Text className="text-[#1890ff]">{new Intl.NumberFormat().format(item)} VND</Text>
             ,
         },
         {
@@ -135,7 +135,7 @@ const ManagerAccount = (props: Props) => {
                                 <span className="ml-auto"><span className="bg-green-500 py-1 px-2 rounded text-white text-sm">{getRole(dataUser?.user.role)} </span></span>
                             </li>
                             <li className="flex items-center py-3">
-                                <span>Thời gian đăng ký tài khoản</span>
+                                <span>Ngày đăng ký tài khoản</span>
                                 <span className="ml-auto">{moment(dataUser?.user.createdAt).format("DD/MM/YYYY")}</span>
                             </li>
                         </ul>

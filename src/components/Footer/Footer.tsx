@@ -117,46 +117,7 @@ const Footer = (props: Props) => {
         </div>
       </div>
       <hr />
-      <div className="max-w-7xl mx-auto grid md:grid-cols-3 grid-cols-1 gap-4 pt-10 text-white pb-5">
-        <h1 className="text-white font-bold text-lg">ĐĂNG KÝ NHẬN THÔNG TIN</h1>
-        <form action="">
-          <input
-            type=""
-            name=""
-            id="email"
-            required
-            placeholder="Email Address"
-          />
-          <input type="submit" value="ĐĂNG KÝ" id="send" />
-        </form>
-        <div className="icona flex">
-          <img
-            className=""
-            src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/payment1.png"
-            alt=""
-          />
-          <img
-            className=""
-            src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/payment2.png"
-            alt=""
-          />
-          <img
-            className=""
-            src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/payment3.png"
-            alt=""
-          />
-          <img
-            className=""
-            src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/payment4.png"
-            alt=""
-          />
-          <img
-            className=""
-            src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/payment5.png"
-            alt=""
-          />
-        </div>
-      </div>
+      
       <div className="max-w-7xl mx-auto text-center text-white">
         <p>© Bản quyền thuộc về . Thiết kế website FPT</p>
       </div>
