@@ -14,7 +14,7 @@ const Oder = (props: Props) => {
   const createUrl: any = {
     amount: sum,
     bankCode: "",
-    orderDescription: `tong so tien thanh toan: ${sum} VND`,
+    orderDescription: `Tổng số tiền l: ${sum} VND`,
   };
 
   const [form] = Form.useForm();
@@ -51,13 +51,15 @@ const Oder = (props: Props) => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <Form.Item label="So tien" name="amount">
+        <Form.Item label="Số tiền" name="amount">
           <Input disabled />
         </Form.Item>
 
-        <Form.Item label="Ngan hang" name="bankCode">
+        <Form.Item label="Ngân Hàng" name="bankCode">
           <Select>
             <Select.Option value="NCB">NCB</Select.Option>
+            <Select.Option value="BIDV">BIDV</Select.Option>
+            <Select.Option value="mbbank">MBBank</Select.Option>
           </Select>
         </Form.Item>
 
