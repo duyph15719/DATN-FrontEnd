@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import SingInUp from "../../pages/SingInUp/SingInUp";
 import { GetUser } from "../../pages/Website/Pay/Pay";
 import "./Header.css";
+import { useNavigate } from "react-router-dom";
 const { Search } = Input;
 // import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
 
@@ -20,7 +21,6 @@ const Header = (props: Props) => {
   const showModal = async () => {
     await setIsModalOpen(true);
     const antmodalfooter: any = document.querySelector(".ant-modal-footer");
-    console.log(antmodalfooter);
     antmodalfooter.style.display = "none";
   };
   const handleOk = () => {
@@ -78,16 +78,8 @@ const Header = (props: Props) => {
       </li>
     </>
   );
-
-  useEffect(()=>{
-    setUserModal(GetUser())
-  },
-  [GetUser()])
-
-
-
   const LogOut = () => {
-    window.localStorage.removeItem('user')  
+    window.localStorage.removeItem('user')
     Swal.fire({
       icon: 'success',
       title: 'Đăng xuất tài khoản thành công',
@@ -96,6 +88,12 @@ const Header = (props: Props) => {
     })
     setUserModal(null)
   }
+  console.log(userModal);
+  useEffect(() => {
+    setUserModal(GetUser())
+  },[window.localStorage.getItem('user')])
+  console.log(userModal);
+  
   return (
     <>
       <section className="bg-black">
@@ -103,11 +101,14 @@ const Header = (props: Props) => {
 
           {!userModal ? (
             <div className=" Signinup font-bold text-sm leading-[84px]">
-            <button onClick={showModal}>ĐĂNG NHẬP / ĐĂNG KÝ</button>
-          </div>
+              <button onClick={showModal}>ĐĂNG NHẬP / ĐĂNG KÝ</button>
+            </div>
           ) : (
-            <div className="">
-              <p className="text-cyan-50">XIN CHÀO :{userModal.user.username}  </p>
+            <div className=" Signinup font-bold text-sm py-3">
+              <Link to="/managerAccount">
+              <p className="text-cyan-50">XIN CHÀO :{userModal.user.firstName+" "+userModal.user.lastName}  </p>
+                </Link>
+              
               <button className="text-cyan-50" onClick={LogOut}>ĐĂNG XUẤT </button>
             </div>
           )}

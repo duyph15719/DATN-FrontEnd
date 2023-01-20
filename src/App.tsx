@@ -18,8 +18,6 @@ import Blog from "./pages/admin/Blog/Blog";
 
 import BlogAdd from "./pages/admin/Blog/BlogAdd";
 import BlogEdit from "./pages/admin/Blog/BlogEdit";
-import CommentAdd from "./pages/admin/Comment/CommentAdd";
-import CommentEdit from "./pages/admin/Comment/CommentEdit";
 import Users from "./pages/admin/User/User";
 
 import BannerAdd from "./pages/admin/Banner/BannerAdd";
@@ -30,23 +28,26 @@ import CategoriesEdit from "./pages/admin/Categories/CategoriesEdit";
 import ProductList from "./pages/admin/Product/AddProduct";
 import EditProduct from "./pages/admin/Product/EditProducts";
 import ListProduct from "./pages/admin/Product/ListProduct";
-import UserAdd from "./pages/admin/User/UserAdd";
-import UserEdit from "./pages/admin/User/UserEdit";
 import NewsPage from "./pages/News/News";
 import NewsDetail from "./pages/News/Newsdetail";
 import DetailProduct from "./pages/ProductList/detailProduct";
 
 import ProductsList from "./pages/ProductList/products";
 
-import OrderManager from "./pages/admin/receipt/list";
 import OrderDetail from "./pages/admin/receipt/detail";
+import OrderManager from "./pages/admin/receipt/list";
 
 import { PrivateRouter } from "./ultils/PrivateRouter";
 
 import Signin from "./pages/SingInUp/Signin/Signin";
 import Signup from "./pages/SingInUp/Signup/Signup";
+
 import Oder from "./pages/Website/Oder/Oder";
 import Success from "./pages/Website/Oder/Success";
+
+import OrderDetailUser from "./pages/User/Detail";
+import ManagerAccount from "./pages/User/managerAccount";
+
 
 function App() {
   return (
@@ -61,7 +62,10 @@ function App() {
         <Route path="news">
           <Route index element={<NewsPage />} />
         </Route>
-        <Route path={"/a"} element={<NewsDetail />} />
+        <Route path="/managerAccount">
+          <Route index element={<ManagerAccount />} />
+          <Route path="edit/:id" element={<OrderDetailUser />} />
+        </Route>
         <Route path={"/newsdetail"} element={<NewsDetail />} />
         <Route path="cart" element={<Cart />} />
         <Route path="pay" element={<Pay />} />
@@ -93,8 +97,6 @@ function App() {
 
         <Route path="user">
           <Route index element={<Users />} />
-          <Route path="add" element={<UserAdd />} />
-          <Route path="edit/:id" element={<UserEdit />} />
         </Route>
         <Route path="Blog">
           <Route index element={<Blog />} />

@@ -4,17 +4,18 @@ import type { ColumnsType } from "antd/es/table";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { add as addreceiptHistory } from "../../../api/receiptHistory";
-import { OrderLogsType, RecaiptDetailType } from "../../../models/receipt";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { getOrderDetail, getOrderHistory, Receiptlist, receiptread, receiptUpdate } from "../../../redux/slice/receiptSlice";
-import { GetUser } from "../../Website/Pay/Pay";
-import { getStatusOrder } from "./list";
+import { add as addreceiptHistory } from "../../api/receiptHistory";
+import { OrderLogsType, RecaiptDetailType } from "../../models/receipt";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { getOrderDetail, getOrderHistory, Receiptlist, receiptread, receiptUpdate } from "../../redux/slice/receiptSlice";
+import { getStatusOrder } from "../admin/receipt/list";
+import { GetUser } from "../Website/Pay/Pay";
+
 
 const { confirm } = Modal;
 const { Text } = Typography;
 
-const OrderDetail = () => {
+const OrderDetailUser = () => {
   const dispatch = useAppDispatch()
   const { id } = useParams();
   const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
@@ -110,11 +111,6 @@ const OrderDetail = () => {
       render: (_, item, index) => <Text>{++index}</Text>,
     },
     {
-      title: "Mã tài khoản",
-      key: "_id",
-      dataIndex: "id",
-    },
-    {
       title: "Tên tài khoản",
       key: "username",
       dataIndex: "userName",
@@ -142,6 +138,7 @@ const OrderDetail = () => {
       createdAt: item.createdAt
     }
   })
+
   // cập nhật trạng thái đơn hàng
   const handleUpdateStt = (stt: number) => {
     confirm({
@@ -177,8 +174,8 @@ const OrderDetail = () => {
     }
   })
   return (
-    <>
-      <Row justify="space-between">
+    <div className="container mx-auto p-10">
+        <Row justify="space-between">
         <Col>
           <Text>
             Đơn hàng đặt lúc <Text mark>{moment(data?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Text>
@@ -190,22 +187,6 @@ const OrderDetail = () => {
         </Col>
 
         <Col>
-          {data?.status === 0 ? (
-            <Button type="primary" onClick={() => handleUpdateStt(1)}>
-              Xác nhận ĐH
-            </Button>
-          ) : data?.status === 1 ? (
-            <Button type="primary" onClick={() => handleUpdateStt(2)}>
-              Đang giao hàng
-            </Button>
-          ) : data?.status === 2 ? (
-            <Button type="primary" onClick={() => handleUpdateStt(3)}>
-              Đã giao hàng
-            </Button>
-          ) : (
-            ""
-          )}
-
           {data?.status === 0 && (
             <Button type="primary" onClick={() => handleUpdateStt(4)} className="ml-1">
               Hủy ĐH
@@ -215,8 +196,8 @@ const OrderDetail = () => {
           <Button type="primary" className="ml-1" onClick={() => showModal()}>
             Lịch sử ĐH
           </Button>
-          <Modal title="Lịch sử hoá đơn" centered open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
-            <Table columns={History} dataSource={dataTableHistory} pagination={false}  />
+          <Modal title="Lịch sử hoá đơn" centered open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={800}>
+            <Table columns={History} dataSource={dataTableHistory} pagination={false} rowKey="_id" />
           </Modal>
         </Col>
       </Row>
@@ -225,7 +206,7 @@ const OrderDetail = () => {
         Chi tiết đơn hàng
       </Typography.Title>
 
-      <Table columns={columns} dataSource={dataTable} pagination={false}  />
+      <Table columns={columns} dataSource={dataTable} pagination={false} rowKey="_id" />
 
       <Typography.Title level={3} style={{ margin: "16px 0 0" }}>
         Tổng thanh toán
@@ -233,10 +214,6 @@ const OrderDetail = () => {
 
       <table className="text-gray-600 w-full text-left">
         <tbody>
-          <tr className="border-b">
-            <td className="py-1.5 font-medium">Tiền tạm tính:</td>
-            <td className="py-1.5 text-right">{data?.total}</td>
-          </tr>
           <tr>
             <td className="py-1.5 font-medium">Tổng tiền:</td>
             <td className="py-1.5 text-right">
@@ -272,14 +249,14 @@ const OrderDetail = () => {
             <td className="py-1.5 font-medium">Thời gian đặt:</td>
             <td className="py-1.5 text-right">{moment(data?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</td>
           </tr>
-          <tr>
+          <tr className="border-b">
             <td className="py-1.5 font-medium">Ghi chú:</td>
             <td className="py-1.5 text-right">{data?.note || "Không có ghi chú"}</td>
           </tr>
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 
-export default OrderDetail;
+export default OrderDetailUser;

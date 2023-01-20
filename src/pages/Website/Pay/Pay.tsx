@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { InputComponent } from "./components/Input";
 import ListLogin from "./components/ListLogin";
@@ -11,7 +12,11 @@ import { addReceipt } from "../../../redux/slice/receiptSlice";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { add as addreceiptDetail } from "../../../api/receiptDetail";
 import { add as addreceipt } from "../../../api/receipt";
+
+
 import { sumTotal } from "../../../ultils/cart/cart";
+
+import "./Pay.css";
 type Props = {
   name?: string;
   status?: number;
@@ -43,11 +48,9 @@ const data = GetCart();
 // }
 
 const Pay = (props: Props) => {
-  useEffect(() => {
-    GetCart();
-  }, []);
   let Sum = 0;
   const [transferForm, setTransferForm] = useState<any>({
+    payment: 0,
     payment1: false,
     payment2: false,
   });
@@ -71,11 +74,13 @@ const Pay = (props: Props) => {
     //window.localStorage.clear();
     if (currentRadio === "0") {
       setTransferForm({
+        payment: 0,
         payment1: true,
         payment2: false,
       });
     } else {
       setTransferForm({
+        payment: 1,
         payment1: false,
         payment2: true,
       });
@@ -112,17 +117,35 @@ const Pay = (props: Props) => {
       .unwrap()
 
       .then(() => {
-        // window.localStorage.removeItem("cart");
+        // <<<<<<< HEAD
+        //         // window.localStorage.removeItem("cart");
+        // =======
+        if (transferForm.payment === 0) {
+          window.localStorage.removeItem("cart");
+          setTimeout(() => {
+            navigation("/managerAccount")
+          }, 1200);
+        } else {
+          setTimeout(() => {
+            navigation("/pay")
+          }, 1200);
+        }
+
         Swal.fire({
           icon: "success",
           title: "Thêm thành công",
           timer: 1000,
           showConfirmButton: false,
+
         });
         setTimeout(() => {
           navigation(`/oder`);
         }, 1200);
       })
+
+
+
+
 
       .catch((err: any) => {
         if (!user) {
@@ -160,9 +183,8 @@ const Pay = (props: Props) => {
                   "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 }
                 placeholder="Nguyễn, Trần, Lê, ..."
-                required
-                {...register("name")}
-              />
+                {...register("name", { required: "Yêu cầu nhập thông tin." })} />
+              <p className="text-red-500 text-sm">{errors.name?.message}</p>
             </div>
             <div className="mb-6">
               <label
@@ -228,9 +250,8 @@ const Pay = (props: Props) => {
                   "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 }
                 placeholder="Tỉnh / Thành phố *"
-                required
-                {...register("city")}
-              />
+                {...register("city")} />
+              <p className="text-red-500 text-sm">{errors.city?.message}</p>
             </div>
             <div className="mb-6">
               <label
@@ -246,9 +267,8 @@ const Pay = (props: Props) => {
                   "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 }
                 placeholder="Địa chỉ nhà"
-                required
-                {...register("address")}
-              />
+                {...register("address")} />
+              <p className="text-red-500 text-sm">{errors.address?.message}</p>
             </div>
             <div className="mb-6">
               <label
@@ -264,9 +284,8 @@ const Pay = (props: Props) => {
                   "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 }
                 placeholder="...@gmail.com"
-                required
-                {...register("email")}
-              />
+                {...register("email")} />
+              <p className="text-red-500 text-sm">{errors.email?.message}</p>
             </div>
             <div className="mb-6">
               <label
@@ -282,9 +301,8 @@ const Pay = (props: Props) => {
                   "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 }
                 placeholder="Số điện thoại "
-                required
-                {...register("phone")}
-              />
+                {...register("phone")} />
+              <p className="text-red-500 text-sm">{errors.phone?.message}</p>
             </div>
             {/* <ListSignup /> */}
             <div className="mb-6">

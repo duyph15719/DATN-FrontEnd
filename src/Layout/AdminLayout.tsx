@@ -55,7 +55,7 @@ const items: MenuItem[] = [
     ),
   ]),
 
-  getItem("Quản Lý Banner", "sub10", <AndroidFilled />, [
+  getItem("Quản Lý Banner", "sub3", <AndroidFilled />, [
     getItem(
       <Link to="/admin/banner">Danh sách Banner</Link>,
       "5",
@@ -74,16 +74,13 @@ const items: MenuItem[] = [
       "14",
       <UnorderedListOutlined />
     ),
+  ]),
+  getItem("Quản lý tài khoản", "sub5", <AndroidFilled />, [
     getItem(
-      <Link to="/admin">Danh sách</Link>,
-      "15",
+      <Link to="/admin/user">Danh sách tài khoản</Link>,
+      "14",
       <UnorderedListOutlined />
-    ),
-    getItem(
-      <Link to="/admin">Danh sách</Link>,
-      "16",
-      <UnorderedListOutlined />
-    ),
+    )
   ]),
 ];
 
