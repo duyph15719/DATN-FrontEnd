@@ -1,6 +1,6 @@
 import { faAddressBook } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Collapse, Drawer, Input, Modal, Popover, Space } from "antd";
+import { Collapse, Drawer, Input, Modal, Popover, Space, Typography } from "antd";
 import "antd/dist/antd.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -9,15 +9,21 @@ import SingInUp from "../../pages/SingInUp/SingInUp";
 import { GetUser } from "../../pages/Website/Pay/Pay";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
+import { getLocalStorage, sumTotal } from "../../ultils/cart/cart";
 const { Search } = Input;
-// import { faAddressBook } from '@fortawesome/free-regular-svg-icons';
+
 
 const { Panel } = Collapse;
+
+const { Text } = Typography;
 type Props = {};
 
 const Header = (props: Props) => {
   const [userModal, setUserModal] = useState<any>();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cart, setCart] = useState<any>([]);
+  const [reload, setReload] = useState<any>(true);
+
   const showModal = async () => {
     await setIsModalOpen(true);
     const antmodalfooter: any = document.querySelector(".ant-modal-footer");
@@ -60,7 +66,7 @@ const Header = (props: Props) => {
     </div>
   );
 
-  const cart = <div>Chưa có gì trong giỏ hàng</div>;
+  // const cart = <div>Chưa có gì trong giỏ hàng</div>;
 
   const dropdown = (
     <>
@@ -91,9 +97,12 @@ const Header = (props: Props) => {
   console.log(userModal);
   useEffect(() => {
     setUserModal(GetUser())
-  },[window.localStorage.getItem('user')])
+  }, [window.localStorage.getItem('user')])
   console.log(userModal);
-  
+  let total = 0;
+  useEffect(() => {
+    setCart(getLocalStorage("cart"));
+  }, [reload]);
   return (
     <>
       <section className="bg-black">
@@ -106,9 +115,9 @@ const Header = (props: Props) => {
           ) : (
             <div className=" Signinup font-bold text-sm py-3">
               <Link to="/managerAccount">
-              <p className="text-cyan-50">XIN CHÀO :{userModal.user.firstName+" "+userModal.user.lastName}  </p>
-                </Link>
-              
+                <p className="text-cyan-50">XIN CHÀO :{userModal.user.firstName + " " + userModal.user.lastName}  </p>
+              </Link>
+
               <button className="text-cyan-50" onClick={LogOut}>ĐĂNG XUẤT </button>
             </div>
           )}
@@ -164,7 +173,32 @@ const Header = (props: Props) => {
                 content={cart}
                 trigger="click"
               >
-                GIỎ HÀNG/0 đ
+                GIỎ HÀNG/
+                {cart &&
+                  cart?.map((item: any) => (
+                    <div key={item._id}>
+
+
+
+
+
+
+                      {new Intl.NumberFormat().format(sumTotal(item?.id?.price, item?.quantity))} VND
+
+
+
+
+                      {/* {(total += sumTotal(item?.id?.price, item?.quantity))} */}
+
+
+
+
+
+
+
+                    </div>
+                  ))}
+
               </Popover>
               <Popover placement="bottom" content={content} trigger="click">
                 <svg

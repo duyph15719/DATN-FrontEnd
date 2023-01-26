@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { listProduct } from '../../api/product'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { categoriesList } from '../../redux/slice/categoriesSlice'
-import { productList } from '../../redux/slice/productSlice'
+import { filterProductS, productList } from '../../redux/slice/productSlice'
 
 type Props = {}
 
@@ -10,13 +11,52 @@ const ProductsList = (props: Props) => {
   const dispatch = useAppDispatch()
   const { categories } = useAppSelector((state: any) => state.CategoriesReducer)
   const { products } = useAppSelector(state => state.ProductReducer)
-
+  const [product, setProduct] = useState([]);
 
   useEffect(() => {
+    const getPro = async () => {
+      const data = await listProduct();
+      console.log(data);
+      setProduct(data)
+    }
+    getPro()
     dispatch(categoriesList())
     dispatch(productList())
 
   }, [dispatch])
+  const handleFiler = async () => {
+    const getChooseFilter = document.querySelectorAll("#filter")
+    console.log(product);
+    let productFilter: any = []
+    let flag = false
+    getChooseFilter.forEach((current: any) => {
+      if (current.checked == true) {
+        flag = true
+        products.forEach((cur: any) => {
+          if (cur.categoryId._id == current.getAttribute("data")) {
+            productFilter.push(cur)
+          }
+        })
+        console.log(productFilter);
+      }
+    })
+    if (flag == false) {
+      dispatch(filterProductS(products));
+    } else {
+      dispatch(filterProductS(productFilter));
+    }
+  }
+  console.log(products);
+
+  const handleDeleteFilter = () => {
+    const getChooseFilter = document.querySelectorAll("#filter")
+    console.log(getChooseFilter);
+    getChooseFilter.forEach((item: any) => {
+      item.checked = false
+      dispatch(filterProductS(product));
+    })
+  }
+
   return (
     <div>
       <div className="nav-product max-w-7xl mx-auto ">
@@ -47,13 +87,42 @@ const ProductsList = (props: Props) => {
         <div className='flex flex-col md:flex-row ' >
           <div className="product-aside-left md:w-[329px] w-[100%] md:block	 hidden	">
             <div className="filter-price">
-              <h2 className="uppercase font-bold pb-2 relative after:content-[''] after:absolute after:top-[100%] after:left-0 after:w-8 after:h-1 after:bg-gray-300">Lọc theo giá</h2>
-              <form action="">
-                <input type="checkbox" name="" id="" /> <label htmlFor=""> Trên 1tr </label><br />
-                <input type="checkbox" name="" id="" /> <label htmlFor=""> Trên 1tr </label><br />
-                <input type="checkbox" name="" id="" /> <label htmlFor=""> Trên 1tr </label><br />
-                <input type="checkbox" name="" id="" /> <label htmlFor=""> Trên 1tr </label><br />
-              </form>
+              <div className="block border-b border-gray-300 pb-7 mb-7">
+                <div className="flex items-center justify-between mb-2.5">
+                  <h2 className="font-semibold text-heading text-xl md:text-2xl">
+                    Danh mục
+                  </h2>
+                  <button
+                    onClick={() => handleDeleteFilter()}
+                    className="flex-shrink text-xs mt-0.5 transition duration-150 ease-in focus:outline-none hover:text-heading"
+                    aria-label="Clear All"
+                  >
+                    Xoá hết
+                  </button>
+                </div>
+                <div className="mt-2 flex flex-col space-y-4">
+
+                  {
+                    categories.map((item: any, index: any) => (
+                      <span className="ms-4 -mt-0.5 ml-[15px] text-normal" key={index}>
+                        <label className="group flex items-center text-heading text-sm cursor-pointer">
+                          <input
+                            data={item._id}
+                            onClick={() => handleFiler()}
+                            id='filter'
+                            type="checkbox"
+                            className="mr-2 form-checkbox w-5 h-5 border border-gray-300 rounded cursor-pointer transition duration-500 ease-in-out focus:ring-offset-0 hover:border-heading focus:outline-none focus:ring-0 focus-visible:outline-none checked:bg-heading checked:hover:bg-heading checked:focus:bg-heading"
+                            name="woman"
+                            defaultValue="woman"
+                          />
+                          {item.name}
+                        </label>
+
+                      </span>
+                    ))
+                  }
+                </div>
+              </div>
 
             </div>
 
@@ -119,7 +188,7 @@ const ProductsList = (props: Props) => {
             </div>
           </div>
           <div className="product-aside-right w-[100%] md:w-[70%] grid md:grid-cols-3 grid-cols-2 gap-4 pt-10 ">
-            {products.map((item: any) => (
+            {products?.map((item: any) => (
               <>
                 <div className="group  border-slate-300 shadow">
                   <div className="relative bg-[#f7f7f7] overflow-hidden">
@@ -135,7 +204,7 @@ const ProductsList = (props: Props) => {
                       <div className="text-yellow-400">
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div></ul>
                     <div className="text-sm pt-1">
-                    {new Intl.NumberFormat().format(item.price)}&nbsp;VND
+                      {new Intl.NumberFormat().format(item.price)}&nbsp;VND
                     </div></div>
                 </div>
               </>
