@@ -15,11 +15,12 @@ const ProductsList = (props: Props) => {
 
   useEffect(() => {
     const getPro = async () => {
-      const data = await listProduct();
+      const data: any = await listProduct();
       console.log(data);
       setProduct(data)
     }
     getPro()
+
     dispatch(categoriesList())
     dispatch(productList())
 
@@ -29,31 +30,36 @@ const ProductsList = (props: Props) => {
     console.log(product);
     let productFilter: any = []
     let flag = false
-    getChooseFilter.forEach((current: any) => {
-      if (current.checked == true) {
+    await getChooseFilter.forEach((current: any) => {
+      if (current.checked === true) {
         flag = true
-        products.forEach((cur: any) => {
+
+        products?.forEach((cur: any) => {
           if (cur.categoryId._id == current.getAttribute("data")) {
+
             productFilter.push(cur)
+
           }
         })
-        console.log(productFilter);
       }
     })
     if (flag == false) {
       dispatch(filterProductS(products));
+      dispatch(productList())
     } else {
+
       dispatch(filterProductS(productFilter));
+
+
     }
   }
-  console.log(products);
 
   const handleDeleteFilter = () => {
     const getChooseFilter = document.querySelectorAll("#filter")
     console.log(getChooseFilter);
     getChooseFilter.forEach((item: any) => {
       item.checked = false
-      dispatch(filterProductS(product));
+      dispatch(productList())
     })
   }
 
@@ -103,7 +109,7 @@ const ProductsList = (props: Props) => {
                 <div className="mt-2 flex flex-col space-y-4">
 
                   {
-                    categories.map((item: any, index: any) => (
+                    categories?.map((item: any, index: any) => (
                       <span className="ms-4 -mt-0.5 ml-[15px] text-normal" key={index}>
                         <label className="group flex items-center text-heading text-sm cursor-pointer">
                           <input
