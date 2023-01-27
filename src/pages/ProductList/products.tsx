@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { listProduct } from '../../api/product'
+import Paginate from '../../components/Paginate'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { categoriesList } from '../../redux/slice/categoriesSlice'
 import { filterProductS, productList } from '../../redux/slice/productSlice'
@@ -12,7 +13,7 @@ const ProductsList = (props: Props) => {
   const { categories } = useAppSelector((state: any) => state.CategoriesReducer)
   const { products } = useAppSelector(state => state.ProductReducer)
   const [product, setProduct] = useState([]);
-
+  const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     const getPro = async () => {
       const data: any = await listProduct();
@@ -62,7 +63,11 @@ const ProductsList = (props: Props) => {
       dispatch(productList())
     })
   }
-
+  const postPerPage = 9;
+  const totalPosts = products.length;
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const filterPosts = products.slice(indexOfFirstPost, indexOfLastPost);
   return (
     <div>
       <div className="nav-product max-w-7xl mx-auto ">
@@ -73,25 +78,11 @@ const ProductsList = (props: Props) => {
               <p className=" mx-auto">TRANG CHỦ / NAM</p></div>
           </div>
           <div className="nav-product-right w-[100%] md:w-[70%] ">
-            <div className="loc flex flex-row-reverse ">
-              <form className="woocommerce-ordering  md:m-0 mx-auto" method="get">
-                <select name="orderby" className="orderby border border-black">
-                  <option value="menu_order" >Thứ tự mặc định</option>
-                  <option value="popularity">Thứ tự theo mức độ phổ biến</option>
-                  <option value="rating">Thứ tự theo điểm đánh giá</option>
-                  <option value="date">Mới nhất</option>
-                  <option value="price">Thứ tự theo giá: thấp đến cao</option>
-                  <option value="price-desc">Thứ tự theo giá: cao xuống thấp</option>
-                </select>
-                <input type="hidden" name="paged" defaultValue={1} />
-              </form>
 
-              <p className="md:block	 hidden	">  Hiển thị 1–12 trong 22 kết quả </p>
-            </div>
           </div>
         </div>
         <div className='flex flex-col md:flex-row ' >
-          <div className="product-aside-left md:w-[329px] w-[100%] md:block	 hidden	">
+          <div className="product-aside-left md:w-[329px] w-[100%] md:block	 hidden mr-10	">
             <div className="filter-price">
               <div className="block border-b border-gray-300 pb-7 mb-7">
                 <div className="flex items-center justify-between mb-2.5">
@@ -194,7 +185,7 @@ const ProductsList = (props: Props) => {
             </div>
           </div>
           <div className="product-aside-right w-[100%] md:w-[70%] grid md:grid-cols-3 grid-cols-2 gap-4 pt-10 ">
-            {products?.map((item: any) => (
+            {filterPosts?.map((item: any) => (
               <>
                 <div className="group  border-slate-300 shadow">
                   <div className="relative bg-[#f7f7f7] overflow-hidden">
@@ -211,7 +202,8 @@ const ProductsList = (props: Props) => {
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div><div className="text-yellow-400"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" className="svg-inline--fa fa-star " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg></div></ul>
                     <div className="text-sm pt-1">
                       {new Intl.NumberFormat().format(item.price)}&nbsp;VND
-                    </div></div>
+                    </div>
+                  </div>
                 </div>
               </>
 
@@ -223,7 +215,16 @@ const ProductsList = (props: Props) => {
 
           </div>
         </div>
-        <ul className="flex justify-center mt-5"><li><a className="w-10 h-10 rounded-full border-2 flex items-center justify-center font-semibold mx-0.5 cursor-pointer transition ease-linear duration-200 hover:bg-[#D9A953] hover:border-[#D9A953] hover:text-white border-[#D9A953] bg-[#D9A953] text-white" href="/thuc-don/page/1">1</a></li><li><a className="w-10 h-10 rounded-full border-2 flex items-center justify-center font-semibold mx-0.5 cursor-pointer transition ease-linear duration-200 hover:bg-[#D9A953] hover:border-[#D9A953] hover:text-white border-gray-500 text-gray-500" href="/thuc-don/page/2">2</a></li><li><a className="w-10 h-10 rounded-full border-2 flex items-center justify-center font-semibold mx-0.5 cursor-pointer transition ease-linear duration-200 hover:bg-[#D9A953] hover:border-[#D9A953] hover:text-white border-gray-500 text-gray-500" href="/thuc-don/page/3">3</a></li><li><a className="w-10 h-10 rounded-full border-2 flex items-center justify-center font-semibold mx-0.5 cursor-pointer transition ease-linear duration-200 hover:bg-[#D9A953] hover:border-[#D9A953] hover:text-white border-gray-500 text-gray-500" href="/thuc-don/page/4">4</a></li><li><a className="w-10 h-10 rounded-full border-2 flex items-center justify-center font-semibold border-gray-500 text-gray-500 mx-0.5 cursor-pointer transition ease-linear duration-200 hover:bg-[#D9A953] hover:border-[#D9A953] hover:text-white" href="/thuc-don/page/2"><button><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" className="svg-inline--fa fa-angle-right " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path fill="currentColor" d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" /></svg></button></a></li></ul>
+        <ul className="flex justify-center mt-5">
+          {totalPosts > postPerPage && (
+            <Paginate
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPosts={totalPosts}
+              postPerPage={postPerPage}
+            />
+          )}
+        </ul>
 
       </div>
     </div >
