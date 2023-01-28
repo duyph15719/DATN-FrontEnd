@@ -57,7 +57,7 @@ function App() {
         <Route path={"/about"} element={<About />} />
         <Route path={"/products"} element={<ProductsList />} />
         <Route path={"/lienhe"} element={<Lienhe />} />
-        <Route path={"/products/:id"} element={<DetailProduct />} />
+        <Route path={"/products/:slug"} element={<DetailProduct />} />
         <Route path={"/NewsPage"} element={<NewsPage />} />
         <Route path="news">
           <Route index element={<NewsPage />} />

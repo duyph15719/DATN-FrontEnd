@@ -60,7 +60,7 @@ const settings = {
 };
 
 const DetailProduct = (props: Props) => {
-  const { id } = useParams()
+  const { slug } = useParams()
   const dispatch = useAppDispatch()
   const { products } = useAppSelector(state => state.ProductReducer)
   const { categories } = useAppSelector(state => state.CategoriesReducer)
@@ -69,7 +69,7 @@ const DetailProduct = (props: Props) => {
 
   const [colorSelected, setColorSelected] = useState<ProductColor | null>(null);
   const [sizeSelected, setSizeSelected] = useState<ProductSize | null>(null);
-  const data = useMemo(() => products.find((item: any) => item._id === id), [id, products]);
+  const data = useMemo(() => products.find((item: any) => item.slug === slug), [slug, products]);
   const sizes = useMemo<ProductSize[]>(() => colorSelected ? colorSelected.sizes : [], [colorSelected]);
   const [quantity, setQuantity] = useState<number>(1);
 
