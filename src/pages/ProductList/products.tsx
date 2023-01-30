@@ -16,7 +16,7 @@ const ProductsList = (props: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     const getPro = async () => {
-      const data: any = await listProduct();
+      const data = await listProduct();
       console.log(data);
       setProduct(data)
     }
@@ -26,12 +26,12 @@ const ProductsList = (props: Props) => {
     dispatch(productList())
 
   }, [dispatch])
-  const handleFiler = async () => {
+  const handleFiler = () => {
     const getChooseFilter = document.querySelectorAll("#filter")
     console.log(product);
     let productFilter: any = []
     let flag = false
-    await getChooseFilter.forEach((current: any) => {
+    getChooseFilter.forEach((current: any) => {
       if (current.checked === true) {
         flag = true
 
@@ -45,6 +45,7 @@ const ProductsList = (props: Props) => {
       }
     })
     if (flag == false) {
+
       dispatch(filterProductS(products));
       dispatch(productList())
     } else {
@@ -110,7 +111,7 @@ const ProductsList = (props: Props) => {
                       <span className="ms-4 -mt-0.5 ml-[15px] text-normal" key={index}>
                         <label className="group flex items-center text-heading text-sm cursor-pointer">
                           <input
-                            data={item._id}
+                            // data={item._id}
                             onClick={() => handleFiler()}
                             id='filter'
                             type="checkbox"

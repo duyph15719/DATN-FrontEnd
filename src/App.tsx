@@ -47,6 +47,7 @@ import Success from "./pages/Website/Oder/Success";
 
 import OrderDetailUser from "./pages/User/Detail";
 import ManagerAccount from "./pages/User/managerAccount";
+import CategoryID from "./pages/Category/CategoryID";
 
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
         <Route path="oder" element={<Oder />} />
         <Route path="signin" element={<Signin />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="categories/:slug" element={<CategoryID />} />
       </Route>
       <Route
         path="admin"

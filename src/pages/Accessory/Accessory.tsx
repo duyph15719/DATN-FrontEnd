@@ -38,7 +38,7 @@ const Accessory = (props: Props) => {
         <div className="grid md:grid-cols-4 grid-cols-2 gap-4 pt-10  pb-3 mb-5">
           {filterPosts.map((item: any) => (
             <>
-              <Link to={`/products/${item._id}`}>
+              <Link to={`/products/${item.slug}`}>
                 <div className="boxproduct  text-center">
                   <div className="flex justify-center">
                     <img

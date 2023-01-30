@@ -111,15 +111,13 @@ const Pay = (props: Props) => {
 
       total: Sum,
     };
-    console.log(dataInput);
+
 
     dispatch(addReceipt(orderData))
       .unwrap()
 
       .then(() => {
-        // <<<<<<< HEAD
-        //         // window.localStorage.removeItem("cart");
-        // =======
+
         if (transferForm.payment === 0) {
           window.localStorage.removeItem("cart");
           setTimeout(() => {
@@ -131,13 +129,7 @@ const Pay = (props: Props) => {
           }, 1200);
         }
 
-        Swal.fire({
-          icon: "success",
-          title: "Thêm thành công",
-          timer: 1000,
-          showConfirmButton: false,
 
-        });
         setTimeout(() => {
           navigation(`/oder`);
         }, 1200);
@@ -339,10 +331,13 @@ const Pay = (props: Props) => {
                     {item?.id?.name} × {item?.quantity}
                   </span>
                   <span className="float-right font-semibold text-sm">
-                    {sumTotal(item?.id?.price, item?.quantity)} ₫
+
+                    {new Intl.NumberFormat().format(sumTotal(item?.id?.price, item?.quantity))}&nbsp;VND
+
                   </span>
                   <span className=" invisible">
-                    {(Sum += sumTotal(item?.id?.price, item?.quantity))}
+                    {new Intl.NumberFormat().format((Sum += sumTotal(item?.id?.price, item?.quantity)))}&nbsp;VND
+
                   </span>
                 </div>
               ))
@@ -350,7 +345,7 @@ const Pay = (props: Props) => {
 
             <div className="flex justify-between mt-10 mb-5 border-b pb-3">
               <span className="font-semibold text-sm uppercase">Tổng phụ</span>
-              <span className="font-semibold text-sm">{Sum} ₫</span>
+              <span className="font-semibold text-sm"> {new Intl.NumberFormat().format(Sum)}&nbsp;VND</span>
             </div>
             <div className="flex justify-between mt-10 mb-5 border-b pb-3">
               <span className="font-semibold text-sm uppercase">Giao hàng</span>
@@ -358,7 +353,7 @@ const Pay = (props: Props) => {
             </div>
             <div className="flex justify-between mt-10 mb-5 border-b pb-3">
               <span className="font-semibold text-sm uppercase">Tổng</span>
-              <span className="font-semibold text-sm">{Sum} ₫</span>
+              <span className="font-semibold text-sm">{new Intl.NumberFormat().format(Sum)}&nbsp;VND</span>
             </div>
             <div>
               <label className="inline-flex items-center">
@@ -388,7 +383,7 @@ const Pay = (props: Props) => {
                 />
                 <span className="text-grey-darkest font-thin text-xl ml-2">
                   {" "}
-                  Thanh toán thông qua ví điện tử MoMo
+                  Thanh toán thông qua ví điện tử VNPAY
                 </span>
               </label>
               {transferForm.payment2 && transfer()}

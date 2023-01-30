@@ -14,7 +14,7 @@ const Oder = (props: Props) => {
   const createUrl: any = {
     amount: sum,
     bankCode: "",
-    orderDescription: `Tổng số tiền l: ${sum} VND`,
+    orderDescription: `Tổng số tiền là: ${new Intl.NumberFormat().format(sum)} VND`,
   };
 
   const [form] = Form.useForm();

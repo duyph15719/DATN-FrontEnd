@@ -28,7 +28,7 @@ const Categories = (props: Props) => {
   const dispatch = useAppDispatch()
   const { categories } = useAppSelector((state: any) => state.CategoriesReducer)
   console.log(categories);
-  
+
   const remove = (id: any) => {
     Swal.fire({
       title: 'Are you sure?',
