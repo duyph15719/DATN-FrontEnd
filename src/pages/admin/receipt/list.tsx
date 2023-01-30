@@ -53,7 +53,7 @@ const { Text } = Typography;
 const Order = (props: Props) => {
     const dispatch = useAppDispatch()
     const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
-
+    
     const columns: ColumnsType<RecaiptType> = [
         {
             title: "Thông tin khách hàng",
@@ -79,7 +79,8 @@ const Order = (props: Props) => {
             key: "status",
             dataIndex: "status",
             render: (stt) => <Tag color={stt === 4 ? "red" : "green"}>{getStatusOrder(stt)}</Tag>,
-            filters: receipts.map((item: any) => {
+            filters: 
+            receipts.filter((a:any, i:any) => receipts.findIndex((s:any) => a.status === s.status) === i).map((item: any) => {
                 return {
                     text: getStatusOrder(item.status),
                     value: item.status,

@@ -60,7 +60,6 @@ const Pay = (props: Props) => {
   };
   const handldClick = (e: any) => {
     const currentRadio = e.target.id;
-    //window.localStorage.clear();
     if (currentRadio === "0") {
       setTransferForm({
         payment: 0,
@@ -80,7 +79,6 @@ const Pay = (props: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
   } = useForm<Props>();
   const dispatch = useAppDispatch()
   const navigation = useNavigate()

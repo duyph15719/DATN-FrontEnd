@@ -88,9 +88,7 @@ const ManagerAccount = (props: Props) => {
                 </Space>
             ),
         },
-    ];
-    console.log(dataUser.user._id);
-    
+    ];   
     useEffect(() => {
         (async () => {
           try {
