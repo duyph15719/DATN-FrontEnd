@@ -11,4 +11,5 @@ export type IUsers = {
     gender?:string,
     birthday?:string,
     note?:string,
+    status?: number,
 };
