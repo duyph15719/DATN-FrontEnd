@@ -1,0 +1,127 @@
+.content__table-wrap {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 20px 30px;
+    color: #b5b5c3;
+    font-weight: 500;
+    overflow: hidden;
+  }
+  
+  .content__table-wrap + .content__table-wrap {
+    margin-top: 32px;
+  }
+  
+  .content__dashboard {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+  }
+  
+  .content__dashboard .content__table-wrap {
+    width: 50%;
+  }
+  
+  .content__dashboard .content__table-wrap + .content__table-wrap {
+    margin-top: 0;
+  }
+  
+  .order__card,
+  .dashboard__card {
+    padding: 0;
+    background-color: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0px -6px;
+  }
+  
+  .order__card-item,
+  .dashboard__card-item {
+    width: 20%;
+    padding: 0px 6px;
+    margin-bottom: 25px;
+  }
+  
+  .order__card-item-inner,
+  .dashboard__card-item-inner {
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 12px;
+  }
+  
+  .order__card-content,
+  .dashboard__card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .order__card-content-text,
+  .dashboard__card-content-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    color: #b5b5c3;
+  }
+  
+  .order__card-content-text strong,
+  .dashboard__card-content-text strong {
+    color: #181c32;
+    font-size: 16px;
+    padding: 6px 0;
+  }
+  
+  .order__card-content-icon {
+    font-size: 20px;
+  }
+  
+  .order__card-item--new {
+    color: #187de4;
+  }
+  
+  .order__card-item--verified {
+    color: #0bb7af;
+  }
+  
+  .order__card-item--progress {
+    color: #fe5824;
+  }
+  
+  .order__card-item--success {
+    color: #187de4;
+  }
+  
+  .order__card-item--cancel {
+    color: #ff4560;
+  }
+  
+  .order__card-percent {
+    width: 100%;
+    height: 3px;
+    background-color: #efefef;
+    margin-top: 12px;
+    position: relative;
+  }
+  
+  .order__card-percent-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: currentColor;
+  }
+  
+  .content__table-wrap.dashboard__card {
+    margin-top: 0;
+  }
+  
+  .dashboard__card-item {
+    width: 33.3334%;
+  }
+  
+  .content__table-heading-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  

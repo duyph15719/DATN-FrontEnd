@@ -1,6 +1,7 @@
 import instance from "./instance";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ProductType } from "../models/product";
+
 export const listProduct: any = () => {
     const url = `/products`;
     return instance.get(url);

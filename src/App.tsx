@@ -7,6 +7,7 @@ import About from "./pages/About/About";
 import Lienhe from "./pages/Lienhe/lienhe";
 
 import ErrorsWeb from "./pages/404/errorsWeb";
+import Dashbroad from "./pages/admin/dashboard";
 import Cart from "./pages/Website/Cart/Cart";
 import Pay from "./pages/Website/Pay/Pay";
 
@@ -75,7 +76,7 @@ function App() {
           </PrivateRouter>
         }
       >
-        {/* <Route index element={<Dashbroad />} /> */}
+         <Route index element={<Dashbroad />} /> 
         <Route path="product">
           <Route index element={<ListProduct />} />
           <Route path="add" element={<ProductList />} />

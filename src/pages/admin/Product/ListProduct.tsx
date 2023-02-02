@@ -102,19 +102,6 @@ const ListProduct = (props: Props) => {
     dispatch(productList());
   }, [dispatch]);
   if (!products) return <div>Loading...</div>;
-  const showModal = (id: string) => {
-    setIsModalOpen(true);
-    setID(id);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <div>
       <Link to={"/admin/product/add"}>

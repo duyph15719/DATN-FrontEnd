@@ -13,3 +13,14 @@ export type IUsers = {
     note?:string,
     status?: number,
 };
+export type ResponseUser = {
+    status: boolean;
+    payload: {
+      user?: IUsers;
+      users?: IUsers[];
+      totalPage: number;
+      currentPage: number;
+      total: number;
+      perPage: number;
+    };
+  };

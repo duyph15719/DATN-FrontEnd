@@ -1,8 +1,9 @@
-import { IUsers } from "../models/User";
+import { AxiosRequestConfig } from "axios";
+import { IUsers, ResponseUser } from "../models/User";
 import  instance  from "./instance";
 
 
-export const listUser =() =>{
+export const listUser:any =(options: AxiosRequestConfig = {}): Promise<ResponseUser> =>{
     return instance.get(`/users`)
 }
 

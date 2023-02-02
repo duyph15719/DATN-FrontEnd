@@ -131,7 +131,6 @@ const OrderDetail = () => {
       title: "Lí do huỷ đơn",
       key: "status",
       dataIndex: "reasonOfOrder",
-      // render: (stt) => <Tag color={stt === 4 ? "red" : "green"}>{getStatusOrder(stt)}</Tag>,
     },
     {
       title: "Thời gian sửa đổi",
