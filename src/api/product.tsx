@@ -49,3 +49,7 @@ export const listProductIdCateDetail: any = (id: number) => {
     const url = `/products?detailCate=${id}`;
     return instance.get(url);
 }
+export const filterProduct = (data: any) => {
+    return instance.post(`/product-filter`, data);
+};
+

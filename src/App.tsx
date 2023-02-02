@@ -42,8 +42,14 @@ import { PrivateRouter } from "./ultils/PrivateRouter";
 
 import Signin from "./pages/SingInUp/Signin/Signin";
 import Signup from "./pages/SingInUp/Signup/Signup";
+
+import Oder from "./pages/Website/Oder/Oder";
+import Success from "./pages/Website/Oder/Success";
+
 import OrderDetailUser from "./pages/User/Detail";
 import ManagerAccount from "./pages/User/managerAccount";
+import CategoryID from "./pages/Category/CategoryID";
+
 
 function App() {
   return (
@@ -53,7 +59,7 @@ function App() {
         <Route path={"/about"} element={<About />} />
         <Route path={"/products"} element={<ProductsList />} />
         <Route path={"/lienhe"} element={<Lienhe />} />
-        <Route path={"/products/:id"} element={<DetailProduct />} />
+        <Route path={"/products/:slug"} element={<DetailProduct />} />
         <Route path={"/NewsPage"} element={<NewsPage />} />
         <Route path="news">
           <Route index element={<NewsPage />} />
@@ -65,8 +71,12 @@ function App() {
         <Route path={"/newsdetail"} element={<NewsDetail />} />
         <Route path="cart" element={<Cart />} />
         <Route path="pay" element={<Pay />} />
+        <Route path="pay/success" element={<Success />} />
+
+        <Route path="oder" element={<Oder />} />
         <Route path="signin" element={<Signin />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="categories/:slug" element={<CategoryID />} />
       </Route>
       <Route
         path="admin"

@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 
 import { decreaseItemInCart, getLocalStorage, increaseItemInCart, removeItemInCart, sumTotal } from "../../../ultils/cart/cart";
 import ListAddress from "./components/Address";
-
+import { Button, Image, Space, Table, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { GetCart } from "../Pay/Pay";
 
+const { Text } = Typography;
 
 type Props = {};
 
@@ -45,10 +46,7 @@ const Cart = (props: Props) => {
     <div className="container mx-auto mt-10">
       <div className="md:flex  my-10 sm:">
         <div className="md:w-4/6 bg-white px-10 py-10 sm:w-full">
-          <div className="flex justify-between border-b pb-8">
-            <h1 className="font-semibold text-2xl">Giỏ Hàng</h1>
-            <h2 className="font-semibold text-2xl text-right">3 Items</h2>
-          </div>
+
           <table className="w-full shadow-inner">
             <thead>
               <tr className="bg-gray-100">
@@ -123,13 +121,17 @@ const Cart = (props: Props) => {
                       </div>
                     </td>
                     <td className="p-4 px-6 text-center whitespace-nowrap">
-                      {sumTotal(item?.id?.price, item?.quantity)}
+
+                      <Text className="text-[#1890ff] ">{new Intl.NumberFormat().format(sumTotal(item?.id?.price, item?.quantity))} VND</Text>
                     </td>
-                    <div className="invisible">
-                      <p className="invisible"> {(total += sumTotal(item?.id?.price, item?.quantity))}</p>
-                    </div>
+
 
                     <td className="p-4 px-6 text-center whitespace-nowrap">
+                      <div className="invisible">
+                        {(total += sumTotal(item?.id?.price, item?.quantity))}
+
+
+                      </div>
                       <button onClick={() => remove(item)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -153,36 +155,12 @@ const Cart = (props: Props) => {
                 ))}
             </tbody>
           </table>
-          <div className="flex mt-10 mb-5">
-            <h3 className="font-semibold text-gray-600 text-sm uppercase w-2/5">
-              Sản Phẩm
-            </h3>
-            <h3 className="font-semibold  text-gray-600 text-sm uppercase w-1/5 text-center">
-              Số Lượng{" "}
-            </h3>
-            <h3 className="font-semibold  text-gray-600 text-sm uppercase w-1/5 text-center">
-              Giá
-            </h3>
-            <h3 className="font-semibold  text-gray-600 text-sm uppercase w-1/5 text-center">
-              Tổng
-            </h3>
-          </div>
 
 
-          {/* <a
-            href="/"
-            className="flex font-semibold text-indigo-600 text-sm mt-10"
-          >
-            <svg
-              className="fill-current mr-2 text-indigo-600 w-4"
-              viewBox="0 0 448 512"
-            >
-              <path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
-            </svg>
-            Tiếp Tục Xem Sản Phẩm
-          </a> */}
+
+
           <Link to={'/'}>
-            <button 
+            <button
               className="flex font-semibold text-indigo-600 text-sm mt-10">
               <svg
                 className="fill-current mr-2 text-indigo-600 w-4"
@@ -203,13 +181,17 @@ const Cart = (props: Props) => {
           </div>
           <div className="flex justify-between mt-10 mb-5">
             <span className="font-normal text-xs uppercase">Tổng phụ</span>
-            <span className="font-semibold text-sm">{total}</span>
+            <span className="font-semibold text-sm">
+              <Text className="text-[#1890ff]">{new Intl.NumberFormat().format(total)} VND</Text>
+            </span>
           </div>
           <ListAddress />
           <div className="border-t mt-8">
             <div className="flex font-semibold justify-between py-6 text-sm uppercase">
               <span>Tổng</span>
-              <span>{total}</span>
+              <span>
+                <Text className="text-[#1890ff]">{new Intl.NumberFormat().format(total)} VND</Text>
+              </span>
             </div>
 
             <Link to={'/pay'}>

@@ -86,7 +86,7 @@ const Order = (props: Props) => {
                     value: item.status,
                 };
             }),
-            onFilter: (value: number | any, record: RecaiptType | any) =>record.status === value,
+            onFilter: (value: number | any, record: RecaiptType | any) => record.status === value,
             filterSearch: true,
         },
         {

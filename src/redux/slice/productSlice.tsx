@@ -5,6 +5,7 @@ import { ProductType } from '../../models/product';
 
 const initialState: any = {
   products: [],
+  productsFilter: [],
 }
 
 export const addProduct = createAsyncThunk(
@@ -49,8 +50,13 @@ export const productread = createAsyncThunk(
 export const productSlice = createSlice({
   name: "products",
   initialState,
+
   reducers: {
+    filterProductS(state, { payload }) {
+      state.products = payload || [];
+    }
   },
+
   extraReducers: (builder) => {
     builder.addCase(addProduct.fulfilled, (state, action) => {
       state.products.push(action.payload)
@@ -75,3 +81,4 @@ export const productSlice = createSlice({
 // Action creators are generated for each case reducer function
 
 export default productSlice.reducer
+export const { filterProductS } = productSlice.actions;
