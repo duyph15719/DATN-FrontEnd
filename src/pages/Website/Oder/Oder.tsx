@@ -3,13 +3,19 @@ import { Button, Checkbox, Form, Input, Select } from "antd";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { GetCart } from "../Pay/Pay";
 import { sumTotal } from "../../../ultils/cart/cart";
+import { useAppDispatch } from "../../../redux/hook";
+import { addReceipt } from "../../../redux/slice/receiptSlice";
 type Props = {};
 
+export function GetOrderData() {
+  const orderData = window.localStorage.getItem("orderData");
+  return orderData && JSON.parse(orderData);
+}
 const Oder = (props: Props) => {
   let sum = 0;
   const data = GetCart();
   data.map((item: any) => (sum += sumTotal(item?.id?.price, item?.quantity)));
-
+ 
   const navigate = useNavigate();
   const createUrl: any = {
     amount: sum,
@@ -18,8 +24,10 @@ const Oder = (props: Props) => {
   };
 
   const [form] = Form.useForm();
-
+  
+  
   const onFinish = (values: any) => {
+   
     fetch("http://localhost:8000/api/orders/create_payment_url", {
       method: "POST",
       headers: {

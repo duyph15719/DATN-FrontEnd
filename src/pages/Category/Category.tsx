@@ -39,7 +39,7 @@ const Category = (props: Props) => {
                 />
               </div>
               <button className="xemthem">Xem Sản Phẩm</button>
-              <div className="showbox slideright">box 1</div>
+              <div className="showbox slideright">{item.name}</div>
             </div>
           </Link>
 

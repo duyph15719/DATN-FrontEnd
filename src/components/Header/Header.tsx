@@ -141,7 +141,7 @@ const Header = (props: Props) => {
             </svg>
           </div>
           <div className="logo">
-            <img width="" height="" src="https://scontent.fhan14-3.fna.fbcdn.net/v/t1.15752-9/312310449_1180707919470368_4581503676013849018_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=cnHGL39c38gAX-yla7X&_nc_ht=scontent.fhan14-3.fna&oh=03_AdSBJ2HxWARXhmcXS-SZpeAVko1OAGyUrzfRrCD6tS2dIg&oe=6376EB75" alt="" />
+            <img width="" height="" src="https://res.cloudinary.com/tr-n-t-ng/image/upload/v1675313175/g8i23pfw2l2seec8iunk.png" alt="" />
           </div>
           <div className="cart">
             <div className="pc">

@@ -39,8 +39,9 @@ const Banner2 = () => {
             GIẢM GIÁ 50%
           </h1>
         </p>
+        <button>XEM THÊM</button>
       </div>
-      <button>XEM THÊM</button>
+   
     </div>
   );
 };

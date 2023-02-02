@@ -71,7 +71,6 @@ const Pay = (props: Props) => {
   };
   const handldClick = (e: any) => {
     const currentRadio = e.target.id;
-    //window.localStorage.clear();
     if (currentRadio === "0") {
       setTransferForm({
         payment: 0,
@@ -95,57 +94,46 @@ const Pay = (props: Props) => {
   } = useForm<Props>();
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
+  const user = GetUser();
   const onFinish: SubmitHandler<Props> = async (dataInput) => {
-    const user = GetUser();
+    if (!user) {
+      alert("Yêu cầu đăng nhập tài khoản để thực hiện thanh toán")
+    } else {
+      const orderData = {
+        UserId: user.user._id || "",
+        email: user.user.email || dataInput.email || "",
+        name: dataInput.name,
+        address: dataInput.address,
+        phone: dataInput.phone,
+        status: 0,
+        payments: dataInput.payments,
+        note: dataInput.note,
+        city: dataInput.city,
+        total: Sum,
+      };
+      localStorage.setItem("orderData", JSON.stringify(orderData))
+      if(dataInput.payments===0){
+        dispatch(addReceipt(orderData))
+        .unwrap()
 
-    const orderData = {
-      UserId: user.user._id || "",
-      email: user.user.email || dataInput.email || "",
-      name: dataInput.name,
-      address: dataInput.address,
-      phone: dataInput.phone,
-      status: 0,
-      payments: dataInput.payments,
-      note: dataInput.note,
-      city: dataInput.city,
+        .then(() => {
 
-      total: Sum,
-    };
-
-
-    dispatch(addReceipt(orderData))
-      .unwrap()
-
-      .then(() => {
-
-        if (transferForm.payment === 0) {
-          window.localStorage.removeItem("cart");
-          setTimeout(() => {
-            navigation("/managerAccount")
-          }, 1200);
-        } else {
-          setTimeout(() => {
-            navigation("/pay")
-          }, 1200);
-        }
-
-
-        setTimeout(() => {
-          navigation(`/oder`);
-        }, 1200);
-      })
-
-
-
-
-
-      .catch((err: any) => {
-        if (!user) {
-          alert("Yêu cầu đăng nhập tài khoản để thực hiện thanh toán")
-        } else {
+          if (transferForm.payment === 0) {
+            window.localStorage.removeItem("cart");
+            setTimeout(() => {
+              navigation("/managerAccount")
+            }, 1200);
+          }
+        })
+        .catch((err: any) => {
           alert("Yêu cầu điền đầy đủ thông tin để thực hiện thanh toán")
-        }
-      })
+        })
+      } else {
+          setTimeout(() => {
+            navigation("/oder")
+          }, 1200);
+      }
+    }
 
   };
 

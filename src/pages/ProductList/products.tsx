@@ -81,8 +81,7 @@ const ProductsList = (props: Props) => {
         <div className='flex flex-col md:flex-row'>
 
           <div className="nav-product-left  md:w-[329px]  ">
-            <div className=" mx-auto">
-              <p className=" mx-auto">TRANG CHỦ / NAM</p></div>
+            
           </div>
           <div className="nav-product-right w-[100%] md:w-[70%] ">
 
@@ -106,25 +105,18 @@ const ProductsList = (props: Props) => {
                 </div>
                 <div className="mt-2 flex flex-col space-y-4">
 
-                  {
-                    categories?.map((item: any, index: any) => (
-                      <span className="ms-4 -mt-0.5 ml-[15px] text-normal" key={index}>
-                        <label className="group flex items-center text-heading text-sm cursor-pointer">
-                          <input
-                            // data={item._id}
-                            onClick={() => handleFiler()}
-                            id='filter'
-                            type="checkbox"
-                            className="mr-2 form-checkbox w-5 h-5 border border-gray-300 rounded cursor-pointer transition duration-500 ease-in-out focus:ring-offset-0 hover:border-heading focus:outline-none focus:ring-0 focus-visible:outline-none checked:bg-heading checked:hover:bg-heading checked:focus:bg-heading"
-                            name="woman"
-                            defaultValue="woman"
-                          />
-                          {item.name}
-                        </label>
+                {categories?.map((item: any) => (
+                                        <>
 
-                      </span>
-                    ))
-                  }
+                                            <Link to={`/categories/${item.slug}`}>
+                                                <input  checked type="radio" name="" id="" /> {item.name}
+                                               
+
+                                            </Link>
+
+                                        </>
+                                    ))}
+
                 </div>
               </div>
 

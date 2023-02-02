@@ -16,8 +16,8 @@ const Homepage = () => {
    return (
       <>
          <Banner />
-         <Category />
-         <NewProducts />
+         <div className='pb-7'><Category /></div>
+         
          <Banner2 />
          <Accessory />
       </>
