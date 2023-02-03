@@ -2,7 +2,7 @@ import { faAddressBook } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Collapse, Drawer, Input, Modal, Popover, Space, Typography } from "antd";
 import "antd/dist/antd.css";
-import { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import SingInUp from "../../pages/SingInUp/SingInUp";
@@ -10,6 +10,7 @@ import { GetUser } from "../../pages/Website/Pay/Pay";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import { getLocalStorage, sumTotal } from "../../ultils/cart/cart";
+import { toast } from "react-toastify";
 const { Search } = Input;
 
 
@@ -24,6 +25,9 @@ const Header = (props: Props) => {
   const [cart, setCart] = useState<any>([]);
   const [reload, setReload] = useState<any>(true);
 
+  const [search, setSearch] = useState("");
+  const [loadingSearch, setLoadingSearch] = useState(false);
+  const navigate = useNavigate();
   const showModal = async () => {
     await setIsModalOpen(true);
     const antmodalfooter: any = document.querySelector(".ant-modal-footer");
@@ -53,17 +57,44 @@ const Header = (props: Props) => {
   const onCloseCart = () => {
     setOpenCart(false);
   };
-  const onSearch = (value: string) => console.log(value);
+  const handleSearch = async (e: ChangeEvent<HTMLInputElement>) => {
+    const searchStr = e.target.value;
+    setSearch(searchStr);
+    setLoadingSearch(true);
+  };
+
+  // search khi submit form
+  const handleSearchForm = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!search?.trim()) return toast.info("Vui lòng nhập tên SP!");
+
+    navigate(`products/${search}`);
+  };
+
   const content = (
-    <div>
-      <Space direction="vertical">
-        <Search
-          placeholder="input search text"
-          onSearch={onSearch}
-          enterButton
-        />
-      </Space>
-    </div>
+    // <div>
+    //   <Space direction="vertical">
+    //     <Search
+    //       placeholder="Nhập tên sản phẩm"
+    //       value={search}
+    //       onChange={handleSearch}
+    //       enterButton
+    //     />
+    //   </Space>
+    // </div>
+    <form className="flex" onSubmit={handleSearchForm}>
+      <input
+        type="text"
+        id="form-search-control"
+        value={search}
+        onChange={handleSearch}
+        className="text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] hover:shadow-none focus:shadow-[0_0_5px_#ccc] flex-1 border px-2 h-8 text-sm outline-none"
+        placeholder="Nhập tên sản phẩm"
+      />
+      <button className="px-3 bg-red-500 transition ease-linear duration-300 hover:shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]">
+      </button>
+    </form>
   );
 
   // const cart = <div>Chưa có gì trong giỏ hàng</div>;
@@ -94,11 +125,9 @@ const Header = (props: Props) => {
     })
     setUserModal(null)
   }
-  console.log(userModal);
   useEffect(() => {
     setUserModal(GetUser())
   }, [window.localStorage.getItem('user')])
-  console.log(userModal);
   let total = 0;
   useEffect(() => {
     setCart(getLocalStorage("cart"));

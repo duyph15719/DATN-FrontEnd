@@ -29,6 +29,7 @@ import { Bar, Line } from "react-chartjs-2";
 import "./Dashboard.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { productList } from "../../redux/slice/productSlice";
+import { UserList } from "../../redux/slice/userslice";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -62,6 +63,7 @@ const optionsLine = {
 
 const Dashboard = (props: Props) => {
   const { products } = useAppSelector((state) => state.ProductReducer);
+  const { users } = useAppSelector((state) => state.UserReducer);
   const dispatch = useAppDispatch();
   const [statOrder, setStatOrder] = useState<StatsOrder[]>();
   const [totalOrder, setTotalOrder] = useState(0);
@@ -112,6 +114,7 @@ const Dashboard = (props: Props) => {
   };
   useEffect(() => {
     dispatch(productList());
+    dispatch(UserList());
     if (products) setTotalProduct(products.length);
   }, [dispatch]);
   useEffect(() => {
@@ -131,7 +134,7 @@ const Dashboard = (props: Props) => {
         // if (resUser.status) setTotalUser(resUser.payload.total);
         // // user đăng ký theo tháng
         // const resUserByMonth = await StatsApi.statsUserSignupByMonth();
-        // if (resUserByMonth.status) setStatsUserSignup(resUserByMonth.payload.stats);
+         //if (users) setStatsUserSignup(users.createdAt);
 
         // // thống kê doanh thu hàng tháng
         // const resMoney = await StatsApi.statsMoneyByMonth();
