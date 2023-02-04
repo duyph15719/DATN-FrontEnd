@@ -8,6 +8,11 @@ import {
   CustomerServiceFilled,
   ApiFilled,
   SearchOutlined,
+  ShoppingCartOutlined,
+  FileImageOutlined,
+  PieChartOutlined,
+  TeamOutlined,
+  ShopOutlined,
 } from "@ant-design/icons";
 import { Input, MenuProps } from "antd";
 import { Layout, Menu } from "antd";
@@ -38,55 +43,45 @@ const items: MenuItem[] = [
   getItem(
     <Link to="/admin">Thống Kê</Link>,
     "1",
+    <PieChartOutlined />
+  ),
+
+  getItem(
+    <Link to="/admin/product">Danh sách Sản Phẩm</Link>,
+    "2",
+    <ShopOutlined />
+  ),
+
+
+  getItem(
+    <Link to="/admin/categories">Danh sách danh mục</Link>,
+    "3",
     <UnorderedListOutlined />
   ),
-  getItem("Sản phẩm", "sub1", <AndroidFilled />, [
-    getItem(
-      <Link to="/admin/product">Danh sách</Link>,
-      "1",
-      <UnorderedListOutlined />
-    ),
-  ]),
-  getItem("Danh sách danh mục", "sub2", <MailOutlined />, [
-    getItem(
-      <Link to="/admin/categories">Danh sách danh mục</Link>,
-      "2",
-      <LaptopOutlined />
-    ),
-    getItem(
-      <Link to="/admin/categories/add">Thêm danh mục</Link>,
-      "3",
-      <CustomerServiceFilled />
-    ),
-  ]),
 
-  getItem("Quản Lý Banner", "sub3", <AndroidFilled />, [
-    getItem(
-      <Link to="/admin/banner">Danh sách Banner</Link>,
-      "5",
-      <UnorderedListOutlined />
-    ),
-    getItem(
-      <Link to="/admin/add">Thêm Banner</Link>,
-      "6",
-      <UnorderedListOutlined />
-    ),
-  ]),
 
-  getItem("Quản lý order", "sub4", <AndroidFilled />, [
-    getItem(
-      <Link to="/admin/orders">Danh sách Order</Link>,
-      "14",
-      <UnorderedListOutlined />
-    ),
-  ]),
-  getItem("Quản lý tài khoản", "sub5", <AndroidFilled />, [
-    getItem(
-      <Link to="/admin/user">Danh sách tài khoản</Link>,
-      "14",
-      <UnorderedListOutlined />
-    )
-  ]),
+
+  getItem(
+    <Link to="/admin/banner">Danh sách Banner</Link>,
+    "4",
+    <FileImageOutlined />
+  ),
+
+
+
+  getItem(
+    <Link to="/admin/orders">Quản lý Hóa Đớn</Link>,
+    "5",
+    <ShoppingCartOutlined />
+  ),
+
+
+  getItem(
+    <Link to="/admin/user">Danh sách tài khoản</Link>,
+    "6",
+    <TeamOutlined />
+  )
+
 ];
 
 const rootSubmenuKeys = ["sub1", "sub2", "sub4"];

@@ -35,7 +35,7 @@ const CategoriesAdd = (props: Props) => {
             <Form
                 name="basic"
                 labelCol={{ span: 2 }}
-                wrapperCol={{ span: 20 }}
+                wrapperCol={{ span: 10 }}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}

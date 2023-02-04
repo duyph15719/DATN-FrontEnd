@@ -90,18 +90,18 @@ const ProductList = (props: Props) => {
   }, [])
   const { categories } = useAppSelector(state => state.CategoriesReducer)
   return (
-    <div>
+    <div className='ml-auto'>
       <Form
         name="basic"
         labelCol={{ span: 2 }}
-        wrapperCol={{ span: 20 }}
+        wrapperCol={{ span: 10 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
-          label="Name"
+          label="Tên Sản Phẩm"
           name="name"
           rules={[{ required: true, message: 'Please input your name!' }]}
         >
@@ -109,7 +109,7 @@ const ProductList = (props: Props) => {
         </Form.Item>
 
         <Form.Item
-          label="Price"
+          label="Giá Sản Phẩm"
           name="price"
           rules={[{ required: true, message: 'Please input your Price!' }]}
         >
@@ -118,7 +118,7 @@ const ProductList = (props: Props) => {
 
 
 
-        <Form.Item name="categoryId" label="Gender" rules={[{ required: true }]}>
+        <Form.Item name="categoryId" label="Danh Mục Sản Phẩm" rules={[{ required: true }]}>
           <Select
             placeholder="Select a option and change input text above"
             allowClear
@@ -144,7 +144,7 @@ const ProductList = (props: Props) => {
           </Upload>
         </Form.Item>
         <Form.Item
-          label="Description"
+          label="Mô Tả"
           name="description"
           rules={[{ required: true, message: 'Please input your description!' }]}
         >
@@ -170,7 +170,7 @@ const ProductList = (props: Props) => {
               {colors.map((color) => (
                 <div key={`color-${color.name}`}>
                   <Row gutter={16}>
-                    <Col span={11}>
+                    <Col span={5}>
                       <Form.Item name={[color.name, "colorName"]} fieldKey={[color.name, 'colorName']} rules={[{ required: true, message: 'Vui lòng nhập màu sắc' }]}>
                         <Input placeholder="Màu sắc" />
                       </Form.Item>
