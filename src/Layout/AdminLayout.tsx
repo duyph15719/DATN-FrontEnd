@@ -35,6 +35,11 @@ function getItem(
 }
 
 const items: MenuItem[] = [
+  getItem(
+    <Link to="/admin">Thống Kê</Link>,
+    "1",
+    <UnorderedListOutlined />
+  ),
   getItem("Sản phẩm", "sub1", <AndroidFilled />, [
     getItem(
       <Link to="/admin/product">Danh sách</Link>,

@@ -30,6 +30,7 @@ import "./Dashboard.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { productList } from "../../redux/slice/productSlice";
 import { UserList } from "../../redux/slice/userslice";
+import { Receiptlist } from "../../redux/slice/receiptSlice";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -64,16 +65,29 @@ const optionsLine = {
 const Dashboard = (props: Props) => {
   const { products } = useAppSelector((state) => state.ProductReducer);
   const { users } = useAppSelector((state) => state.UserReducer);
+  const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
   const dispatch = useAppDispatch();
   const [statOrder, setStatOrder] = useState<StatsOrder[]>();
   const [totalOrder, setTotalOrder] = useState(0);
-  const [totalProduct, setTotalProduct] = useState(0);
-  const [totalUser, setTotalUser] = useState(0);
-  const [totalPost, setTotalPost] = useState(0);
   const [statsUserSignup, setStatsUserSignup] = useState<StatsUserByMonth[]>();
   const [moneyMonth, setMoneyMonth] = useState<MoneyMonth[]>();
 
   const labels = Array.apply(null, new Array(12)).map((_, index) => `Tháng ${++index}`);
+  const dataTable = users?.map((item: any) => {
+    var d = new Date(item.createdAt);
+    return `${d.getMonth() + 1}`;
+  })
+  // const dataTable2 = receipts?.map((item: any) => {
+  //   var d = new Date(item.createdAt);
+  //   return `${d.getMonth()+1}`;
+  // })
+  const dataTable2 = receipts?.map((item: any) => {
+    var d = new Date(item.createdAt);
+    return {
+      total: item?.total,
+      createdAt: `${d.getMonth() + 1}`
+    }
+  })
   const data = {
     labels,
     datasets: [
@@ -81,10 +95,9 @@ const Dashboard = (props: Props) => {
         label: `Năm ${new Date().getFullYear()}`,
         data: labels.map((itemMonth) => {
           const month = +itemMonth.split(" ")[1];
-          const getMonth = statsUserSignup?.find((item) => item.month === month);
-
+          const getMonth = dataTable?.filter((item: any) => item === `${month}`);
           if (getMonth) {
-            return getMonth.total;
+            return getMonth.length;
           }
           return 0;
         }),
@@ -92,7 +105,7 @@ const Dashboard = (props: Props) => {
       },
     ],
   };
-
+  let sum = 0;
   const dataLine = {
     labels,
     datasets: [
@@ -100,10 +113,14 @@ const Dashboard = (props: Props) => {
         label: `Năm ${new Date().getFullYear()}`,
         data: labels.map((itemMonth) => {
           const month = +itemMonth.split(" ")[1];
-          const getMonth = moneyMonth?.find((item) => item.month === month);
-
+          const getMonth = dataTable2?.filter((item: any) => item.createdAt === "1");
+          console.log("sum", data)
           if (getMonth) {
-            return getMonth.totalPrice;
+            const data = getMonth?.map((item: any) => {
+              sum += item?.total;
+              return sum
+            })
+            return sum;
           }
           return 0;
         }),
@@ -115,8 +132,9 @@ const Dashboard = (props: Props) => {
   useEffect(() => {
     dispatch(productList());
     dispatch(UserList());
-    if (products) setTotalProduct(products.length);
+    dispatch(Receiptlist())
   }, [dispatch]);
+
   useEffect(() => {
     (async () => {
       try {
@@ -128,13 +146,13 @@ const Dashboard = (props: Props) => {
         // if (statsOrder.status) setStatOrder(statsOrder.payload.stats);
 
         // thống kê sp
-       
+
         // // thống kê user
         // const resUser = await listUser;
         // if (resUser.status) setTotalUser(resUser.payload.total);
         // // user đăng ký theo tháng
         // const resUserByMonth = await StatsApi.statsUserSignupByMonth();
-         //if (users) setStatsUserSignup(users.createdAt);
+
 
         // // thống kê doanh thu hàng tháng
         // const resMoney = await StatsApi.statsMoneyByMonth();
@@ -151,17 +169,16 @@ const Dashboard = (props: Props) => {
         {statOrder?.map((item, index) => (
           <div
             key={index}
-            className={`bg-white p-3 rounded-md ${
-              item.status === 0
+            className={`bg-white p-3 rounded-md ${item.status === 0
                 ? "order__card-item--new"
                 : item.status === 1
-                ? "order__card-item--verified"
-                : item.status === 2
-                ? "order__card-item--progress"
-                : item.status === 3
-                ? "order__card-item--success"
-                : "order__card-item--cancel"
-            }`}
+                  ? "order__card-item--verified"
+                  : item.status === 2
+                    ? "order__card-item--progress"
+                    : item.status === 3
+                      ? "order__card-item--success"
+                      : "order__card-item--cancel"
+              }`}
           >
             <div className="">
               <div className="flex items-center justify-between">
@@ -202,7 +219,7 @@ const Dashboard = (props: Props) => {
           </div>
 
           <div className="text-center">
-            <span className="block text-black font-semibold">{totalProduct}</span>
+            <span className="block text-black font-semibold">{products.length}</span>
             <span className="text-sm font-semibold">Số sản phẩm hiện có</span>
           </div>
         </div>
@@ -212,7 +229,7 @@ const Dashboard = (props: Props) => {
           </div>
 
           <div className="text-center">
-            <span className="block text-black font-semibold">{totalUser}</span>
+            <span className="block text-black font-semibold">{users.length}</span>
             <span className="text-sm font-semibold">Số tài khoản hiện có</span>
           </div>
         </div>
@@ -222,8 +239,8 @@ const Dashboard = (props: Props) => {
           </div>
 
           <div className="text-center">
-            <span className="block text-black font-semibold">{totalPost}</span>
-            <span className="text-sm font-semibold">Tổng số bài viết</span>
+            <span className="block text-black font-semibold">{receipts.length}</span>
+            <span className="text-sm font-semibold">Tổng số hóa đơn</span>
           </div>
         </div>
       </div>
