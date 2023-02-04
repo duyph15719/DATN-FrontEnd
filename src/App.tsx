@@ -49,6 +49,8 @@ import Success from "./pages/Website/Oder/Success";
 import OrderDetailUser from "./pages/User/Detail";
 import ManagerAccount from "./pages/User/managerAccount";
 import CategoryID from "./pages/Category/CategoryID";
+import Bloga from "./pages/admin/Blog/Blog";
+import Seach from "./pages/seach/seach";
 
 
 function App() {
@@ -77,6 +79,7 @@ function App() {
         <Route path="signin" element={<Signin />} />
         <Route path="signup" element={<Signup />} />
         <Route path="categories/:slug" element={<CategoryID />} />
+        <Route path="product-search" element={<Seach />} />
       </Route>
       <Route
         path="admin"
@@ -86,7 +89,7 @@ function App() {
           </PrivateRouter>
         }
       >
-         <Route index element={<Dashbroad />} /> 
+        <Route index element={<Dashbroad />} />
         <Route path="product">
           <Route index element={<ListProduct />} />
           <Route path="add" element={<ProductList />} />
@@ -97,12 +100,16 @@ function App() {
           <Route path="add" element={<CategoriesAdd />} />
           <Route path="edit/:id" element={<CategoriesEdit />} />
         </Route>
-
+        <Route path="blog">
+          <Route index element={<Blog />} />
+          <Route path="add" element={<BlogAdd />} />
+          <Route path="edit/:id" element={<CategoriesEdit />} />
+        </Route>
         <Route path="user">
           <Route index element={<Users />} />
         </Route>
         <Route path="Blog">
-          <Route index element={<Blog />} />
+          <Route index element={<Bloga />} />
           <Route path="add" element={<BlogAdd />} />
           <Route path="edit/:id" element={<BlogEdit />} />
         </Route>

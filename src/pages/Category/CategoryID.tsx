@@ -167,10 +167,8 @@ const CategoryID = (props: Props) => {
 
                                     {categories?.map((item: any) => (
                                         <>
-
                                             <Link to={`/categories/${item.slug}`}>
-                                                <input type="radio" name="" id="" /> {item.name}
-
+                                                <p className="text-black hover:text-red-800 text-base">{item.name}</p>
                                             </Link>
 
                                         </>
@@ -184,9 +182,11 @@ const CategoryID = (props: Props) => {
                         <div className="mt-5">
                             <h2 className="uppercase font-bold pb-2 relative after:content-[''] after:absolute after:top-[100%] after:left-0 after:w-8 after:h-1 after:bg-gray-300">Sản phẩm yêu thích</h2>
                             <ul className="grid grid-cols-1 divide-y mt-2">
-
+                                {console.log(filterPosts1)
+                                }
                                 {filterPosts1?.map((item: any) => (
                                     <>
+
                                         <li className="py-3 flex">
                                             <a className="block bg-[#f7f7f7]" href="">
                                                 <img className="w-16 h-16 object-cover block" src={item.image} />

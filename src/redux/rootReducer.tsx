@@ -6,7 +6,7 @@ import CategoriesReducer from "./slice/categoriesSlice";
 import BannerReducer from "./slice/BannerSlice";
 import UserReducer from "./slice/userslice";
 import ReceiptSlice from "./slice/receiptSlice";
-
+import NewtSlice from "./slice/NewSlice";
 const persistConfig = {
   key: "root",
   storage,
@@ -18,6 +18,7 @@ const reducers = combineReducers({
   BannerReducer,
   UserReducer,
   ReceiptSlice,
+  NewtSlice,
 });
 const rootReducer = persistReducer(persistConfig, reducers);
 

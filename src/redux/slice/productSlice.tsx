@@ -1,12 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { add, editProduct, getProductId, listProduct, removeProduct } from '../../api/product';
+import { add, editProduct, getProductId, listProduct, removeProduct, searchProduct } from '../../api/product';
 import { ProductType } from '../../models/product';
 
 
 const initialState: any = {
   products: [],
   productsFilter: [],
+  productSearch: [],
 }
+
+export const searchPro = createAsyncThunk(
+  "product/search",
+  async (product: any) => {
+    const { data } = await searchProduct(product)
+    return data;
+  }
+)
+
 
 export const addProduct = createAsyncThunk(
   "product/addProduct",
@@ -73,6 +83,9 @@ export const productSlice = createSlice({
     });
     builder.addCase(productUpdate.fulfilled, (state, action) => {
       state.products = state.products.map((item: any) => item._id == action.payload._id ? action.payload : item)
+    });
+    builder.addCase(searchPro.fulfilled, (state, action) => {
+      state.productSearch = action.payload
     });
   }
 }
