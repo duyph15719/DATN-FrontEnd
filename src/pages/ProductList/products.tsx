@@ -81,7 +81,7 @@ const ProductsList = (props: Props) => {
         <div className='flex flex-col md:flex-row'>
 
           <div className="nav-product-left  md:w-[329px]  ">
-            
+
           </div>
           <div className="nav-product-right w-[100%] md:w-[70%] ">
 
@@ -105,17 +105,13 @@ const ProductsList = (props: Props) => {
                 </div>
                 <div className="mt-2 flex flex-col space-y-4">
 
-                {categories?.map((item: any) => (
-                                        <>
-
-                                            <Link to={`/categories/${item.slug}`}>
-                                                <input  checked type="radio" name="" id="" /> {item.name}
-                                               
-
-                                            </Link>
-
-                                        </>
-                                    ))}
+                  {categories?.map((item: any) => (
+                    <>
+                      <Link to={`/categories/${item.slug}`}>
+                        <p>{item.name}</p>
+                      </Link>
+                    </>
+                  ))}
 
                 </div>
               </div>

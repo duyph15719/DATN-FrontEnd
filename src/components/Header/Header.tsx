@@ -11,6 +11,8 @@ import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import { getLocalStorage, sumTotal } from "../../ultils/cart/cart";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "../../redux/hook";
+import { searchPro } from "../../redux/slice/productSlice";
 const { Search } = Input;
 
 
@@ -62,14 +64,16 @@ const Header = (props: Props) => {
     setSearch(searchStr);
     setLoadingSearch(true);
   };
-
+  const dispatch = useAppDispatch()
   // search khi submit form
   const handleSearchForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!search?.trim()) return toast.info("Vui lòng nhập tên SP!");
+    console.log(search);
+    dispatch(searchPro(search))
 
-    navigate(`products/${search}`);
+    navigate(`/product-search?q=${search}`);
   };
 
   const content = (

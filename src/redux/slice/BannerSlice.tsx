@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { addBanner, listBanner, removeBanner, updateBanner } from '../../api/Banner';
-import { addCategory, listCategory, removeCategory, updateCategory } from '../../api/Categories';
+
 
 
 

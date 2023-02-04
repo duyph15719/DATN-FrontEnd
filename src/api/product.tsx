@@ -53,3 +53,6 @@ export const filterProduct = (data: any) => {
     return instance.post(`/product-filter`, data);
 };
 
+export const searchProduct = (data: any) => {
+    return instance.get(`/product-search?q=${data}`);
+};
