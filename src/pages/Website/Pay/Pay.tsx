@@ -112,26 +112,26 @@ const Pay = (props: Props) => {
         total: Sum,
       };
       localStorage.setItem("orderData", JSON.stringify(orderData))
-      if(dataInput.payments===0){
+      if (transferForm.payment === 0) {
         dispatch(addReceipt(orderData))
-        .unwrap()
+          .unwrap()
 
-        .then(() => {
+          .then(() => {
 
-          if (transferForm.payment === 0) {
-            window.localStorage.removeItem("cart");
-            setTimeout(() => {
-              navigation("/managerAccount")
-            }, 1200);
-          }
-        })
-        .catch((err: any) => {
-          alert("Yêu cầu điền đầy đủ thông tin để thực hiện thanh toán")
-        })
+            if (transferForm.payment === 0) {
+              window.localStorage.removeItem("cart");
+              setTimeout(() => {
+                navigation("/managerAccount")
+              }, 1200);
+            }
+          })
+          .catch((err: any) => {
+            alert("Yêu cầu điền đầy đủ thông tin để thực hiện thanh toán")
+          })
       } else {
-          setTimeout(() => {
-            navigation("/oder")
-          }, 1200);
+        setTimeout(() => {
+          navigation("/oder")
+        }, 1200);
       }
     }
 

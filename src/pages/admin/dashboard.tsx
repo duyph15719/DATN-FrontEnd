@@ -66,6 +66,7 @@ const Dashboard = (props: Props) => {
   const { products } = useAppSelector((state) => state.ProductReducer);
   const { users } = useAppSelector((state) => state.UserReducer);
   const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
+  console.log(receipts)
   const dispatch = useAppDispatch();
   const [statOrder, setStatOrder] = useState<StatsOrder[]>();
   const [totalOrder, setTotalOrder] = useState(0);
@@ -116,14 +117,14 @@ const Dashboard = (props: Props) => {
         label: `Năm ${new Date().getFullYear()}`,
         data: labels.map((itemMonth) => {
           const month = +itemMonth.split(" ")[1];
-          const getMonth = dataTable2?.filter((item: any) => item.createdAt === "1");
-          console.log("sum", data)
+          const getMonth = dataTable2?.filter((item: any) => item.createdAt === `${month}`);
+          console.log("sum", getMonth)
           if (getMonth) {
             const data = getMonth?.map((item: any) => {
               sum += item?.total;
               return sum
             })
-            return sum;
+            return getMonth.length;
           }
           return 0;
         }),
