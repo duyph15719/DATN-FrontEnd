@@ -108,8 +108,9 @@ const ProductsList = (props: Props) => {
                   {categories?.map((item: any) => (
                     <>
                       <Link to={`/categories/${item.slug}`}>
-                        <p>{item.name}</p>
+                        <p className="text-black hover:text-red-800 text-base">{item.name}</p>
                       </Link>
+
                     </>
                   ))}
 

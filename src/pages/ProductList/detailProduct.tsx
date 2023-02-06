@@ -11,6 +11,8 @@ import { addToCart } from '../../ultils/cart/cart';
 import Swal from 'sweetalert2';
 import { ProductColor, ProductSize } from '../../models/product';
 import { thousandFormat } from '../../ultils';
+import { log } from 'console';
+import { Link } from 'react-router-dom';
 const InnerHTML = require('dangerously-set-inner-html')
 
 type Props = {}
@@ -72,7 +74,7 @@ const DetailProduct = (props: Props) => {
   const data = useMemo(() => products.find((item: any) => item.slug === slug), [slug, products]);
   const sizes = useMemo<ProductSize[]>(() => colorSelected ? colorSelected.sizes : [], [colorSelected]);
   const [quantity, setQuantity] = useState<number>(1);
-
+  console.log(data)
 
   useEffect(() => {
     dispatch(categoriesList())
@@ -128,7 +130,7 @@ const DetailProduct = (props: Props) => {
           <div className="w-[100%] md:w-[50%] pl-10">
 
             <div className="flex">
-              <a className="text-gray-500 transition hover:text-black uppercase font-semibold text-sm block pr-4 relative after:content-[''] after:absolute after:top-1/2 after:-translate-y-1/2 after:right-2 after:w-[1px] after:h-3 after:rotate-12 after:bg-gray-400" href="/">Home</a><a className="text-gray-500 transition hover:text-black uppercase font-semibold text-sm" href=""> NAM</a></div>
+              <a className="text-gray-500 transition hover:text-black uppercase font-semibold text-sm block pr-4 relative after:content-[''] after:absolute after:top-1/2 after:-translate-y-1/2 after:right-2 after:w-[1px] after:h-3 after:rotate-12 after:bg-gray-400" href="/">Home</a><Link className="text-gray-500 transition hover:text-black uppercase font-semibold text-sm" to={`/categories/${data.categoryId.slug}`}> {data.categoryId.name}</Link></div>
             <h1 className="font-semibold text-[28px] text-gray-800 pb-1 mb-3 relative after:content-[''] after:absolute after:top-[100%] after:left-0 after:w-8 after:h-1 after:bg-gray-300"> {data?.name}</h1>
 
 

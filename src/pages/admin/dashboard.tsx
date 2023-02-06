@@ -71,6 +71,7 @@ const Dashboard = (props: Props) => {
   const [totalOrder, setTotalOrder] = useState(0);
   const [statsUserSignup, setStatsUserSignup] = useState<StatsUserByMonth[]>();
   const [moneyMonth, setMoneyMonth] = useState<MoneyMonth[]>();
+  console.log(receipts);
 
   const labels = Array.apply(null, new Array(12)).map((_, index) => `Tháng ${++index}`);
   const dataTable = users?.map((item: any) => {
@@ -96,6 +97,8 @@ const Dashboard = (props: Props) => {
         data: labels.map((itemMonth) => {
           const month = +itemMonth.split(" ")[1];
           const getMonth = dataTable?.filter((item: any) => item === `${month}`);
+          console.log(getMonth);
+
           if (getMonth) {
             return getMonth.length;
           }
@@ -170,14 +173,14 @@ const Dashboard = (props: Props) => {
           <div
             key={index}
             className={`bg-white p-3 rounded-md ${item.status === 0
-                ? "order__card-item--new"
-                : item.status === 1
-                  ? "order__card-item--verified"
-                  : item.status === 2
-                    ? "order__card-item--progress"
-                    : item.status === 3
-                      ? "order__card-item--success"
-                      : "order__card-item--cancel"
+              ? "order__card-item--new"
+              : item.status === 1
+                ? "order__card-item--verified"
+                : item.status === 2
+                  ? "order__card-item--progress"
+                  : item.status === 3
+                    ? "order__card-item--success"
+                    : "order__card-item--cancel"
               }`}
           >
             <div className="">
