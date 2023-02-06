@@ -133,7 +133,7 @@ const EditProduct = (props: Props) => {
                     // beforeUpload={beforeUpload}
 
                     >
-                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                        {<img src={data.image} alt="avatar" style={{ width: '100%' }} /> ? <img src={data.image} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                     </Upload>
                 </Form.Item>
                 <Form.Item
