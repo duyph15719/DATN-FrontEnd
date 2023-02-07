@@ -52,18 +52,22 @@ const EditProduct = (props: Props) => {
 
     const [Url, setUrl] = useState();
     const uploadImage = async (options: any) => {
-        const { onSuccess, onError, file } = options;
+        const { file, onSuccess, onError, onProgress } = options;
+        const url = "https://api.cloudinary.com/v1_1/dcjtdlsw7/image/upload";
+        const preset = "gx04038d";
         const formData = new FormData();
+        formData.append("upload_preset", preset);
         formData.append("file", file);
-        formData.append("upload_preset", "gx04038d");
         try {
             const res = await uploadCloudinary(formData);
-            message.success("Upload successfully !");
-            setUrl(res.data.secure_url);
-            console.log(res.data.secure_url);
-
+            file.url = res.data.secure_url;
+            file.thumbUrl = null;
+            console.log(file.url)
+            setUrl(res.data.secure_url)
+            onSuccess("ok");
+        } catch (error) {
+            onError({ error });
         }
-        catch (err) { message.error("Upload failed !"); }
     };
     const uploadButton = (
         <div>
@@ -114,7 +118,7 @@ const EditProduct = (props: Props) => {
 
                 <Form.Item name="categoryId" label="Danh mục" rules={[{ required: true }]}>
                     <Select
-                        placeholder="Select a option and change input text above"
+
                     >
                         {categories?.map((item: any) => (
                             <Option value={item._id}>{item.name}</Option>
