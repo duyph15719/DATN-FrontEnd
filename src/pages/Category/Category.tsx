@@ -28,18 +28,13 @@ const Category = (props: Props) => {
               <div className="flex justify-center">
                 <img
                   className=""
-                  src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/title_block_05.png"
+                  src={item.image}
                   alt=""
                 />
               </div>
-              <div className="flex justify-center">
-                <img
-                  src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/product_block_03.jpg"
-                  alt=""
-                />
-              </div>
+
               <button className="xemthem">Xem Sản Phẩm</button>
-              <div className="showbox slideright">{item.name}</div>
+              <div className="showbox slideright text-black font-bold text-2xl">{item.name}</div>
             </div>
           </Link>
 
