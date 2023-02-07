@@ -12,6 +12,11 @@ export const getReceiptId = (id: any) => {
     const url = `/orders/${id}`;
     return instance.get(url);
 }
+export const getReceiptStatus = (status: any,start = 0, limit = 0) => {
+    let url = `/${DB_NAME}/?status=${status}&_sort=createdAt&_orders=desc`;
+    if (limit) url += `&_start=${start}&_limit=${limit}`;
+    return instance.get(url);
+}
 export const add = (receipt: RecaiptType) => {
     const url = `/orders`;
     return instance.post(url, receipt);
