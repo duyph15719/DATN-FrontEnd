@@ -77,47 +77,9 @@ const Cart = (props: Props) => {
                     <td className="p-4 px-6 text-center whitespace-nowrap">{item?.size?.sizeName}</td>
                     <td className="p-4 px-6 text-center whitespace-nowrap">
                       <div>
-                        <button
-                          onClick={() => {
-                            decreaseItem(item?.randomid);
-                          }}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="inline-flex w-6 h-6 text-red-600"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                          </svg>
-                        </button>
+
                         <span className="mx-3">{item?.quantity}</span>
-                        <button
-                          onClick={() => {
-                            increaseItem(item?.randomid);
-                          }}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="inline-flex w-6 h-6 text-green-600"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                          </svg>
-                        </button>
+
                       </div>
                     </td>
                     <td className="p-4 px-6 text-center whitespace-nowrap">

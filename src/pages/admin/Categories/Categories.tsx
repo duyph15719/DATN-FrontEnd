@@ -1,7 +1,7 @@
 
 
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Space, Table } from 'antd';
+import { Image, Space, Table } from 'antd';
 import { Button } from 'antd/lib/radio';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -58,7 +58,12 @@ const Categories = (props: Props) => {
       key: 'name',
 
     },
+    {
+      title: 'image',
+      dataIndex: 'image',
+      render: (image: any) => <Image width={100} src={image}></Image>
 
+    },
 
     {
       title: 'Tùy chọn',
@@ -76,7 +81,8 @@ const Categories = (props: Props) => {
   const dataTable = categories.map((item: any) => {
     return {
       name: item.name,
-      id: item._id
+      id: item._id,
+      image: item.image,
     }
 
   })

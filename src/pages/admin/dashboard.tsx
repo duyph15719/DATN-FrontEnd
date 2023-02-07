@@ -8,12 +8,8 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from "react";
-import { listProduct } from "../../api/product";
-import { StatsApi } from "../../api/stats";
-import { listUser } from "../../api/User";
-import { MoneyMonth, StatsOrder, StatsUserByMonth } from "../../models/stats";
-// import { updateTitle } from "../../../utils";
+import { useEffect, useState } from "react";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -352,7 +348,6 @@ const Dashboard = (props: Props) => {
           </div>
         </div>
       </div>
-      
       {/* doanh thu hàng tháng */}
       <div className="bg-white mt-4 rounded-md p-3">
         <Line options={optionsLine} data={dataLine} />
