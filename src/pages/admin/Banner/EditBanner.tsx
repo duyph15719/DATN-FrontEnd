@@ -18,7 +18,7 @@ const EditBanner = (props: Props) => {
     const dispatch = useAppDispatch()
     const navigation = useNavigate()
     const [form] = Form.useForm()
-
+    console.log(banner)
     const onFinish = async (values: any) => {
         // console.log(values);
         values._id = id
@@ -26,7 +26,7 @@ const EditBanner = (props: Props) => {
             .then(() => {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Thêm thành công',
+                    title: ' Sửa thành công',
                     timer: 1000,
                     showConfirmButton: false,
                 })
@@ -45,19 +45,24 @@ const EditBanner = (props: Props) => {
 
 
     const [Url, setUrl] = useState();
+
     const uploadImage = async (options: any) => {
-        const { onSuccess, onError, file } = options;
+        const { file, onSuccess, onError, onProgress } = options;
+        const url = "https://api.cloudinary.com/v1_1/dcjtdlsw7/image/upload";
+        const preset = "gx04038d";
         const formData = new FormData();
+        formData.append("upload_preset", preset);
         formData.append("file", file);
-        formData.append("upload_preset", "gx04038d");
         try {
             const res = await uploadCloudinary(formData);
-            message.success("Upload successfully !");
-            setUrl(res.data.secure_url);
-            console.log(res.data.secure_url);
-
+            file.url = res.data.secure_url;
+            file.thumbUrl = null;
+            console.log(file.url)
+            setUrl(res.data.secure_url)
+            onSuccess("ok");
+        } catch (error) {
+            onError({ error });
         }
-        catch (err) { message.error("Upload failed !"); }
     };
     const uploadButton = (
         <div>
@@ -75,8 +80,9 @@ const EditBanner = (props: Props) => {
                 ...data
             })
         }
-
+        console.log(data)
     }, [])
+
     if (!data) return <div>loading</div>
     return (
         <div className="pt-10">
@@ -107,9 +113,10 @@ const EditBanner = (props: Props) => {
                 </Form.Item>
 
 
-                <Form.Item>
+                <Form.Item
+                    name="image">
                     <Upload
-                        name="avatar"
+                        name="image"
                         listType="picture-card"
                         className="avatar-uploader"
                         // showUploadList={false}
@@ -118,7 +125,7 @@ const EditBanner = (props: Props) => {
                     // beforeUpload={beforeUpload}
 
                     >
-                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                        {<img src={data.image} alt="avatar" style={{ width: '100%' }} /> ? <img src={data.image} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                     </Upload>
                 </Form.Item>
                 <Form.Item wrapperCol={{ offset: 3, span: 10 }}>

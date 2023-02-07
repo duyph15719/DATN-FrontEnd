@@ -3,6 +3,7 @@ import { Upload, Modal, Form, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { UploadFile } from 'antd/lib/upload/interface';
 import axios from 'axios';
+import { uploadCloudinary } from '../../api/upload';
 
 type Props = {
     imageList: UploadFile<any>[],
@@ -27,21 +28,13 @@ const ImageUpload = (props: Props) => {
     const dummyrequest = async (options: any) => {
         const { file, onSuccess, onError, onProgress } = options;
         const url = "https://api.cloudinary.com/v1_1/dcjtdlsw7/image/upload";
-        const preset = "uiqccvxh";
+        const preset = "gx04038d";
         const formData = new FormData();
         formData.append("upload_preset", preset);
         formData.append("file", file);
         try {
-            const { data } = await axios.post(url, formData, {
-                headers: {
-                    "content-type": "application/x-www-formencoded",
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                onUploadProgress: (e: any) => {
-                    onProgress({ percent: (e.loaded / e.total) * 100 })
-                }
-            });
-            file.url = data.url;
+            const res = await uploadCloudinary(formData);
+            file.url = res.data.secure_url;
             file.thumbUrl = null;
             onSuccess("ok");
         } catch (error) {
