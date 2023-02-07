@@ -35,6 +35,7 @@ const UserManager = (props: Props) => {
       phone: item.phone,
       role: item.role,
       createdAt: item.createdAt,
+      status: item.status,
     };
   });
   const columns: ColumnsType<IUsers> = [
@@ -75,48 +76,14 @@ const UserManager = (props: Props) => {
       render: (phone) => <Text className="text-[#1890ff]">{phone}</Text>,
     },
     {
-      title: "Role",
+      title: "Quyền",
       key: "role",
       dataIndex: "role",
       render: (role) => <Tag color={role ? "blue" : ""}>{role ? "Admin" : "User"}</Tag>,
     },
-    {
-      title: "Actions",
-      key: "actions",
-      dataIndex: "role",
-      render: (item: any,record) => (
-        <Space size="middle">
-          <Button
-            type="link"
-            disabled={record._id || item==1}
-            onClick={() => handleRemove(record._id)}
-          >
-            Delete
-          </Button>
-        </Space>
-    ),
-    },
+    
   ];
 
-  const handleRemove = async (id?: string) => {
-    confirm({
-      title: "Bạn có chắc chắn muốn xóa không?",
-      icon: <ExclamationCircleOutlined />,
-      content: "Không thể hoàn tác sau khi xóa",
-      async onOk() {
-        try {
-          await dispatch(UserRemove(id)).unwrap();
-          dispatch(UserList());
-          message.success("Xóa tài khoản thành công");
-        } catch (error) {
-          message.error("Có lỗi xảy ra");
-        }
-      },
-      onCancel() {
-        console.log("Cancel");
-      },
-    });
-  };
 
   return (
     <Table

@@ -52,24 +52,24 @@ const ListProduct = (props: Props) => {
   };
   const columns: any = [
     {
-      title: "Name",
+      title: "Tên sản phẩm",
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Image",
+      title: "Ảnh",
       dataIndex: "image",
       render: (image: any) => <Image width={100} src={image}></Image>,
     },
     {
-      title: "Price",
+      title: "Giá",
       dataIndex: "price",
       key: "price",
       render: (item: any) => <Text className="text-[#1890ff]">{new Intl.NumberFormat().format(item)} VND</Text>,
     },
 
     {
-      title: "Category",
+      title: "Danh mục",
       dataIndex: "category",
       key: "category",
       filters: categories.map((item: any) => {
@@ -83,7 +83,7 @@ const ListProduct = (props: Props) => {
     },
 
     {
-      title: "Action",
+      title: "Tùy chọn",
       key: "action",
       render: (item: any) => (
         <Space size="middle">

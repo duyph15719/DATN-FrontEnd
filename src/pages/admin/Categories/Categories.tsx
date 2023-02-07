@@ -53,7 +53,7 @@ const Categories = (props: Props) => {
   }
   const columns: any = [
     {
-      title: 'Name',
+      title: 'Tên danh mục',
       dataIndex: 'name',
       key: 'name',
 
@@ -61,7 +61,7 @@ const Categories = (props: Props) => {
 
 
     {
-      title: 'Action',
+      title: 'Tùy chọn',
       key: 'action',
       render: (item: any) => (
         <Space size="middle">

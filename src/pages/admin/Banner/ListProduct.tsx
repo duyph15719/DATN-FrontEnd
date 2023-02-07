@@ -45,26 +45,26 @@ const ListBanner = (props: Props) => {
     }
     const columns: any = [
         {
-            title: 'Name',
+            title: 'Tên',
             dataIndex: 'title',
             key: 'title',
 
         },
 
         {
-            title: 'image',
+            title: 'Ảnh',
             dataIndex: 'image',
             render: (image: any) => <Image width={100} src={image}></Image>
 
         },
         {
-            title: 'url',
+            title: 'Miêu tả',
             dataIndex: 'url',
             key: 'url',
 
         },
         {
-            title: 'Action',
+            title: 'Tùy chọn',
             key: 'action',
             render: (item: any) => (
                 <Space size="middle">
