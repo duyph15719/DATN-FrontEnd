@@ -242,7 +242,7 @@ const OrderDetail = () => {
             ""
           )}
 
-          {data?.status === 0 && (
+          {data?.status != 4 && (
             <>
               <Button type="primary" onClick={() => handleUpdateStt(4)} className="ml-1">
                 Hủy ĐH

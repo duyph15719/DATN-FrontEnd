@@ -35,7 +35,7 @@ import { Receiptlist } from "../../redux/slice/receiptSlice";
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend);
 
 type Props = {};
-
+let sum = 0, sum2 = 0, sum3 = 0, sum4 = 0, sum5 = 0, sum6 = 0, sum7 = 0, sum8 = 0, sum9 = 0, sum10 = 0, sum11 = 0, sum12 = 0;
 export const options = {
   responsive: true,
   plugins: {
@@ -66,23 +66,19 @@ const Dashboard = (props: Props) => {
   const { products } = useAppSelector((state) => state.ProductReducer);
   const { users } = useAppSelector((state) => state.UserReducer);
   const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
-  console.log(receipts)
   const dispatch = useAppDispatch();
-  const [statOrder, setStatOrder] = useState<StatsOrder[]>();
-  const [totalOrder, setTotalOrder] = useState(0);
-  const [statsUserSignup, setStatsUserSignup] = useState<StatsUserByMonth[]>();
-  const [moneyMonth, setMoneyMonth] = useState<MoneyMonth[]>();
-  console.log(receipts);
-
+  useEffect(() => {
+    dispatch(productList());
+    dispatch(UserList());
+    dispatch(Receiptlist());
+    sum = 0; sum2 = 0; sum3 = 0; sum4 = 0; sum5 = 0; sum6 = 0; sum7 = 0; sum8 = 0; sum9 = 0; sum10 = 0; sum11 = 0; sum12 = 0;
+  }, [dispatch]);
   const labels = Array.apply(null, new Array(12)).map((_, index) => `Tháng ${++index}`);
   const dataTable = users?.map((item: any) => {
     var d = new Date(item.createdAt);
     return `${d.getMonth() + 1}`;
   })
-  // const dataTable2 = receipts?.map((item: any) => {
-  //   var d = new Date(item.createdAt);
-  //   return `${d.getMonth()+1}`;
-  // })
+
   const dataTable2 = receipts?.map((item: any) => {
     var d = new Date(item.createdAt);
     return {
@@ -90,6 +86,7 @@ const Dashboard = (props: Props) => {
       createdAt: `${d.getMonth() + 1}`
     }
   })
+
   const data = {
     labels,
     datasets: [
@@ -98,8 +95,6 @@ const Dashboard = (props: Props) => {
         data: labels.map((itemMonth) => {
           const month = +itemMonth.split(" ")[1];
           const getMonth = dataTable?.filter((item: any) => item === `${month}`);
-          console.log(getMonth);
-
           if (getMonth) {
             return getMonth.length;
           }
@@ -109,111 +104,88 @@ const Dashboard = (props: Props) => {
       },
     ],
   };
-  let sum = 0;
+
   const dataLine = {
     labels,
     datasets: [
       {
         label: `Năm ${new Date().getFullYear()}`,
-        data: labels.map((itemMonth) => {
-          const month = +itemMonth.split(" ")[1];
-          const getMonth = dataTable2?.filter((item: any) => item.createdAt === `${month}`);
-          console.log("sum", getMonth)
-          if (getMonth) {
-            const data = getMonth?.map((item: any) => {
-              sum += item?.total;
-              return sum
-            })
-            return getMonth.length;
-          }
-          return 0;
-        }),
+        data:
+          labels.map((itemMonth) => {
+            const month = +itemMonth.split(" ")[1];
+            if (month === 1) {
+              return dataTable2?.filter((item: any) => item.createdAt === `1`).map((item: any) => {
+                sum += item?.total;
+                return sum
+              });
+            } else if (month === 2) {
+              return dataTable2?.filter((item: any) => item.createdAt === `2`).map((item: any) => {
+                sum2 += item?.total;
+                return sum2
+              });
+            } else if (month === 3) {
+              return dataTable2?.filter((item: any) => item.createdAt === `3`).map((item: any) => {
+                sum3 += item?.total;
+                return sum3
+              });
+            } else if (month === 4) {
+              return dataTable2?.filter((item: any) => item.createdAt === `4`).map((item: any) => {
+                sum4 += item?.total;
+                return sum4
+              });
+            } else if (month === 5) {
+              return dataTable2?.filter((item: any) => item.createdAt === `5`).map((item: any) => {
+                sum5 += item?.total;
+                return sum5
+              });
+            } else if (month === 6) {
+              return dataTable2?.filter((item: any) => item.createdAt === `6`).map((item: any) => {
+                sum6 += item?.total;
+                return sum6
+              });
+            } else if (month === 7) {
+              return dataTable2?.filter((item: any) => item.createdAt === `7`).map((item: any) => {
+                sum7 += item?.total;
+                return sum7
+              });
+            } else if (month === 8) {
+              return dataTable2?.filter((item: any) => item.createdAt === `8`).map((item: any) => {
+                sum8 += item?.total;
+                return sum8
+              });
+            } else if (month === 9) {
+              return dataTable2?.filter((item: any) => item.createdAt === `9`).map((item: any) => {
+                sum9 += item?.total;
+                return sum9
+              });
+            } else if (month === 10) {
+              return dataTable2?.filter((item: any) => item.createdAt === `10`).map((item: any) => {
+                sum10 += item?.total;
+                return sum10
+              });
+            } else if (month === 11) {
+              return dataTable2?.filter((item: any) => item.createdAt === `11`).map((item: any) => {
+                sum11 += item?.total;
+                return sum11
+              });
+            } else if (month === 12) {
+              return dataTable2?.filter((item: any) => item.createdAt === `12`).map((item: any) => {
+                sum12 += item?.total;
+                return sum12
+              });
+            }
+            return 0;
+          }),
+
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
   };
-  useEffect(() => {
-    dispatch(productList());
-    dispatch(UserList());
-    dispatch(Receiptlist())
-  }, [dispatch]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        // // thống kê đơn hàng
-        // const statsOrder = await StatsApi.statsOrderByStatus();
-        // setTotalOrder(() => {
-        //   return statsOrder.payload.stats?.reduce((total, item) => total + item.total, 0);
-        // });
-        // if (statsOrder.status) setStatOrder(statsOrder.payload.stats);
-
-        // thống kê sp
-
-        // // thống kê user
-        // const resUser = await listUser;
-        // if (resUser.status) setTotalUser(resUser.payload.total);
-        // // user đăng ký theo tháng
-        // const resUserByMonth = await StatsApi.statsUserSignupByMonth();
-
-
-        // // thống kê doanh thu hàng tháng
-        // const resMoney = await StatsApi.statsMoneyByMonth();
-        // if (resMoney.status) setMoneyMonth(resMoney.payload.stats);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [dispatch]);
-
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 mb-4 gap-4">
-        {statOrder?.map((item, index) => (
-          <div
-            key={index}
-            className={`bg-white p-3 rounded-md ${item.status === 0
-              ? "order__card-item--new"
-              : item.status === 1
-                ? "order__card-item--verified"
-                : item.status === 2
-                  ? "order__card-item--progress"
-                  : item.status === 3
-                    ? "order__card-item--success"
-                    : "order__card-item--cancel"
-              }`}
-          >
-            <div className="">
-              <div className="flex items-center justify-between">
-                <div className="">
-                  {item.status === 0 ? (
-                    <FontAwesomeIcon icon={faShoppingCart} />
-                  ) : item.status === 1 ? (
-                    <FontAwesomeIcon icon={faCheck} />
-                  ) : item.status === 2 ? (
-                    <FontAwesomeIcon icon={faShippingFast} />
-                  ) : item.status === 3 ? (
-                    <FontAwesomeIcon icon={faMoneyCheck} />
-                  ) : (
-                    <FontAwesomeIcon icon={faTimes} />
-                  )}
-                </div>
-                <div className="text-center">
-                  <strong>{item.total}</strong>
-                  <p className="font-semibold text-sm">{item.statusText}</p>
-                </div>
-              </div>
 
-              <div className="order__card-percent">
-                <div
-                  className="order__card-percent-inner"
-                  style={{ width: (item.total / totalOrder) * 100 + "%" }}
-                ></div>
-              </div>
-            </div>
-          </div>
-        ))}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -248,16 +220,16 @@ const Dashboard = (props: Props) => {
           </div>
         </div>
       </div>
-
+      {/* doanh thu hàng tháng */}
+      <div className="bg-white mt-4 rounded-md p-3">
+        <Line options={optionsLine} data={dataLine} />
+      </div>
       {/* user đăng ký theo tháng */}
       <div className="bg-white mt-4 rounded-md p-3">
         <Bar options={options} data={data} />
       </div>
 
-      {/* doanh thu hàng tháng */}
-      <div className="bg-white mt-4 rounded-md p-3">
-        <Line options={optionsLine} data={dataLine} />
-      </div>
+
     </div>
   );
 };

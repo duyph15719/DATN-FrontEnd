@@ -53,7 +53,7 @@ const { Text } = Typography;
 const Order = (props: Props) => {
     const dispatch = useAppDispatch()
     const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
-    
+
     const columns: ColumnsType<RecaiptType> = [
         {
             title: "Thông tin khách hàng",
@@ -79,13 +79,13 @@ const Order = (props: Props) => {
             key: "status",
             dataIndex: "status",
             render: (stt) => <Tag color={stt === 4 ? "red" : "green"}>{getStatusOrder(stt)}</Tag>,
-            filters: 
-            receipts.filter((a:any, i:any) => receipts.findIndex((s:any) => a.status === s.status) === i).map((item: any) => {
-                return {
-                    text: getStatusOrder(item.status),
-                    value: item.status,
-                };
-            }),
+            filters:
+                receipts.filter((a: any, i: any) => receipts.findIndex((s: any) => a.status === s.status) === i).map((item: any) => {
+                    return {
+                        text: getStatusOrder(item.status),
+                        value: item.status,
+                    };
+                }),
             onFilter: (value: number | any, record: RecaiptType | any) => record.status === value,
             filterSearch: true,
         },
@@ -117,7 +117,6 @@ const Order = (props: Props) => {
                     <Link to={`edit/${item.id}`} className="text-[#1890ff]">
                         Detail
                     </Link>
-                    <DeleteOutlined onClick={() => handleRemove(item.id)}>Delete</DeleteOutlined>
                 </Space>
             ),
         },
@@ -147,32 +146,31 @@ const Order = (props: Props) => {
     console.log(dataTable);
 
     const { confirm } = Modal;
-    const handleRemove = async (id?: string) => {
-        confirm({
-            title: "Bạn có chắc chắn muốn xóa không?",
-            icon: <ExclamationCircleOutlined />,
-            content: "Không thể hoàn tác sau khi xóa",
-            async onOk() {
-                try {
-                    await dispatch(receiptRemove(id)).unwrap();
-                    message.success("Xóa đơn hàng thành công");
-                } catch (error) {
-                    message.error("Có lỗi xảy ra, vui lòng thử lại");
-                }
-            },
-            onCancel() {
-                console.log("Cancel");
-            },
-        });
-    };
+    // const handleRemove = async (id?: string) => {
+    //     confirm({
+    //         title: "Bạn có chắc chắn muốn xóa không?",
+    //         icon: <ExclamationCircleOutlined />,
+    //         content: "Không thể hoàn tác sau khi xóa",
+    //         async onOk() {
+    //             try {
+    //                 await dispatch(receiptRemove(id)).unwrap();
+    //                 message.success("Xóa đơn hàng thành công");
+    //             } catch (error) {
+    //                 message.error("Có lỗi xảy ra, vui lòng thử lại");
+    //             }
+    //         },
+    //         onCancel() {
+    //             console.log("Cancel");
+    //         },
+    //     });
+    // };
     if (!receipts) return <div>Loading...</div>
     return (
         <div className="pt-10">
 
-            <Table columns={columns} dataSource={dataTable} onChange={onChange}
+            <Table columns={columns} dataSource={dataTable}
                 expandable={{
                     rowExpandable: record => record.name !== 'Not Expandable',
-                    // expandedRowRender: (record) => { return <Table columns={columns} dataSource={dataTable} /> }
                 }} />
         </div>
 

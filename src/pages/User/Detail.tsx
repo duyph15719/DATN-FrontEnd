@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { Button, Col, Image, message, Modal, Row, Table, Tag, Typography } from "antd";
+import { Button, Col, Form, Image, Input, message, Modal, Row, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -23,6 +23,7 @@ const OrderDetailUser = () => {
   const { orderHistory } = useAppSelector((state: any) => state.ReceiptSlice)
   const [data, setData] = useState<any>();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen1, setIsModalOpen1] = useState(false);
   const [receiptResult, setReceiptResult] = useState<any>(receipts);
   const currentUser = GetUser();
   const showModal = () => {
@@ -31,10 +32,12 @@ const OrderDetailUser = () => {
 
   const handleOk = () => {
     setIsModalOpen(false);
+    setIsModalOpen1(false);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setIsModalOpen1(false);
   };
   const columns: ColumnsType<RecaiptDetailType> = [
     {
@@ -122,6 +125,11 @@ const OrderDetailUser = () => {
       render: (stt) => <Tag color={stt === 4 ? "red" : "green"}>{getStatusOrder(stt)}</Tag>,
     },
     {
+      title: "Lí do huỷ đơn",
+      key: "status",
+      dataIndex: "reasonOfOrder",
+    },
+    {
       title: "Thời gian sửa đổi",
       key: "timeOrder",
       dataIndex: "createdAt",
@@ -135,30 +143,49 @@ const OrderDetailUser = () => {
       id: item._id,
       userName: item.userName,
       statusOrderLogs: item.statusOrderLogs,
-      createdAt: item.createdAt
+      createdAt: item.createdAt,
+      reasonOfOrder: item.reasonOfOrder,
     }
   })
 
   // cập nhật trạng thái đơn hàng
   const handleUpdateStt = (stt: number) => {
-    confirm({
-      title: "Xác nhận cập nhật trạng thái đơn hàng?",
-      icon: <ExclamationCircleOutlined />,
-      content: "Không thể hoàn tác sau khi cập nhật",
-      async onOk() {
-        try {
-          await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();
-          await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt, userName: currentUser.user.firstName +" "+ currentUser.user.lastName });
-          const data = await dispatch(receiptread(id)).unwrap();
-          setData(data);
-          await dispatch(getOrderHistory(id)).unwrap();
-          dispatch(Receiptlist())
-          message.success("Cập nhật trạng thái thành công");
-        } catch (error) {
-          message.error("Có lỗi xảy ra, vui lòng thử lại");
-        }
-      },
-    });
+    if (stt !== 4) {
+      confirm({
+        title: "Xác nhận cập nhật trạng thái đơn hàng?",
+        icon: <ExclamationCircleOutlined />,
+        content: "Không thể hoàn tác sau khi cập nhật",
+        async onOk() {
+          try {
+            await dispatch(receiptUpdate({ _id: id, status: stt })).unwrap();
+            await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: stt, userName: currentUser.user.firstName + " " + currentUser.user.lastName });
+            const data = await dispatch(receiptread(id)).unwrap();
+            setData(data);
+            await dispatch(getOrderHistory(id)).unwrap();
+            dispatch(Receiptlist())
+            message.success("Cập nhật trạng thái thành công");
+          } catch (error) {
+            message.error("Có lỗi xảy ra, vui lòng thử lại");
+          }
+        },
+      });
+    } else {
+      confirm({
+        title: "Xác nhận cập nhật trạng thái đơn hàng?",
+        icon: <ExclamationCircleOutlined />,
+        content: "Không thể hoàn tác sau khi cập nhật",
+        async onOk() {
+          try {
+            setIsModalOpen1(true);
+          } catch (error) {
+            message.error("Có lỗi xảy ra, vui lòng thử lại");
+          }
+        },
+
+      });
+
+    }
+
   };
   const dataTable = order?.map((item: any, index: any) => {
     return {
@@ -173,9 +200,18 @@ const OrderDetailUser = () => {
       total: item.total,
     }
   })
+  const onFinish = async (values: any) => {
+    await dispatch(receiptUpdate({ _id: id, status: 4 })).unwrap();
+    await addreceiptHistory({ orderId: id, userId: currentUser.user._id, statusOrderLogs: 4, userName: currentUser.user.firstName + " " + currentUser.user.lastName, reasonOfOrder: values.reasonOfOrder });
+    const data = await dispatch(receiptread(id)).unwrap();
+    setData(data);
+    await dispatch(getOrderHistory(id)).unwrap();
+    dispatch(Receiptlist())
+    message.success("Cập nhật trạng thái thành công");
+  };
   return (
     <div className="container mx-auto p-10">
-        <Row justify="space-between">
+      <Row justify="space-between">
         <Col>
           <Text>
             Đơn hàng đặt lúc <Text mark>{moment(data?.createdAt).format("DD/MM/YYYY HH:mm:ss")}</Text>
@@ -188,9 +224,34 @@ const OrderDetailUser = () => {
 
         <Col>
           {data?.status === 0 && (
-            <Button type="primary" onClick={() => handleUpdateStt(4)} className="ml-1">
+            <><Button type="primary" onClick={() => handleUpdateStt(4)} className="ml-1">
               Hủy ĐH
             </Button>
+              <Modal title="Lí do huỷ đơn" centered open={isModalOpen1} onOk={handleOk} onCancel={handleCancel} footer={null} width={1000}>
+                <Form
+                  name="basic"
+                  labelCol={{ span: 8 }}
+                  wrapperCol={{ span: 16 }}
+                  style={{ maxWidth: 600 }}
+                  initialValues={{ remember: true }}
+                  onFinish={onFinish}
+                  autoComplete="off"
+                >
+                  <Form.Item
+                    label="Lí do"
+                    name="reasonOfOrder"
+                    rules={[{ required: true, message: 'Please input your reason of Order!' }]}
+                  >
+                    <Input.TextArea rows={4} />
+                  </Form.Item>
+                  <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button type="primary" htmlType="submit">
+                      Submit
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Modal></>
+
           )}
 
           <Button type="primary" className="ml-1" onClick={() => showModal()}>

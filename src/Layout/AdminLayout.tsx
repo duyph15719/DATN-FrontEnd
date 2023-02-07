@@ -70,7 +70,7 @@ const items: MenuItem[] = [
 
 
   getItem(
-    <Link to="/admin/orders">Quản lý Hóa Đớn</Link>,
+    <Link to="/admin/orders">Quản lý Hóa Đơn</Link>,
     "5",
     <ShoppingCartOutlined />
   ),
