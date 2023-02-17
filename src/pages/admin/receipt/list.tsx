@@ -1,16 +1,12 @@
 
-import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { message, Modal, Space, Table, TableProps, Tag, Typography } from 'antd';
+import { Space, Table, Tag, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { Button } from 'antd/lib/radio';
 import moment from "moment";
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { RecaiptType } from '../../../models/receipt';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
-import { categoriesList, categoriesRemove } from '../../../redux/slice/categoriesSlice';
-import { Receiptlist, receiptRemove } from '../../../redux/slice/receiptSlice';
+import { Receiptlist } from '../../../redux/slice/receiptSlice';
 
 export const getStatusOrder = (status?: number) => {
     let statusText;
@@ -121,9 +117,6 @@ const Order = (props: Props) => {
             ),
         },
     ];
-    const onChange: TableProps<RecaiptType>['onChange'] = (pagination, filters, sorter, extra) => {
-        console.log('params', pagination, filters, sorter, extra);
-    };
     useEffect(() => {
         dispatch(Receiptlist())
     }, [dispatch])
@@ -144,26 +137,6 @@ const Order = (props: Props) => {
         }
     })
     console.log(dataTable);
-
-    const { confirm } = Modal;
-    // const handleRemove = async (id?: string) => {
-    //     confirm({
-    //         title: "Bạn có chắc chắn muốn xóa không?",
-    //         icon: <ExclamationCircleOutlined />,
-    //         content: "Không thể hoàn tác sau khi xóa",
-    //         async onOk() {
-    //             try {
-    //                 await dispatch(receiptRemove(id)).unwrap();
-    //                 message.success("Xóa đơn hàng thành công");
-    //             } catch (error) {
-    //                 message.error("Có lỗi xảy ra, vui lòng thử lại");
-    //             }
-    //         },
-    //         onCancel() {
-    //             console.log("Cancel");
-    //         },
-    //     });
-    // };
     if (!receipts) return <div>Loading...</div>
     return (
         <div className="pt-10">

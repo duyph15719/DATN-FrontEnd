@@ -17,7 +17,9 @@ const OrderDetail = () => {
   const dispatch = useAppDispatch()
   const { id } = useParams();
   const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
-  const { order } = useAppSelector((state: any) => state.ReceiptSlice)
+  const  {order}  = useAppSelector((state: any) => state.ReceiptSlice)
+  const  orderTest  = useAppSelector((state: any) => state.ReceiptSlice)
+  console.log("order",orderTest);
   const { orderHistory } = useAppSelector((state: any) => state.ReceiptSlice)
   const [data, setData] = useState<any>();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -131,6 +133,7 @@ const OrderDetail = () => {
       title: "Lí do huỷ đơn",
       key: "status",
       dataIndex: "reasonOfOrder",
+      // render: (stt) => <Tag color={stt === 4 ? "red" : "green"}>{getStatusOrder(stt)}</Tag>,
     },
     {
       title: "Thời gian sửa đổi",
@@ -242,7 +245,7 @@ const OrderDetail = () => {
             ""
           )}
 
-          {data?.status != 4 && (
+          {data?.status === 0 && (
             <>
               <Button type="primary" onClick={() => handleUpdateStt(4)} className="ml-1">
                 Hủy ĐH

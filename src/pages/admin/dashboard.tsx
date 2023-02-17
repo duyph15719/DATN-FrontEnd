@@ -26,7 +26,7 @@ import "./Dashboard.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { productList } from "../../redux/slice/productSlice";
 import { UserList } from "../../redux/slice/userslice";
-import { getOrderByStatus, Receiptlist } from "../../redux/slice/receiptSlice";
+import { getOrderByStatus, ReceiptDetaillist, Receiptlist } from "../../redux/slice/receiptSlice";
 import { message } from "antd";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend);
@@ -63,6 +63,7 @@ const Dashboard = (props: Props) => {
   const { products } = useAppSelector((state) => state.ProductReducer);
   const { users } = useAppSelector((state) => state.UserReducer);
   const { receipts } = useAppSelector((state: any) => state.ReceiptSlice)
+  const { order } = useAppSelector((state: any) => state.ReceiptSlice)
   const dispatch = useAppDispatch();
   const [dataGetOrderByStatus, setDataGetOrderByStatus] = useState<any>();
   const [dataGetOrderByStatus1, setDataGetOrderByStatus1] = useState<any>();
@@ -82,10 +83,12 @@ const Dashboard = (props: Props) => {
   const [dataT12, setDataT12] = useState<any>();
 
   const [dataGetOrderByStatus4, setDataGetOrderByStatus4] = useState<any>();
+  const [dataGetOrderByStatus5, setDataGetOrderByStatus5] = useState<any>();
   useEffect(() => {
     dispatch(productList());
     dispatch(UserList());
     dispatch(Receiptlist());
+    dispatch(ReceiptDetaillist());
     sum = 0; sum2 = 0; sum3 = 0; sum4 = 0; sum5 = 0; sum6 = 0; sum7 = 0; sum8 = 0; sum9 = 0; sum10 = 0; sum11 = 0; sum12 = 0; test = 0; test1 = 0; test2 = 0; test3 = 0; test12 = 0;
   }, []);
   useEffect(() => {
@@ -190,7 +193,6 @@ const Dashboard = (props: Props) => {
           return test3
         });
         setDataGetOrderByStatus4(test3);
-
       } catch (error) {
         message.error("Có lỗi xảy ra");
       }
@@ -201,6 +203,16 @@ const Dashboard = (props: Props) => {
     var d = new Date(item.createdAt);
     return `${d.getMonth() + 1}`;
   })
+  let count = order?.map((item: any) => {
+    return item.productName
+  })
+    .reduce(function (allNames: { [x: string]: number; }, name: string) {
+      if (name in allNames) allNames[name]++
+      else allNames[name] = 1
+
+      return allNames
+    }, {})
+  const testArr = Object.entries(count || {}).sort((a: any, b: any) => b[1] - a[1]);
   const data = {
     labels,
     datasets: [
@@ -259,8 +271,6 @@ const Dashboard = (props: Props) => {
       },
     ],
   };
-
-
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 mb-4 gap-4">
@@ -356,6 +366,27 @@ const Dashboard = (props: Props) => {
       <div className="bg-white mt-4 rounded-md p-3">
         <Bar options={options} data={data} />
       </div>
+
+      <table className="table-layout: auto border-separate border border-slate-400 ...">
+        <thead>
+          <tr>
+            <th className="border border-slate-300 ...">Tên sản phẩm</th>
+            <th className="border border-slate-300 ...">Số lượng sản phẩm đã bán</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            testArr.map((item: any) => (
+              // testArr2.map((index: any) => (
+              <tr>
+                <td className="border border-slate-300 ...">{item[0]}</td>
+                <td className="border border-slate-300 ...">{item[1]}</td>
+              </tr>
+            ))
+            // ))
+          }
+        </tbody>
+      </table>
 
 
     </div>
